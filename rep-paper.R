@@ -16,8 +16,8 @@ sigma <- 0.1544 # Expected volatility of the risky market
 a <- 10 # Factor 'a'
 years <- 60 # Total time
 A <- 0.5 # Factor 'A'
-K <- 1 # Factor 'K'
-nsim <- 1000 # Number of simulations
+K <- -3.255 # Factor 'K'
+nsim <- 10000 # Number of simulations
 gamma <- -alpha/(A*sigma^2)+1 # Factor 'gamma'
 c <- a # Factor 'c'
 
@@ -39,22 +39,20 @@ pirec <- c()
 
 # Functions ---------------------------------------------------------------
 
+# Differential of X
 dX <- function(pi, x, alpha, sigma, C, win){
 	dX <- pi*x*(alpha + sigma*win) + C
 	return(dX)
 }
 
-fg <- function(C, time){
-	dum <- C[-c(1:time)]
-	sum(dum)
-}
-
+# Computation of 'pi' value
 fpi <- function(A, K, X, C, time){
-	g <- fg(C,time)
+	g <- sum(C[-c(1:time)])
 	pi <- A*(K + X + g)/X
 	return(pi)
 }
 
+# Expected Shortfall
 ES <- function(distr, a){
 	VaR <- quantile(distr, a)
 	ES <- mean(distr[distr<VaR])
@@ -64,10 +62,16 @@ ES <- function(distr, a){
 
 
 # Simulation --------------------------------------------------------------
+
+# Index variables
+ylim <- round(years/2)
 i <- 0
 j <- 0
-ylim <- round(years/2)
+
+# Loop over each simulation
 for(k in 1:nsim){
+
+	# Loop over each saving year
 	for(i in 1:ylim){
 		time <- i + j
 		cap <- C[i]
@@ -79,6 +83,7 @@ for(k in 1:nsim){
 		lim <- i +1
 	}
 
+	# Loop over each consumption year
 	for(j in lim:years){
 		time <- i + j
 		cap <- C[j]
@@ -88,6 +93,8 @@ for(k in 1:nsim){
 		pirec[j] <- pi
 		x[j+1] <- x[j] + dX(pi,X,alpha,sigma,cap,win)
 	}
+
+	# Output the final wealth of every simulated individual
 	X_T[k] <- tail(x, n=1)
 }
 
@@ -95,6 +102,7 @@ for(k in 1:nsim){
 
 # Measurements ------------------------------------------------------------
 
+# Final return of every individual
 ret2 <- (1/years)*(-1 + (1 + (2*(X_T))/(c*years))^(1/2))*100
 
 pi_b <- alpha^(-1)*log(1+median(ret2))
