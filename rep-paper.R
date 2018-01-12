@@ -11,21 +11,29 @@ library(dplyr)
 
 # Parameters --------------------------------------------------------------
 
-pi <- 0.8
-alpha <- 0.0343
-sigma <- 0.1544
-a <- 10
-win <- runif(1)
+alpha <- 0.0343 # Expected return of the risky market
+sigma <- 0.1544 # Expected volatility of the risky market
+a <- 10 # Factor 'a'
+years <- 60 # Total time
+A <- 0.5 # Factor 'A'
+K <- 1 # Factor 'K'
+nsim <- 1000 # Number of simulations
+gamma <- -alpha/(A*sigma^2)+1 # Factor 'gamma'
+c <- a # Factor 'c'
+
+# Array that defines the actual wealth of the investor at every time step
 x <- c()
-x[1] <- 10
-years <- 60
-A <- 0.5
-K <- 1
+x[1] <- 10 # Initial wealth
+
+# Array that contains the inputs and outputs of cash within each investor's account
 C <- append(rep(a, round(years/2)),rep(-a, round(years/2)))
-r <- c()
-nsim <- 1000
+
+# Array that stores the final wealth of each investor
+X_T <- c()
+
+# Array that stores the historic 'pi' factor of an investor
 pirec <- c()
-c <- 10 # Need to know exactly
+
 
 
 
@@ -80,21 +88,22 @@ for(k in 1:nsim){
 		pirec[j] <- pi
 		x[j+1] <- x[j] + dX(pi,X,alpha,sigma,cap,win)
 	}
-	r[k] <- tail(x, n=1)
+	X_T[k] <- tail(x, n=1)
 }
 
 
 
 # Measurements ------------------------------------------------------------
 
-ret2 <- (1/years)*(-1 + (1 + (2*(r))/(c*years))^(1/2))*100
+ret2 <- (1/years)*(-1 + (1 + (2*(X_T))/(c*years))^(1/2))*100
+
 pi_b <- alpha^(-1)*log(1+median(ret2))
 
 par(mfrow=c(1,2))
-hist(r, xlab= "X(T)")
+hist(X_T, xlab= "X(T)")
 hist(ret2, xlab="Annual Return")
 
-ES(r, 0.05)
+ES(X_T, 0.05)
 median(ret2)
 pi_b
 
