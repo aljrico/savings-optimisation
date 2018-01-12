@@ -105,12 +105,15 @@ for(k in 1:nsim){
 # Final return of every individual
 ret2 <- (1/years)*(-1 + (1 + (2*(X_T))/(c*years))^(1/2))*100
 
+# Pi value of the benchmark
 pi_b <- alpha^(-1)*log(1+median(ret2))
 
+# Histogram simple visualisation
 par(mfrow=c(1,2))
 hist(X_T, xlab= "X(T)")
 hist(ret2, xlab="Annual Return")
 
+# Output of final results
 ES(X_T, 0.05)
 median(ret2)
 pi_b
