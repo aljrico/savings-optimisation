@@ -13,7 +13,7 @@ library(dplyr)
 
 alpha <- 0.0343 # Expected return of the risky market
 sigma <- 0.1544 # Expected volatility of the risky market
-a <- 10 # Factor 'a'
+a <- 1 # Factor 'a'
 years <- 60 # Total time
 A <- 0.5 # Factor 'A'
 K <- 42 # Factor 'K'
@@ -21,18 +21,22 @@ nsim <- 1000 # Number of simulations
 gamma <- -alpha/(A*sigma^2)+1 # Factor 'gamma'
 c <- a # Factor 'c'
 
-ts
+# Array that defines the actual wealth of the investor at every time step
+x <- c()
+x[1] <- a # Initial wealth
 
+# Array that contains the inputs and outputs of cash within each investor's account
+C <- append(rep(a, round(years/2)),rep(-a, round(years/2)))
+
+# Array that stores the final wealth of each investor
+X_T <- c()
+
+# Array that stores the historic 'pi' factor of an investor
+pirec <- c()
 
 
 
 # Functions ---------------------------------------------------------------
-
-# Differential of X
-dX <- function(xpi, alpha, sigma, C, win){
-	dX <- xpi*exp(alpha - sigma*sigma*0.5 + sigma*win) + C
-	return(dX)
-}
 
 # Computation of 'pi' value
 fpi <- function(A, K, X, C, time){
@@ -49,27 +53,21 @@ ES <- function(distr, a){
 	return(ES)
 }
 
+# Stock Simulation --------------------------------------------------------
+pi <- 0.1
 
-# Simulation --------------------------------------------------------------
 
-# Loop over each simulation
-for(k in 1:nsim){
-
-	# Loop over each saving and consumption year
-	for(i in 1:years){
+for (j in 1:nsim){
+	for (i in 1:years){
 		time <- i
-		cap <- C[i]
 		X <- x[i]
-		win <- rnorm(1, mean = 0, sd = 1)
 		#xpi <- fpi(A,K,X,C,time)
-		xpi <- 0.1*X
-		pi <- xpi/X
-		pirec[i] <- pi
-		x[i+1] <- x[i]*(1-pi) + dX(xpi,alpha,sigma,cap,win)
+		xpi <- pi*X
+		pirec[i] <- xpi/X
+		win <- rnorm(1)
+		x[i+1] <- xpi*exp(alpha - sigma*sigma*0.5 + win*sigma) + (1-pirec[i])*x[i] + C[i]
 	}
-
-	# Output the final wealth of every simulated individual
-	X_T[k] <- tail(x, n=1)
+	X_T[j] <- x[years]
 }
 
 
