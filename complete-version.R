@@ -17,7 +17,7 @@ a <- 1 # Factor 'a'
 years <- 60 # Total time
 A <- 0.5 # Factor 'A'
 K <- 42 # Factor 'K'
-nsim <- 1000 # Number of simulations
+nsim <- 10000 # Number of simulations
 gamma <- -alpha/(A*sigma^2)+1 # Factor 'gamma'
 c <- a # Factor 'c'
 

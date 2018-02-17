@@ -38,9 +38,9 @@ pi <- 0.1
 for (j in 1:nsim){
 	for (i in 1:years){
 		random <- rnorm(1, mean = alpha, sd = sigma)
-		x[i+1] <- x[i]*(exp(random))*pi + (1-pi)*x[i] + C[i]
+		x[i+1] <- x[i]*(1+random)*pi + (1-pi)*x[i] + C[i]
 	}
-	X_T[j] <- x[years]
+	X_T[j] <- x[years+1]
 }
 
 
@@ -49,7 +49,7 @@ for (j in 1:nsim){
 
 # Final return of every individual
 x_m <- median(X_T)
-ret2 <- (1/years)*(-1 + (1 + (2*(x_m))/(c*years))^(1/2))*100
+ret2 <- (1/years)*(-1 + (1 + (8*(x_m))/(c*years))^(1/2))*100
 
 # Pi value of the benchmark
 pi_b <- log(1+median(ret2))/alpha
