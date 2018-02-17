@@ -16,7 +16,7 @@ sigma <- 0.1544 # Expected volatility of the risky market
 a <- 1 # Factor 'a'
 years <- 60 # Total time
 A <- 0.5 # Factor 'A'
-K <- 42 # Factor 'K'
+K <- 668 # Factor 'K'
 nsim <- 10000 # Number of simulations
 gamma <- -alpha/(A*sigma^2)+1 # Factor 'gamma'
 c <- a # Factor 'c'
@@ -61,13 +61,13 @@ for (j in 1:nsim){
 	for (i in 1:years){
 		time <- i
 		X <- x[i]
-		#xpi <- fpi(A,K,X,C,time)
-		xpi <- pi*X
+		xpi <- fpi(A,K,X,C,time)
+		#xpi <- pi*X
 		pirec[i] <- xpi/X
-		win <- rnorm(1)
-		x[i+1] <- xpi*exp(alpha - sigma*sigma*0.5 + win*sigma) + (1-pirec[i])*x[i] + C[i]
+		random <- rnorm(1, mean = alpha, sd = sigma)
+		x[i+1] <- xpi*(1+random)+ (1-pirec[i])*x[i] + C[i]
 	}
-	X_T[j] <- x[years]
+	X_T[j] <- x[years+1]
 }
 
 
@@ -76,7 +76,7 @@ for (j in 1:nsim){
 
 # Final return of every individual
 x_m <- median(X_T)
-ret2 <- (1/years)*(-1 + (1 + (2*(x_m))/(c*years))^(1/2))*100
+ret2 <- (1/years)*(-1 + (1 + (8*(x_m))/(c*years))^(1/2))*100
 
 # Pi value of the benchmark
 pi_b <- log(1+median(ret2))/alpha

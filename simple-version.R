@@ -8,7 +8,7 @@ alpha <- 0.0343 # Expected return of the risky market
 sigma <- 0.1544 # Expected volatility of the risky market
 a <- 10 # Factor 'a'
 years <- 60 # Total time
-nsim <- 100000 # Number of simulations
+nsim <- 1000 # Number of simulations
 c <- a # Still factor 'a'
 
 # Array that defines the actual wealth of the investor at every time step
@@ -33,7 +33,7 @@ ES <- function(distr, a){
 }
 
 # Stock Simulation --------------------------------------------------------
-pi <- 0.1
+pi <- 0.5
 
 for (j in 1:nsim){
 	for (i in 1:years){
