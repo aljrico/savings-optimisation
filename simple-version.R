@@ -33,7 +33,7 @@ ES <- function(distr, a){
 }
 
 # Stock Simulation --------------------------------------------------------
-pi <- 0.5
+pi <- 0.1
 
 for (j in 1:nsim){
 	for (i in 1:years){
