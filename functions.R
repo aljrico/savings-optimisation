@@ -35,9 +35,8 @@ cppi <- function(pi){
 	sigma <- 0.1544 # Expected volatility of the risky market
 	a <- 10 # Factor 'a'
 	years <- 60 # Total time
-	nsim <- 10000 # Number of simulations
+	nsim <- 50000 # Number of simulations
 	c <- a # Still factor 'a'
-
 	C <- append(rep(a, round(years/2)),rep(-a, round(years/2)))
 
 	X_T <- c()
@@ -46,12 +45,12 @@ cppi <- function(pi){
 		x <- c()
 		x[1] <- a # Initial wealth
 
-		for (i in 1:years){
+		for (i in 1:(years-1)){
 			random <- rnorm(1, mean = alpha, sd = sigma)
-			x[i+1] <- x[i]*(1+random)*pi + (1-pi)*x[i] + C[i]
+			x[i+1] <- x[i]*(1+random)*pi + (1-pi)*x[i] + C[i+1]
 		}
+		X_T[j] <- x[years]
 
-		X_T[j] <- x[years+1]
 	}
 
 	# Final return of every individual
@@ -72,7 +71,7 @@ montses <- function(K){
 	a <- 10 # Factor 'a'
 	years <- 60 # Total time
 	A <- 0.5 # Factor 'A'
-	nsim <- 10000 # Number of simulations
+	nsim <- 50000 # Number of simulations
 	gamma <- -alpha/(A*sigma^2)+1 # Factor 'gamma'
 	c <- a # Factor 'c'
 
@@ -94,9 +93,9 @@ montses <- function(K){
 			xpi <- fpi(A,K,X,C,time)
 			pi <- xpi/X
 			random <- rnorm(1, mean = alpha, sd = sigma)
-			x[i+1] <- xpi*(1+random)+ (1-pi)*x[i] + C[i]
+			x[i+1] <- xpi*(1+random)+ (1-pi)*x[i] + C[i+1]
 		}
-		X_T[j] <- x[years+1]
+		X_T[j] <- x[years]
 	}
 
 	# Final return of every individual

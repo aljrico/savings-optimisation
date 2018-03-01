@@ -15,10 +15,11 @@ cppi_ret <- c()
 montses_ret <- c()
 
 for(i in 1:10){
+	print(i)
 	pi <- 0.1*i
 	cppi_res<- cppi(pi)
 	es[i] <- cppi_res[1]
-	K[i] <- es[i]/factor
+	K[i] <- es[i]*factor
 	cppi_ret[i] <- cppi_res[2]
 
 	montses_res <- montses(K[i])
