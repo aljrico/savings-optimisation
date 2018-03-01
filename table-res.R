@@ -13,10 +13,12 @@ pi_b <- c()
 es <- c()
 cppi_ret <- c()
 montses_ret <- c()
+pis <- c()
 
 for(i in 1:10){
 	print(i)
 	pi <- 0.1*i
+	pis[i] <- pi
 	cppi_res<- cppi(pi)
 	es[i] <- cppi_res[1]
 	K[i] <- es[i]*factor
@@ -26,3 +28,5 @@ for(i in 1:10){
 	montses_ret[i] <- montses_res[2]
 	pi_b[i] <- montses_res[1]
 }
+
+df <- data.frame(Pi = pis*100, ES = es, K = K, cppi_ret, montses_ret, diff = (montses_ret - cppi_ret), pi_b)

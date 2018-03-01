@@ -35,7 +35,7 @@ cppi <- function(pi){
 	sigma <- 0.1544 # Expected volatility of the risky market
 	a <- 10 # Factor 'a'
 	years <- 60 # Total time
-	nsim <- 50000 # Number of simulations
+	nsim <- 100000 # Number of simulations
 	c <- a # Still factor 'a'
 	C <- append(rep(a, round(years/2)),rep(-a, round(years/2)))
 
@@ -71,7 +71,7 @@ montses <- function(K){
 	a <- 10 # Factor 'a'
 	years <- 60 # Total time
 	A <- 0.5 # Factor 'A'
-	nsim <- 50000 # Number of simulations
+	nsim <- 100000 # Number of simulations
 	gamma <- -alpha/(A*sigma^2)+1 # Factor 'gamma'
 	c <- a # Factor 'c'
 
