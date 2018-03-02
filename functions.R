@@ -105,3 +105,90 @@ montses <- function(K){
 
 return(c(pi_b,ret2))
 }
+
+
+cppi_mortality <- function(
+	pi,
+	alpha = 0.0343, # Expected return of the risky market
+	sigma = 0.1544, # Expected volatility of the risky market
+	a = 10, # Factor 'a'
+	years = 60, # Total time
+	nsim = 100000, # Number of simulations
+	c = a, # Still factor 'a'
+	A = 0.5, # Factor 'A'
+	number_humans_alive = 1000,
+	starting_age = 30
+){
+	C <- append(rep(a, round(years/2)),rep(-a, round(years/2)))
+	returns <- c(years)
+	X_T <- c(nsim)
+	mort_table <- fread("mortality.csv")/1000
+
+	x <- c()
+	x[1] <- a # Initial wealth
+	starting_humans_alive <- number_humans_alive
+	for(j in 1:nsim){
+		number_humans_alive <- starting_humans_alive
+		for(i in 1:(years-1)){
+			return <- rnorm(1, mean = alpha, sd = sigma)
+
+			prob_mort <- mort_table$total[i+starting_age]
+			number_deads <- rbinom(1,number_humans_alive,prob_mort)
+			number_humans_alive <- number_humans_alive - number_deads
+
+			x[i+1] <- x[i]*(1+return)*pi + (1-pi)*x[i] + C[i+1] + (x[i]*number_deads/number_humans_alive)
+		}
+	X_T[j] <- x[years]
+	}
+
+	# Final return of every individual
+	x_m <- median(X_T)
+	ret2 <- (1/years)*(-1 + (1 + (8*(x_m))/(c*years))^(1/2))*100
+
+	return(c(ES(X_T, 0.05), ret2, number_humans_alive))
+}
+
+montses_mortality <- function(
+	K,
+	alpha = 0.0343, # Expected return of the risky market
+	sigma = 0.1544, # Expected volatility of the risky market
+	a = 10, # Factor 'a'
+	years = 60, # Total time
+	nsim = 100000, # Number of simulations
+	c = a, # Still factor 'a'
+	A = 0.5, # Factor 'A'
+	number_humans_alive = 1000,
+	starting_age = 30
+){
+	C <- append(rep(a, round(years/2)),rep(-a, round(years/2)))
+	returns <- c(years)
+	X_T <- c(nsim)
+	mort_table <- fread("mortality.csv")/1000
+
+	x <- c()
+	x[1] <- a # Initial wealth
+	starting_humans_alive <- number_humans_alive
+	for(j in 1:nsim){
+		number_humans_alive <- starting_humans_alive
+		for(i in 1:(years-1)){
+			return <- rnorm(1, mean = alpha, sd = sigma)
+
+			time <- i
+			X <- x[i]
+			pi <- fpi(A,K,X,C,time)/X
+
+			prob_mort <- mort_table$total[i+starting_age]
+			number_deads <- rbinom(1,number_humans_alive,prob_mort)
+			number_humans_alive <- number_humans_alive - number_deads
+
+			x[i+1] <- x[i]*(1+return)*pi + (1-pi)*x[i] + C[i+1] + (x[i]*number_deads/number_humans_alive)
+		}
+		X_T[j] <- x[years]
+	}
+
+	# Final return of every individual
+	x_m <- median(X_T)
+	ret2 <- (1/years)*(-1 + (1 + (8*(x_m))/(c*years))^(1/2))*100
+
+	return(c(ES(X_T, 0.05), ret2, number_humans_alive))
+}
