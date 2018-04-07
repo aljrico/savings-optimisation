@@ -1,0 +1,24 @@
+\section{CPPI}
+
+Firstly, we will start explainning what will be the \textit{benchmark} model. The constant portfolio strategy follows the logic derived from constant relative risk exposure.
+
+This methodology consists in investing a constant proportion $\pi$ of the savings in risky assets (subject to volatility), whilst invetsing the rest $1 - \pi$ in risk-free assets. The point of this strategy is to present an intuitive straightforward way to control the risk exposure in savings strategies. The simplicity of this approach let us tweak $\pi$ in order to make the investment best suited for the risk aversion profile of each investor individually.
+
+\subsection*{Simulation}
+
+In order to simulate the performance of this kind of strategy, we start assuming that the risky assets follow a simplified geometric brownian motion, with \emph{trend} $\alpha$ and \emph{volatility} $\sigma$. Thus, if the saver invests $x$ in this asset at day $t$, the wealth of the saver at the next day would be $x_{t+1} = (1 + N\qty(\alpha, \sigma)) x_t$.
+
+This way, we construct the scenario of an investor, saving a fixed amount of money $a$  trhoughout $T/2$ years, and that money being allocated $( 1 - \pi) a$ in the risk-free asset, whose value would be constant; and $\pi a$ allocated in the risky asset. Thus, if we set $x_t$ as the wealth at any given time $t$, we can see that
+
+\begin{align}
+	x_{t+1} = (1+N(\alpha, \sigma))x_{t}\pi + (1 - \pi)x_{t} + a
+\end{align}
+
+At some point in time, our investor will saving money and will start consuming it (as in most pension plans), so we just convert that fixed amount of money $a$ to \emph{consumed} money instead of saved. Thus, the evolution of wealth turns to be
+
+\begin{align}
+	x_{t+1} = x_{t}(1+N(\alpha, \sigma))\pi + (1 - \pi)x_{t} - a
+\end{align}
+
+At the end of all $T$ years, the final wealth $X_T$ reamining to the saver it is stored, and then all the process is repeated. This way we manage to compute tens of thousands of different performances and make some statistics out of them.
+

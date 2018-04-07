@@ -29,13 +29,13 @@ ES <- function(distr, a){
 
 # CPPI --------------------------------------------------------------------
 
-cppi <- function(pi){
+cppi <- function(pi,nsim){
 
 	alpha <- 0.0343 # Expected return of the risky market
 	sigma <- 0.1544 # Expected volatility of the risky market
 	a <- 10 # Factor 'a'
 	years <- 60 # Total time
-	nsim <- 100000 # Number of simulations
+	# Number of simulations
 	c <- a # Still factor 'a'
 	C <- append(rep(a, round(years/2)),rep(-a, round(years/2)))
 
@@ -64,14 +64,14 @@ cppi <- function(pi){
 
 # Montse's ----------------------------------------------------------------
 
-montses <- function(K){
+montses <- function(K,nsim){
 
 	alpha <- 0.0343 # Expected return of the risky market
 	sigma <- 0.1544 # Expected volatility of the risky market
 	a <- 10 # Factor 'a'
 	years <- 60 # Total time
 	A <- 0.5 # Factor 'A'
-	nsim <- 100000 # Number of simulations
+
 	gamma <- -alpha/(A*sigma^2)+1 # Factor 'gamma'
 	c <- a # Factor 'c'
 
@@ -101,7 +101,7 @@ montses <- function(K){
 	# Final return of every individual
 	x_m <- median(X_T)
 	ret2 <- (1/years)*(-1 + (1 + (8*(x_m))/(c*years))^(1/2))*100
-	pi_b <- log(1+median(ret2))/alpha
+	pi_b <- log(1+ret2)/alpha
 
 return(c(pi_b,ret2))
 }
@@ -119,7 +119,7 @@ cppi_mortality <- function(
 	number_humans_alive = 1000,
 	starting_age = 30
 ){
-	C <- append(rep(a, round(years/2)),rep(-a, round(years/2)))
+	C <- append(rep(a, round(years/2)),rep(-2*a, round(years/2)))
 	returns <- c(years)
 	X_T <- c(nsim)
 	mort_table <- fread("mortality.csv")/1000
@@ -189,6 +189,7 @@ montses_mortality <- function(
 	# Final return of every individual
 	x_m <- median(X_T)
 	ret2 <- (1/years)*(-1 + (1 + (8*(x_m))/(c*years))^(1/2))*100
+	pi_b <- log(1+median(ret2))/alpha
 
-	return(c(ES(X_T, 0.05), ret2, number_humans_alive))
+	return(c(pi_b, ret2, number_humans_alive))
 }
