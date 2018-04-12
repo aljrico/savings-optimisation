@@ -2,10 +2,17 @@
 # Table Results -----------------------------------------------------------
 
 
+
+# Libraries and Functions -----------------------------------------------------------------
+
 library(ggplot2)
 library(dplyr)
 source("functions.R")
 library(data.table)
+
+
+
+# Parameters --------------------------------------------------------------
 
 factor <- -3.255
 K <- c()
@@ -15,11 +22,14 @@ es <- c()
 cppi_ret <- c()
 montses_ret <- c()
 pis <- c()
-mortality <- FALSE
-nsim <- 100000
+mortality <- TRUE
+nsim <- 10000
 
 
 if(mortality == TRUE ){
+
+
+# Simulation Loop with mortality ------------------------------------------
 
 	for(i in 1:10){
 		print(i)
@@ -40,6 +50,9 @@ if(mortality == TRUE ){
 }
 
 if(mortality != TRUE){
+
+
+# Simulation Loop without mortality ---------------------------------------
 
 	for(i in 1:10){
 		print(i)

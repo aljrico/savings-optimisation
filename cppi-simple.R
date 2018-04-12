@@ -8,7 +8,7 @@ alpha <- 0.0343 # Expected return of the risky market
 sigma <- 0.1544 # Expected volatility of the risky market
 a <- 10 # Factor 'a'
 years <- 60 # Total time
-nsim <- 1000 # Number of simulations
+nsim <- 100000 # Number of simulations
 c <- a # Still factor 'a'
 
 # Array that defines the actual wealth of the investor at every time step
@@ -36,13 +36,15 @@ ES <- function(distr, a){
 pi <- 0.1
 
 for (j in 1:nsim){
-	for (i in 1:years){
-		random <- rnorm(1, mean = alpha, sd = sigma)
-		x[i+1] <- x[i]*(1+random)*pi + (1-pi)*x[i] + C[i]
-	}
-	X_T[j] <- x[years+1]
-}
+	x <- c()
+	x[1] <- a # Initial wealth
 
+	for (i in 1:(years-1)){
+		random <- rnorm(1, mean = alpha, sd = sigma)
+		x[i+1] <- x[i]*(1+random)*pi + (1-pi)*x[i] + C[i+1]
+	}
+	X_T[j] <- x[years]
+}
 
 
 # Measurements ------------------------------------------------------------
