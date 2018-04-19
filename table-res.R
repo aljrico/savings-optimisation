@@ -23,7 +23,7 @@ cppi_ret <- c()
 montses_ret <- c()
 pis <- c()
 mortality <- TRUE
-nsim <- 10000
+nsim <- 1000
 
 
 if(mortality == TRUE ){
@@ -39,7 +39,7 @@ if(mortality == TRUE ){
 		es[i] <- cppi_res[1]
 		K[i] <- es[i]*factor
 		cppi_ret[i] <- cppi_res[2]
-		K[K <0] <- 0
+		#K[K <0] <- 0
 		#K[i] <- 0
 		montses_res <- montses_mortality(K[i], nsim = nsim)
 		montses_ret[i] <- montses_res[2]
