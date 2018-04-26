@@ -69,7 +69,7 @@ cppi_mortality <- function(pi,
 								 sigma = 0.01544,
 								 a = 10,
 								 years = 60,
-								 starting_humans = 1e7,
+								 starting_humans = 1e3,
 								 starting_age = 30){
 
 	c <- a # Still factor 'a'
@@ -158,7 +158,7 @@ alt_mort <- function(K,
 										a = 10,
 										years = 60,
 										A = 0.5,
-										starting_humans = 1e7,
+										starting_humans = 1e3,
 										starting_age = 30){
 
 

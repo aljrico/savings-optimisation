@@ -5,6 +5,7 @@ source("functions.R")
 library(tidyverse)
 library(data.table)
 library(viridis)
+library(MASS)
 
 
 
@@ -71,8 +72,11 @@ final_wealth <- rbind(final_wealth,df)
 
 # Histogram
 final_wealth %>%
+	filter(model %in% c("alt-simple", "cppi-simple")) %>%
+	filter(X_T <=10) %>%
+	mutate(X_T = -X_T + 10) %>%
 ggplot() +
-	geom_histogram(aes(x = ret, fill = model, y = ..count../sum(..count..)),
+	geom_histogram(aes(x = X_T, fill = model, y = (..count../sum(..count..))),
 								 bins=200,
 								 alpha = 0.75,
 								 position = "identity") +
@@ -80,3 +84,54 @@ ggplot() +
 	scale_fill_viridis(discrete=TRUE)
 
 
+
+# Tails
+df <- final_wealth %>%
+	filter(model %in% c("cppi-simple")) %>%
+	filter(X_T <=-20) %>%
+	mutate(X_T = X_T - 20)
+
+z <- hist(log(-df$X_T[df$X_T<(-20)-20]))
+z <- hist((-df$X_T[df$X_T<(-20)-20]),breaks=exp(z$breaks))
+plot(z$mids,z$density,log="xy")
+lin.model <- lm(log(z$density)~log(z$mids))
+
+tail <- data.frame(dens = z$density, loss = z$mids)
+tail %>%
+	ggplot(aes(x = loss, y = dens)) +
+	geom_jitter() +
+	scale_x_log10() +
+	scale_y_log10() +
+	geom_smooth(method='lm',formula=y~x, se = FALSE) +
+	theme_minimal()
+
+# Lognormal
+
+
+# Tails -------------------------------------------------------------------
+
+tail_cppis <- final_wealth %>%
+	filter(model == "cppi-simple") %>%
+	arrange(ret)
+
+tail_cppis <- head(tail_cppis,nrow(tail_cppis)/10)
+data <- 1-tail_cppis$ret
+
+# Exponential
+exp.fit <- fitdistr(data, densfun= "exponential")
+ks.test(data, "pexp", exp.fit$estimate)
+qqPlot(rnorm(10000),"normal")
+
+
+
+
+# Gamma
+gamma.fit <- fitdistr(data, densfun= "gamma")
+ks.test(data, "pgamma", gamma.fit$estimate)
+
+# Weibull
+weibull.fit <- fitdistr(data, densfun= "weibull")
+ks.test(data, "pweibull", weibull.fit$estimate)
+
+qqplot(qweibull(ppoints(length(data)), shape = weibull.fit$estimate[1],
+												scale = weibull.fit$estimate[2]), data)
