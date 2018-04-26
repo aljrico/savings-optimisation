@@ -85,30 +85,50 @@ ggplot() +
 
 
 
-# Tails
+
+# Tails -------------------------------------------------------------------
+
+#CPPI simple
 df <- final_wealth %>%
 	filter(model %in% c("cppi-simple")) %>%
 	filter(X_T <=-20) %>%
 	mutate(X_T = X_T - 20)
 
-z <- hist(log(-df$X_T[df$X_T<(-20)-20]))
-z <- hist((-df$X_T[df$X_T<(-20)-20]),breaks=exp(z$breaks))
-plot(z$mids,z$density,log="xy")
-lin.model <- lm(log(z$density)~log(z$mids))
+cppi_tail <- hist(log(-df$X_T[df$X_T<(-20)-20]))
+cppi_tail <- hist((-df$X_T[df$X_T<(-20)-20]),breaks=exp(cppi_tail$breaks))
+plot(cppi_tail$mids,cppi_tail$density,log="xy")
+lin.model <- lm(log10(cppi_tail$density)~log10(cppi_tail$mids))
 
-tail <- data.frame(dens = z$density, loss = z$mids)
+
+#Alt simple
+df <- final_wealth %>%
+	filter(model %in% c("alt-simple")) %>%
+	filter(X_T <=-20) %>%
+	mutate(X_T = X_T - 20)
+
+z <- hist(log(-df$X_T[df$X_T<(-20)-20]))
+alt_tail <- hist((-df$X_T[df$X_T<(-20)-20]),breaks=exp(z$breaks))
+plot(alt_tail$mids,alt_tail$density,log="xy")
+lin.model <- lm(log10(alt_tail$density)~log10(alt_tail$mids))
+
+
+
+tail <- data.frame(dens = alt_tail$density, loss = alt_tail$mids, model = "alt")
+tail <- rbind(tail, data.frame(dens = cppi_tail$density, loss = cppi_tail$mids, model = "cppi"))
 tail %>%
-	ggplot(aes(x = loss, y = dens)) +
+	ggplot(aes(x = loss, y = dens, colour = model)) +
 	geom_jitter() +
 	scale_x_log10() +
 	scale_y_log10() +
 	geom_smooth(method='lm',formula=y~x, se = FALSE) +
+	scale_colour_viridis(discrete = TRUE) +
 	theme_minimal()
 
+summary(lin.model)
 # Lognormal
 
 
-# Tails -------------------------------------------------------------------
+# Distributions -------------------------------------------------------------------
 
 tail_cppis <- final_wealth %>%
 	filter(model == "cppi-simple") %>%
