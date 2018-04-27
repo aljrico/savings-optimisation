@@ -16,7 +16,7 @@ alpha <- 0.0343 # Expected return of the risky market
 sigma <- 0.1544 # Expected volatility of the risky market
 a <- 10 # Factor 'a'
 years <- 60 # Total time
-nsim <- 1e6 # Number of simulations
+nsim <- 1e7 # Number of simulations
 pi <- 0.1 # Constant proportion for risky investment
 K <- 42
 
@@ -57,7 +57,7 @@ df$model <- "cppi-mort"
 df$ret <- (1/60)*(-1 + (1 + (8*(X_T))/(a*60))^(1/2))*100
 final_wealth <- rbind(final_wealth,df)
 
-# Alternative simple ------------------------------------------------------
+# Alternative | Mortality ------------------------------------------------------
 X_T <- alt_mort(K = K,
 							 nsim = nsim,
 							 alpha = alpha,
@@ -72,13 +72,13 @@ final_wealth <- rbind(final_wealth,df)
 
 # Histogram
 final_wealth %>%
-	filter(model %in% c("alt-simple", "cppi-simple")) %>%
+	filter(model %in% c("cppi-simple", "alt-simple")) %>%
 	filter(X_T <=10) %>%
 	mutate(X_T = -X_T + 10) %>%
 ggplot() +
 	geom_histogram(aes(x = X_T, fill = model, y = (..count../sum(..count..))),
 								 bins=200,
-								 alpha = 0.75,
+								 alpha = 0.45,
 								 position = "identity") +
 	theme_minimal() +
 	scale_fill_viridis(discrete=TRUE)
@@ -87,27 +87,29 @@ ggplot() +
 
 
 # Tails -------------------------------------------------------------------
+threshold <- 20
+
 
 #CPPI simple
 df <- final_wealth %>%
 	filter(model %in% c("cppi-simple")) %>%
-	filter(X_T <=-20) %>%
-	mutate(X_T = X_T - 20)
+	filter(X_T <=-threshold) %>%
+	mutate(X_T = X_T - threshold)
 
-cppi_tail <- hist(log(-df$X_T[df$X_T<(-20)-20]))
-cppi_tail <- hist((-df$X_T[df$X_T<(-20)-20]),breaks=exp(cppi_tail$breaks))
+cppi_tail <- hist(log(-df$X_T[df$X_T<(-threshold)-threshold]), freq = FALSE)
+cppi_tail <- hist((-df$X_T[df$X_T<(-threshold)-threshold]),breaks=exp(cppi_tail$breaks), freq = FALSE)
 plot(cppi_tail$mids,cppi_tail$density,log="xy")
-lin.model <- lm(log10(cppi_tail$density)~log10(cppi_tail$mids))
+lin.model <- lm(log10(cppi_tail$density)~(cppi_tail$mids))
 
 
 #Alt simple
 df <- final_wealth %>%
 	filter(model %in% c("alt-simple")) %>%
-	filter(X_T <=-20) %>%
-	mutate(X_T = X_T - 20)
+	filter(X_T <=-threshold) %>%
+	mutate(X_T = X_T - threshold)
 
-z <- hist(log(-df$X_T[df$X_T<(-20)-20]))
-alt_tail <- hist((-df$X_T[df$X_T<(-20)-20]),breaks=exp(z$breaks))
+z <- hist(log(-df$X_T[df$X_T<(-threshold)-threshold]), freq = FALSE)
+alt_tail <- hist((-df$X_T[df$X_T<(-threshold)-threshold]),breaks=exp(z$breaks), freq = FALSE)
 plot(alt_tail$mids,alt_tail$density,log="xy")
 lin.model <- lm(log10(alt_tail$density)~log10(alt_tail$mids))
 
@@ -118,11 +120,10 @@ tail <- rbind(tail, data.frame(dens = cppi_tail$density, loss = cppi_tail$mids, 
 tail %>%
 	ggplot(aes(x = loss, y = dens, colour = model)) +
 	geom_jitter() +
-	scale_x_log10() +
 	scale_y_log10() +
 	geom_smooth(method='lm',formula=y~x, se = FALSE) +
 	scale_colour_viridis(discrete = TRUE) +
-	theme_minimal()
+	theme_bw()
 
 summary(lin.model)
 # Lognormal
