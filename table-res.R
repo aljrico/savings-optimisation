@@ -40,8 +40,8 @@ if(mortality == TRUE ){
 		K[i] <- es[i]*factor
 		cppi_ret[i] <- cppi_res[2]
 		#K[K <0] <- 0
-		#K[i] <- 0
-		montses_res <- montses_mortality(K[i], nsim = nsim)
+		K[i] <- -K[i]
+		montses_res <- alt_mort(K[i], nsim = nsim)
 		montses_ret[i] <- montses_res[2]
 		pi_b[i] <- montses_res[1]
 	}
