@@ -14,6 +14,13 @@ library(data.table)
 
 # Parameters --------------------------------------------------------------
 
+alpha <- 0.0343 # Expected return of the risky market
+sigma <- 0.1544 # Expected volatility of the risky market
+a <- 10 # Factor 'a'
+years <- 60 # Total time
+
+
+
 factor <- -3.255
 K <- c()
 cppi_ret <- c()
@@ -23,7 +30,7 @@ cppi_ret <- c()
 montses_ret <- c()
 pis <- c()
 mortality <- TRUE
-nsim <- 1000
+nsim <- 1e3
 
 
 if(mortality == TRUE ){
@@ -35,13 +42,23 @@ if(mortality == TRUE ){
 		print(i)
 		pi <- 0.1*i
 		pis[i] <- pi
-		cppi_res<- cppi_mortality(pi, nsim = nsim)
+		cppi_res<-  cppi_mortality(pi = pi,
+															 nsim = nsim,
+															 alpha = alpha,
+															 sigma = sigma,
+															 a = a,
+															 years = years)
 		es[i] <- cppi_res[1]
 		K[i] <- es[i]*factor
 		cppi_ret[i] <- cppi_res[2]
 		#K[K <0] <- 0
-		K[i] <- -K[i]
-		montses_res <- alt_mort(K[i], nsim = nsim)
+		# K[i] <- -K[i]
+		montses_res <- alt_mort(K = K[i],
+														nsim = nsim,
+														alpha = alpha,
+														sigma = sigma,
+														a = a,
+														years = years)
 		montses_ret[i] <- montses_res[2]
 		pi_b[i] <- montses_res[1]
 	}
@@ -50,19 +67,27 @@ if(mortality == TRUE ){
 }
 
 if(mortality != TRUE){
-
-
 # Simulation Loop without mortality ---------------------------------------
 
 	for(i in 1:10){
 		print(i)
 		pi <- 0.1*i
 		pis[i] <- pi
-		cppi_res<- cppi(pi, nsim=nsim)
+		cppi_res<- cppi(pi = pi,
+										nsim = nsim,
+										alpha = alpha,
+										sigma = sigma,
+										a = a,
+										years = years)
 		es[i] <- cppi_res[1]
 		K[i] <- es[i]*factor
 		cppi_ret[i] <- cppi_res[2]
-		montses_res <- montses(K[i], nsim=nsim)
+		montses_res <- montses(K = K[i],
+													 nsim = nsim,
+													 alpha = alpha,
+													 sigma = sigma,
+													 a = a,
+													 years = years)
 		montses_ret[i] <- montses_res[2]
 		pi_b[i] <- montses_res[1]
 	}
