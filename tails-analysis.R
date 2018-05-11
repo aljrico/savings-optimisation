@@ -70,6 +70,70 @@ df$ret <- (1/60)*(-1 + (1 + (8*(X_T))/(a*60))^(1/2))*100
 final_wealth <- rbind(final_wealth,df)
 
 
+
+# General Plots ----------------------------------------------------------
+#FW CPPI
+final_wealth %>%
+	filter(model %in% c("cppi-simple")) %>%
+	ggplot() +
+	geom_histogram(aes(x = X_T, fill = model,y = ..count../sum(..count..)),
+							 alpha = 0.75,
+							 bins = 70,
+							 colour = "black",
+							 position = "identity") +
+	theme_bw() +
+	xlab("Final Wealth") +
+	ylab("") +
+	scale_fill_viridis(discrete=TRUE, begin = 1) +
+	theme(legend.position = "NONE") +
+	scale_x_continuous(limits = c(-100,450))
+
+#FW Alternatie
+final_wealth %>%
+	filter(model %in% c("alt-simple")) %>%
+	ggplot() +
+	geom_histogram(aes(x = X_T, fill = model,y = ..count../sum(..count..)),
+								 alpha = 0.75,
+								 bins = 70,
+								 colour = "black",
+								 position = "identity") +
+	theme_bw() +
+	xlab("Final Wealth") +
+	ylab("") +
+	scale_fill_viridis(discrete=TRUE, begin = 0) +
+	theme(legend.position = "NONE") +
+	scale_x_continuous(limits = c(-100,450))
+
+
+#FW Both
+final_wealth %>%
+	filter(model %in% c("cppi-simple","alt-simple")) %>%
+	ggplot() +
+	geom_density(aes(x = X_T, fill = model),
+								 alpha = 0.75,
+								 position = "identity") +
+	theme_bw() +
+	xlab("Final Wealth") +
+	ylab("") +
+	scale_fill_viridis(discrete=TRUE) +
+	theme(legend.position = "NONE") +
+	scale_x_continuous(limits = c(-100,500))
+
+# Loss Both
+final_wealth %>%
+	filter(model %in% c("cppi-simple","alt-simple")) %>%
+	filter(X_T <=0) %>%
+ggplot() +
+	geom_density(aes(x=X_T, fill = model), alpha = 0.75, position="identity", show.legend = FALSE) +
+	xlab("Final Wealth") +
+	ylab("Density") +
+	theme_bw() +
+	scale_fill_viridis(discrete=TRUE) +
+	scale_x_continuous(limits = c(-40,0))
+
+
+
+
 # Histogram
 final_wealth %>%
 	filter(model %in% c("cppi-simple", "alt-simple")) %>%
@@ -78,7 +142,7 @@ final_wealth %>%
 ggplot() +
 	geom_histogram(aes(x = X_T, fill = model, y = (..count../sum(..count..))),
 								 bins=200,
-								 alpha = 0.45,
+								 alpha = 0.75,
 								 position = "identity") +
 	theme_minimal() +
 	scale_fill_viridis(discrete=TRUE)

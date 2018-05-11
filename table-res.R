@@ -19,8 +19,6 @@ sigma <- 0.1544 # Expected volatility of the risky market
 a <- 10 # Factor 'a'
 years <- 60 # Total time
 
-
-
 factor <- -3.255
 K <- c()
 cppi_ret <- c()
@@ -31,10 +29,9 @@ montses_ret <- c()
 pis <- c()
 mortality <- TRUE
 nsim <- 1e3
-
+set.seed(42)
 
 if(mortality == TRUE ){
-
 
 # Simulation Loop with mortality ------------------------------------------
 
@@ -95,4 +92,12 @@ if(mortality != TRUE){
 	df <- data.frame(Pi = pis*100, ES = es, K = K, cppi_ret, montses_ret, diff = (montses_ret - cppi_ret), pi_b)
 
 }
+
 df
+
+
+
+
+
+
+
