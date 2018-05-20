@@ -17,8 +17,8 @@ sigma <- 0.1544 # Expected volatility of the risky market
 a <- 10 # Factor 'a'
 years <- 60 # Total time
 nsim <- 1e7 # Number of simulations
-pi <- 0.1 # Constant proportion for risky investment
-K <- 42
+pi <- 0.5 # Constant proportion for risky investment
+K <- 70
 
 # CPPI simple --------------------------------------------------------------------
 X_T <- cppi(pi = pi,
@@ -71,7 +71,7 @@ final_wealth <- rbind(final_wealth,df)
 
 
 
-# General Plots ----------------------------------------------------------
+# Plots without mortality ----------------------------------------------------------
 #FW CPPI
 final_wealth %>%
 	filter(model %in% c("cppi-simple")) %>%
@@ -149,6 +149,84 @@ ggplot() +
 
 
 
+# Plots with mortality ----------------------------------------------------
+
+#FW CPPI-mort
+final_wealth %>%
+	filter(model %in% c("cppi-mort")) %>%
+	ggplot() +
+	geom_histogram(aes(x = X_T, fill = model,y = ..count../sum(..count..)),
+								 alpha = 0.75,
+								 bins = 70,
+								 colour = "black",
+								 position = "identity") +
+	theme_bw() +
+	xlab("Final Wealth") +
+	ylab("") +
+	scale_fill_viridis(discrete=TRUE, begin = 1) +
+	theme(legend.position = "NONE") +
+	scale_x_continuous(limits = c(-100,450))
+
+#FW Alternatie-mort
+final_wealth %>%
+	filter(model %in% c("alt-mort")) %>%
+	ggplot() +
+	geom_histogram(aes(x = X_T, fill = model,y = ..count../sum(..count..)),
+								 alpha = 0.75,
+								 bins = 70,
+								 colour = "black",
+								 position = "identity") +
+	theme_bw() +
+	xlab("Final Wealth") +
+	ylab("") +
+	scale_fill_viridis(discrete=TRUE, begin = 0) +
+	theme(legend.position = "NONE") +
+	scale_x_continuous(limits = c(-100,450))
+
+
+#FW Both
+final_wealth %>%
+	filter(model %in% c("cppi-mort","alt-mort")) %>%
+	ggplot() +
+	geom_density(aes(x = X_T, fill = model),
+							 alpha = 0.75,
+							 position = "identity") +
+	theme_bw() +
+	xlab("Final Wealth") +
+	ylab("") +
+	scale_fill_viridis(discrete=TRUE) +
+	theme(legend.position = "NONE") +
+	scale_x_continuous(limits = c(-100,500))
+
+# Loss Both
+final_wealth %>%
+	filter(model %in% c("cppi-mort","alt-mort")) %>%
+	filter(X_T <=0) %>%
+	ggplot() +
+	geom_density(aes(x=X_T, fill = model), alpha = 0.75, position="identity", show.legend = FALSE) +
+	xlab("Final Wealth") +
+	ylab("Density") +
+	theme_bw() +
+	scale_fill_viridis(discrete=TRUE) +
+	scale_x_continuous(limits = c(-40,0))
+
+
+
+
+# Histogram
+final_wealth %>%
+	filter(model %in% c("cppi-simple", "alt-simple")) %>%
+	filter(X_T <=10) %>%
+	mutate(X_T = -X_T + 10) %>%
+	ggplot() +
+	geom_histogram(aes(x = X_T, fill = model, y = (..count../sum(..count..))),
+								 bins=200,
+								 alpha = 0.75,
+								 position = "identity") +
+	theme_minimal() +
+	scale_fill_viridis(discrete=TRUE)
+
+
 
 # Tails -------------------------------------------------------------------
 threshold <- 20
@@ -190,7 +268,45 @@ tail %>%
 	theme_bw()
 
 summary(lin.model)
-# Lognormal
+
+
+# CPPI Mort
+df <- final_wealth %>%
+	filter(model %in% c("cppi-mort")) %>%
+	filter(X_T <=-threshold) %>%
+	mutate(X_T = X_T - threshold)
+
+cppi_tail <- hist(log(-df$X_T[df$X_T<(-threshold)-threshold]), freq = FALSE)
+cppi_tail <- hist((-df$X_T[df$X_T<(-threshold)-threshold]),breaks=exp(cppi_tail$breaks), freq = FALSE)
+plot(cppi_tail$mids,cppi_tail$density,log="xy")
+lin.model <- lm(log10(cppi_tail$density)~(cppi_tail$mids))
+
+
+#Alt mort
+df <- final_wealth %>%
+	filter(model %in% c("alt-mort")) %>%
+	filter(X_T <=-threshold) %>%
+	mutate(X_T = X_T - threshold)
+
+z <- hist(log(-df$X_T[df$X_T<(-threshold)-threshold]), freq = FALSE)
+alt_tail <- hist((-df$X_T[df$X_T<(-threshold)-threshold]),breaks=exp(z$breaks), freq = FALSE)
+plot(alt_tail$mids,alt_tail$density,log="xy")
+lin.model <- lm(log10(alt_tail$density)~log10(alt_tail$mids))
+
+
+
+tail <- data.frame(dens = alt_tail$density, loss = alt_tail$mids, model = "alt")
+tail <- rbind(tail, data.frame(dens = cppi_tail$density, loss = cppi_tail$mids, model = "cppi"))
+tail %>%
+	ggplot(aes(x = loss, y = dens, colour = model)) +
+	geom_jitter() +
+	scale_y_log10() +
+	geom_smooth(method='lm',formula=y~x, se = FALSE) +
+	scale_colour_viridis(discrete = TRUE) +
+	theme_bw()
+
+summary(lin.model)
+
 
 
 # Distributions -------------------------------------------------------------------

@@ -8,6 +8,7 @@
 library(ggplot2)
 library(dplyr)
 source("functions.R")
+source("estimate_equiv-pi.R")
 library(data.table)
 
 
@@ -18,6 +19,7 @@ alpha <- 0.0343 # Expected return of the risky market
 sigma <- 0.1544 # Expected volatility of the risky market
 a <- 10 # Factor 'a'
 years <- 60 # Total time
+A <- 1
 
 factor <- -3.255
 K <- c()
@@ -27,15 +29,15 @@ es <- c()
 cppi_ret <- c()
 montses_ret <- c()
 pis <- c()
-mortality <- TRUE
-nsim <- 1e3
-set.seed(42)
+mortality <- FALSE
+nsim <- 1e4
+set.seed(666)
 
 if(mortality == TRUE ){
 
 # Simulation Loop with mortality ------------------------------------------
 
-	for(i in 1:10){
+	for(i in 4:10){
 		print(i)
 		pi <- 0.1*i
 		pis[i] <- pi
@@ -57,7 +59,7 @@ if(mortality == TRUE ){
 														a = a,
 														years = years)
 		montses_ret[i] <- montses_res[2]
-		pi_b[i] <- montses_res[1]
+		pi_b[i] <- equiv_pi(ret = montses_ret[i], mortality = mortality)
 	}
 
 	df <- data.frame(Pi = pis*100, ES = es, K = K, cppi_ret, montses_ret, diff = (montses_ret - cppi_ret), pi_b)
@@ -84,9 +86,10 @@ if(mortality != TRUE){
 													 alpha = alpha,
 													 sigma = sigma,
 													 a = a,
-													 years = years)
+													 years = years,
+													 A = A)
 		montses_ret[i] <- montses_res[2]
-		pi_b[i] <- montses_res[1]
+		pi_b[i] <- equiv_pi(ret = montses_ret[i], mortality = mortality)
 	}
 
 	df <- data.frame(Pi = pis*100, ES = es, K = K, cppi_ret, montses_ret, diff = (montses_ret - cppi_ret), pi_b)
