@@ -40,7 +40,7 @@ alpha <- 0.0343 # Expected return of the risky market
 sigma <- 0.1544 # Expected volatility of the risky market
 a <- 10 # Factor 'a'
 years <- 60 # Total time
-nsim <- 2000 # Number of simulations
+nsim <- 1e5 # Number of simulations
 pi <- 0.1 # Constant proportion for risky investment
 K <- 42
 A <- 0.5
@@ -76,6 +76,17 @@ r <- cppi(alpha = alpha, sigma = sigma, a = a, years = years, nsim = nsim, pi = 
 
 
 test <- cbind(c,r)
+test %>% melt() %>%
+	ggplot(aes(x = value)) +
+	geom_histogram(aes(fill = Var2), position = "identity", alpha =0.5)
+
+
+lol <- c()
+lol2 <- c()
+for(i in 1:1000) lol[[i]] <- normal(mu = alpha, sigma = sigma)
+for(i in 1:1000) lol2[i] <- rnorm(1, mean = alpha, sd = sigma)
+
+test <- cbind(lol,lol2)
 test %>% melt() %>%
 	ggplot(aes(x = value)) +
 	geom_histogram(aes(fill = Var2), position = "identity", alpha =0.5)

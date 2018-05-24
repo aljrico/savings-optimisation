@@ -12,10 +12,12 @@ alpha <- 0.0343 # Expected return of the risky market
 sigma <- 0.1544 # Expected volatility of the risky market
 A <- 2
 init_A <- 0.1
-pi <- 0.5
-nsim <- 1e3
+pi <- 0.4
+nsim <- 1e4
 theta <- 0.95
 years <- 60
+m <- 1e3
+max_A <- 25
 
 pi_b <- c()
 
@@ -25,36 +27,36 @@ pi_b <- c()
 
 es <- cppi(pi = pi, nsim =nsim)[[1]]
 
-for(i in 1:20){
+for(i in 1:max_A){
 	A <- init_A*i
 	factor <- 1/(-1 + (1/(1 - theta))*exp(alpha*A*years)*pnorm(qnorm(1-theta)- A*sigma*sqrt(years)))
 	K <- es*factor
 
 	ret <- montses(K = K, nsim = nsim, A = A)[[2]]
-	pi_b[i] <- equiv_pi(ret = ret, m=1e3)
+	pi_b[i] <- equiv_pi(ret = ret, m=m)
 }
 
 df_pi <- as_tibble(data.frame(pi_b))
 df_pi$mort <- FALSE
-df_pi$A <- (1:20)/10
+df_pi$A <- (1:max_A)/10
 
 # With Mortality ----------------------------------------------------------
 
 pi_b <- c()
 es <- cppi_mortality(pi = pi, nsim =nsim)[[1]]
 
-for(i in 1:20){
+for(i in 1:max_A){
 	A <- init_A*i
 	factor <- 1/(-1 + (1/(1 - theta))*exp(alpha*A*years)*pnorm(qnorm(1-theta)- A*sigma*sqrt(years)))
 	K <- es*factor
 
 	ret <- alt_mort(K = K, nsim = nsim, A = A)[[2]]
-	pi_b[i] <- equiv_pi(ret = ret, m=1e2)
+	pi_b[i] <- equiv_pi(ret = ret, m=m)
 }
 
 df <- as_tibble(data.frame(pi_b))
 df$mort <- TRUE
-df$A <- (1:20)/10
+df$A <- (1:max_A)/10
 
 df_pi <- rbind(df_pi, df)
 
@@ -66,5 +68,10 @@ df_pi %>%
 	ggplot(aes(y = pi_b, x = A)) +
 	geom_line(aes(colour = mort), size=1.3) +
 	geom_point(aes(colour = mort), size = 2) +
-	theme_minimal()
+	theme_minimal() +
+	scale_colour_viridis(discrete=TRUE, end =0.75) +
+	xlab("A") +
+	ylab(expression(pi)) +
+	labs(colour = "Mortality")
+
 

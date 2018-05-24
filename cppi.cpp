@@ -34,6 +34,7 @@ double fpi(double A, double K, double x, NumericVector f, int time, int years)
 	return xpi;
 }
 
+// [[Rcpp::export]]
 double normal(double mu, double sigma)
 	{
 		double U1, U2, W, mult;
@@ -81,7 +82,7 @@ NumericVector cppi_c(int nsim, float alpha, float sigma, float a, int years, flo
 		for(i=0;i<years-1;i++)
 		{
 			rndm = normal(alpha,sigma);
-			x_next = x_curr * (1 + rndm) * pi + (1-pi) * x_curr + f[i];
+			x_next = x_curr * (1 + rndm) * pi + (1-pi) * x_curr + f[i+1];
 			x_curr = x_next;
 		}
 
@@ -111,7 +112,7 @@ NumericVector alt_c(float alpha, float sigma, float a, int years, int nsim, floa
 			rndm = normal(alpha,sigma);
 			time = i;
 			pi = fpi(A_factor, K, x_curr, f, time, years)/x_curr;
-			x_next = x_curr * (1 + rndm) * pi + (1-pi) * x_curr + f[i];
+			x_next = x_curr * (1 + rndm) * pi + (1-pi) * x_curr + f[i+1];
 			x_curr = x_next;
 		}
 
