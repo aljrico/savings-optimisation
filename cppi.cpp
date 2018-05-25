@@ -1,10 +1,12 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include<math.h>
+#include<cmath>
 #include<time.h>
 #include<stdbool.h>
 #include<string.h>
-#include <Rcpp.h>
+#include<Rcpp.h>
+#include<algorithm>
 
 using namespace Rcpp;
 
@@ -28,11 +30,13 @@ double fpi(double A, double K, double x, NumericVector f, int time, int years)
 	for(i=0;i<years;i++){c[i]=0;}
 	for(i=time;i<years;i++){c[i]=f[i];}
 
-	g = sum(f);
+	g = sum(c);
 
 	xpi = A * (K + x + g);
 	return xpi;
 }
+
+
 
 // [[Rcpp::export]]
 double normal(double mu, double sigma)
@@ -121,3 +125,91 @@ NumericVector alt_c(float alpha, float sigma, float a, int years, int nsim, floa
 	return final_wealth;
 }
 
+// Sort vector
+// [[Rcpp::export]]
+NumericVector sort_c(NumericVector vec)
+{
+	std::sort(vec.begin(), vec.end());
+	return(vec);
+}
+
+// Length C
+// [[Rcpp::export]]
+double length_c(NumericVector vec)
+{
+	int size = vec.size();
+	return size;
+}
+
+// Compute Median
+// [[Rcpp::export]]
+double median_c(NumericVector vec)
+{
+	int size = length_c(vec);
+	vec = sort_c(vec);
+	int m, m_2;
+	double median;
+
+	m = size/2;
+	m_2 = size/2 - 1;
+
+	median = vec[size/2];
+
+	return median;
+}
+
+
+// Computing of Equivalent Pi'
+// [[Rcpp::export]]
+double equiv_pi_c(int m, double ret, int nsim, float alpha, float sigma, float a, int years, float pi)
+{
+	int i;
+	float seed_pi;
+	float max_pi;
+	float min_pi;
+	float est_ret;
+	float cppi_median;
+	int n;
+
+	n = m;
+
+	NumericVector cppi_res(nsim);
+
+	seed_pi = 0.5;
+	max_pi = 1;
+	min_pi = 0;
+
+	for(i=0;i<n;i++){
+		cppi_res = cppi_c(alpha = alpha, sigma = sigma, a = a, years = years, nsim = nsim, pi = pi);
+		cppi_median = median_c(cppi_res);
+		est_ret = (1/years)*(-1 + std::sqrt(1 + (8*(cppi_median))/(a*years))*100);
+
+		if(est_ret < ret){
+			min_pi = pi;
+			pi = (pi + max_pi)/2;
+		}
+
+		if(est_ret > ret){
+			max_pi = pi;
+			pi = (pi + min_pi)/2;
+		}
+
+		if(est_ret == ret){break;}
+		float upper = abs(est_ret-ret);
+		float bot = abs(ret);
+		if( (100*upper) / bot < 1){break;}
+	}
+	return pi;
+}
+
+// Computing of Equivalent Pi'
+// [[Rcpp::export]]
+float return_c(NumericVector vec, float a, int years)
+{
+	float median;
+	float est_ret;
+
+	median = median_c(vec);
+	est_ret = (1/years)*(-1 + sqrt(1 + (8*(median))/(a*years)))*100;
+	return est_ret;
+}

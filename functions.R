@@ -18,12 +18,20 @@ fpi <- function(A, K, X, C, time){
 }
 
 # Expected Shortfall
-ES <- function(distr, a){
+ES <- function(distr, a = 0.05){
 	VaR <- quantile(distr, a)
 	ES <- mean(distr[distr<VaR])
 
 	return(ES)
 }
+
+# Compute Return
+compute_return <- function(vec, c = 10, years = 60){
+	x_m <- median(vec)
+	ret <- (1/years)*(-1 + (1 + (8*(x_m))/(c*years))^(1/2))*100
+	return(ret)
+}
+
 
 
 
