@@ -1,0 +1,493 @@
+%-----------------------------------------------------------------
+%	BASIC DOCUMENT LAYOUT
+%-----------------------------------------------------------------
+\documentclass[paper=a4, fontsize=12pt, twoside=semi, abstracton, listof=totoc, toc=left]{scrartcl}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+% \usepackage{newpxtext}
+% \usepackage{newpxmath}
+\let\openbox\relax
+% \usepackage{kpfonts}
+\usepackage{slantsc}
+\usepackage{microtype}
+\usepackage[british]{babel}
+% \usepackage[backend=bibtex, style=phys, sorting=none, citestyle=authoryear, maxbibnames=3, maxcitenames=2]{biblatex}
+\usepackage[backend=bibtex, style=trad-abbrv, sorting=none, maxbibnames=3, maxcitenames=2]{biblatex}
+\addbibresource{bibliography.bib}
+\makeatletter
+	\def\blx@maxline{77}
+\makeatother
+
+% Sectioning layout
+\addtokomafont{sectioning}{\normalfont\bfseries}
+\usepackage{tocstyle}
+\usetocstyle{standard}
+\renewcommand*\descriptionlabel[1]{\hspace\labelsep\normalfont\bfseries{#1}}
+\usepackage[titletoc]{appendix}
+
+% Empty pages
+\usepackage{etoolbox}
+% \pretocmd{\toc}{\cleardoubleevenemptypage}{}{}
+% \pretocmd{\section}{\cleardoubleevenemptypage}{}{}
+\pretocmd{\part}{\cleardoubleevenemptypage\thispagestyle{empty}}{}{}
+\renewcommand\partheadstartvskip{\clearpage\null\vfil}
+\renewcommand\partheadmidvskip{\par\nobreak\vskip 20pt\thispagestyle{empty}}
+
+% Paragraph indentation behaviour
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.3\baselineskip plus2pt minus2pt}
+\newcommand{\sk}{\medskip\noindent}
+
+% Fancy header and footer
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\fancyhead[LO]{\thepage}
+\fancyhead[CO]{}
+\fancyhead[RO]{\nouppercase{\mytitle}}
+\fancyhead[LE]{\nouppercase{\rightmark}}
+% \fancyhead[LE]{\nouppercase{\leftmark}}
+\fancyhead[CE]{}
+\fancyhead[RE]{\thepage}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{13.6pt}
+
+%-----------------------------------------------------------------
+%	MATHS AND SCIENCE
+%-----------------------------------------------------------------
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{xfrac}
+\usepackage[a]{esvect}
+\usepackage{chemformula}
+\usepackage{graphicx}
+\usepackage{mathtools}
+
+\usepackage[arrowdel]{physics}
+	\renewcommand{\vnabla}{\vec{\nabla}}
+	% \renewcommand{\vectorbold}[1]{\boldsymbol{#1}}
+	% \renewcommand{\vectorarrow}[1]{\vec{\boldsymbol{#1}}}
+	% \renewcommand{\vectorunit}[1]{\hat{\boldsymbol{#1}}}
+	\renewcommand{\vectorarrow}[1]{\vec{#1}}
+	\renewcommand{\vectorunit}[1]{\hat{#1}}
+	\renewcommand*{\grad}[1]{\vnabla #1}
+	\renewcommand*{\div}[1]{\vnabla \vdot \va{#1}}
+	\renewcommand*{\curl}[1]{\vnabla \cp \va{#1}}
+	\let\rot\curl
+
+% SI units
+\usepackage[separate-uncertainty=true]{siunitx}
+% \sisetup{range-phrase = \text{--}, range-units = brackets}
+\sisetup{range-phrase = \text{--}, range-units = single}
+\DeclareSIPrePower\quartic{4}
+	%\DeclareSIUnit\micron{\micro\metre}
+
+% Smaller trig functions
+\newcommand{\Sin}{\trigbraces{\operatorname{s}}}
+\newcommand{\Cos}{\trigbraces{\operatorname{c}}}
+\newcommand{\Tan}{\trigbraces{\operatorname{t}}}
+
+% Operator-style notation for matrices
+\newcommand*{\mat}[1]{\hat{#1}}
+
+% Matrices in (A|B) form via [c|c] option
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+% Shorter \mathcal and \mathbb
+\newcommand*{\mc}[1]{\mathcal{#1}}
+\newcommand*{\mbb}[1]{\mathbb{#1}}
+
+% Shorter ^\ast and ^\dagger
+\newcommand*{\sast}{^{\star}{}}
+\newcommand*{\sdag}{^{\dagger}{}}
+
+% Blackboard bold identity
+\usepackage{bbm}
+\newcommand*{\bbid}{\mathbbm{1}}
+
+% Shorter displaystyle
+\newcommand*{\dsp}{\displaystyle}
+
+% Inexact differential
+\newcommand{\dbar}{\mathchar'26\mkern-12mu\mathrm{d}}
+\newcommand{\indd}[1]{\dbar{#1}}
+
+% Arrows with text and cancels for developments
+\newcommand{\tikzmark}[1]{\tikz[overlay,remember picture] \node (#1) {};}
+\tikzset{square arrow/.style={to path={-- ++(0,-.25) -| (\tikztotarget)}}}
+\usepackage{cancel}
+
+\newcommand*\acr[1]{\textscale{.85}{#1}}
+
+
+%-----------------------------------------------------------------
+%   CODE
+%------------------------------------------------------------------
+
+\usepackage[linesnumbered,algoruled,vlined]{algorithm2e}
+% \setlength{\algotitleheightrule}{0.8pt}
+% \setlength{\algoheightrule}{0pt}
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
+
+
+%-----------------------------------------------------------------
+%	OTHER PACKAGES
+%-----------------------------------------------------------------
+\usepackage{environ}
+
+%Left numbered equations
+\makeatletter
+	\NewEnviron{Lalign}{\tagsleft@true\begin{align}\BODY\end{align}}
+\makeatother
+
+% Plots and graphics
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{color}
+	\makeatletter
+		\color{black}
+		\let\default@color\current@color
+	\makeatother
+
+% Richer enumerate, figure, and table support
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{booktabs}
+	%\setlength{\intextsep}{8pt}
+% \numberwithin{equation}{section}
+% \numberwithin{figure}{section}
+% \numberwithin{table}{section}
+
+% No indentation after certain environments
+\makeatletter
+\newcommand*\NoIndentAfterEnv[1]{%
+	\AfterEndEnvironment{#1}{\par\@afterindentfalse\@afterheading}}
+\makeatother
+%\NoIndentAfterEnv{thm}
+\NoIndentAfterEnv{defi}
+\NoIndentAfterEnv{example}
+\NoIndentAfterEnv{table}
+
+% Misc packages
+\usepackage{ccicons}
+\usepackage{lipsum}
+\usepackage{todonotes}
+\usepackage{array}
+\usepackage{multirow}
+
+% Print DOI only if there's no URL
+\renewbibmacro*{doi+eprint+url}{%
+  \iftoggle{bbx:doi}
+    {\iffieldundef{url}{\printfield{doi}}{}}
+    {}%
+  \newunit\newblock
+  \iftoggle{bbx:eprint}
+    {\usebibmacro{eprint}}
+    {}%
+  \newunit\newblock
+  \iftoggle{bbx:url}
+    {\usebibmacro{url+urldate}}
+    {}}
+
+%-----------------------------------------------------------------
+%	PICANT PEDRA
+%-----------------------------------------------------------------
+\newcommand{\picpedra}[1]{%
+\begin{tikzpicture}[#1, y=0.80pt,x=0.80pt,yscale=-1, inner sep=0pt, outer sep=0pt]
+\begin{scope}[shift={(-138.30362,-166.74493)}]%
+  \path[fill=black] (139.2176,188.4957) .. controls (138.9564,188.4159) and%
+    (138.7011,188.2301) .. (138.5524,188.0114) .. controls (138.2978,187.6368) and%
+    (138.2440,187.3211) .. (138.3663,186.9178) .. controls (138.4015,186.8018) and%
+    (140.3831,183.4909) .. (142.7700,179.5601) -- (147.1098,172.4133) --%
+    (146.9284,171.5442) -- (146.7470,170.6752) -- (145.7402,170.0523) .. controls%
+    (143.4757,168.6512) and (142.8062,168.3226) .. (141.1474,167.7978) .. controls%
+    (140.7529,167.6730) and (140.1861,167.5111) .. (139.8878,167.4381) --%
+    (139.3454,167.3053) -- (139.3776,167.0906) .. controls (139.4212,166.7995) and%
+    (139.4468,166.7447) .. (139.5388,166.7449) .. controls (139.7032,166.7454) and%
+    (141.6511,166.9894) .. (142.2027,167.0786) .. controls (143.9483,167.3608) and%
+    (145.3942,167.8733) .. (147.0970,168.8132) .. controls (148.2905,169.4720) and%
+    (154.4206,173.2611) .. (154.3961,173.3249) .. controls (154.3786,173.3705) and%
+    (152.7303,176.1152) .. (152.6683,176.2020) .. controls (152.6623,176.2100) and%
+    (151.8971,175.7280) .. (150.9669,175.1314) .. controls (150.0368,174.5348) and%
+    (149.2502,174.0443) .. (149.2189,174.0415) .. controls (149.1877,174.0385) and%
+    (147.2495,177.1669) .. (144.9117,180.9932) .. controls (142.3326,185.2145) and%
+    (140.5841,188.0293) .. (140.4650,188.1514) .. controls (140.3571,188.2621) and%
+    (140.1876,188.3866) .. (140.0883,188.4281) .. controls (139.8565,188.5250) and%
+    (139.4235,188.5586) .. (139.2176,188.4957) -- cycle(148.9649,187.8028) ..%
+    controls (148.0576,187.4766) and (147.2700,187.1899) .. (147.2146,187.1657) ..%
+    controls (147.1146,187.1220) and (147.1162,187.1114) .. (147.4146,185.8217) ..%
+    controls (147.5800,185.1068) and (147.7222,184.5162) .. (147.7305,184.5092) ..%
+    controls (147.7527,184.4907) and (150.6462,183.6346) .. (150.7516,183.6154) ..%
+    controls (150.8304,183.6010) and (150.9165,183.8519) .. (151.4828,185.7466) ..%
+    controls (151.8359,186.9278) and (152.1158,187.9176) .. (152.1048,187.9463) ..%
+    controls (152.0862,187.9947) and (150.7675,188.4095) .. (150.6620,188.4001) ..%
+    controls (150.6359,188.3981) and (149.8722,188.1290) .. (148.9649,187.8028) --%
+    cycle(154.1766,185.9653) -- (154.1766,183.7654) -- (156.3402,183.7779) --%
+    (158.5037,183.7904) -- (158.5160,185.2248) -- (158.5282,186.6593) --%
+    (157.8302,187.4123) -- (157.1323,188.1654) -- (155.6544,188.1654) --%
+    (154.1765,188.1654) -- (154.1765,185.9655) -- cycle(152.6388,182.7681) --%
+    (152.0905,182.2958) -- (152.0024,181.2179) -- (151.9143,180.1401) --%
+    (152.3828,179.5847) .. controls (152.6405,179.2793) and (152.8669,179.0356) ..%
+    (152.8859,179.0431) .. controls (152.9939,179.0859) and (155.1259,180.9305) ..%
+    (155.1182,180.9745) .. controls (155.1077,181.0344) and (153.2599,183.2318) ..%
+    (153.2156,183.2370) .. controls (153.1999,183.2390) and (152.9403,183.0279) ..%
+    (152.6387,182.7681) -- cycle;%
+\end{scope}%
+\end{tikzpicture}%
+}
+
+\newcommand*{\pedra}{\overset{\picpedra{scale=0.5}\,}{\cdots}}{}
+
+
+
+%-----------------------------------------------------------------
+%	SYNTAX HIGHLIGHTING
+%-----------------------------------------------------------------
+\usepackage[formats]{listings}
+\usepackage{relsize}
+\usepackage{chngcntr}
+
+\renewcommand{\lstlistingname}{Snippet}
+\renewcommand{\lstlistlistingname}{List of snippets}
+
+\lstloadlanguages{R}
+\lstdefinelanguage{Renhanced}[]{R}{%
+	morekeywords={acf,ar,arima,arima.sim,colMeans,colSums,is.na,is.null,%
+	mapply,ms,na.rm,nlmin,replicate,row.names,rowMeans,rowSums,seasonal,%
+	sys.time,system.time,ts.plot,which.max,which.min,%
+	rename,mutate,unite,select,filter,left_join,group_by,dplyr::select,%
+	ggplot,aes,geom_line,geom_hline,geom_point,geom_path,geom_errorbar,%
+	geom_abline,geom_smooth%
+	geom_cartogram,coord_proj,scale_x_longitude, scale_y_latitude,%
+	labs,guides,annotate,theme,rowwise,%
+	scale_linetype_manual,scale_colour_manual,scale_x_log10,scale_y_log10,%
+	attr,paste,paste0,bind_rows,str_trim,as.numeric,as.dataframe,data.frame},
+	deletekeywords={c,range,step},
+	alsoletter={.,_,::},
+	otherkeywords = {!,!=,~,\$,*,\&,\%/\%,\%*\%,\%\%,\%>\%,<-,<<-,\% in \%}
+	}
+
+\newcommand*{\inline}{\lstinline[basicstyle=\normalsize\ttfamily]}
+
+
+\lstset{language=C,
+		frame=tb,
+		% captionpos=b,
+		tabsize=2,
+		% showtabs=true,
+		breaklines=true,
+		breakatwhitespace=true,
+		basicstyle=\smaller\ttfamily,
+		numbers=left,
+		numberstyle=\tiny,
+		numbersep=7.5pt,
+		% commentstyle=\textsl,
+		xleftmargin=3ex}
+\lstset{escapeinside={(*}{*)}}   % for (*\ref{ }*) inside lstlistings (Scode)
+
+\usepackage{xcolor}
+\newcommand\crule[3][black]{\textcolor{#1}{\rule{#2}{#3}}}
+\definecolor{mypurple}{RGB}{147, 34, 156}
+\definecolor{mypink}{RGB}{255, 0, 110}
+\definecolor{myblue}{RGB}{69, 57, 252}
+\definecolor{myorange}{RGB}{246, 149, 50}
+\definecolor{mygreen}{RGB}{73, 166, 87}
+
+%-----------------------------------------------------------------
+%	THEOREMS
+%-----------------------------------------------------------------
+\usepackage{thmtools}
+
+% Theroems layout
+\declaretheoremstyle[
+	spaceabove=6pt, spacebelow=6pt,
+	headfont=\normalfont,
+	notefont=\mdseries, notebraces={(}{)},
+	bodyfont=\small,
+	postheadspace=1em,
+]{small}
+
+\declaretheorem[style=plain,name=Theorem,qed=$\square$,numberwithin=section]{thm}
+\declaretheorem[style=plain,name=Corollary,qed=$\square$,sibling=thm]{cor}
+\declaretheorem[style=plain,name=Lemma,qed=$\square$,sibling=thm]{lem}
+\declaretheorem[style=definition,name=Definition,qed=$\blacksquare$,numberwithin=section]{defi}
+\declaretheorem[style=definition,name=Example,qed=$\blacktriangle$,numberwithin=section]{example}
+\declaretheorem[style=small,name=Proof,numbered=no,qed=$\square$]{sproof}
+
+%-----------------------------------------------------------------
+%	ELA MOTHERFUCKING GEMINADA
+%-----------------------------------------------------------------
+\def\xgem{%
+	\ifmmode
+		\csname normal@char\string"\endcsname l%
+	\else
+		\leftllkern=0pt\rightllkern=0pt\raiselldim=0pt
+		\setbox0\hbox{l}\setbox1\hbox{l\/}\setbox2\hbox{.}%
+		\advance\raiselldim by \the\fontdimen5\the\font
+		\advance\raiselldim by -\ht2
+		\leftllkern=-.25\wd0%
+		\advance\leftllkern by \wd1
+		\advance\leftllkern by -\wd0
+		\rightllkern=-.25\wd0%
+		\advance\rightllkern by -\wd1
+		\advance\rightllkern by \wd0
+		\allowhyphens\discretionary{-}{}%
+		{\kern\leftllkern\raise\raiselldim\hbox{.}%
+			\kern\rightllkern}\allowhyphens
+	\fi
+}
+\def\Xgem{%
+	\ifmmode
+		\csname normal@char\string"\endcsname L%
+	\else
+		\leftllkern=0pt\rightllkern=0pt\raiselldim=0pt
+		\setbox0\hbox{L}\setbox1\hbox{L\/}\setbox2\hbox{.}%
+		\advance\raiselldim by .5\ht0
+		\advance\raiselldim by -.5\ht2
+		\leftllkern=-.125\wd0%
+		\advance\leftllkern by \wd1
+		\advance\leftllkern by -\wd0
+		\rightllkern=-\wd0%
+		\divide\rightllkern by 6
+		\advance\rightllkern by -\wd1
+		\advance\rightllkern by \wd0
+		\allowhyphens\discretionary{-}{}%
+		{\kern\leftllkern\raise\raiselldim\hbox{.}%
+			\kern\rightllkern}\allowhyphens
+	\fi
+}
+
+\expandafter\let\expandafter\saveperiodcentered
+	\csname T1\string\textperiodcentered \endcsname
+
+\DeclareTextCommand{\textperiodcentered}{T1}[1]{%
+	\ifnum\spacefactor=998
+		\Xgem
+	\else
+		\xgem
+	\fi#1}
+
+%-----------------------------------------------------------------
+%	DEDICATION ENVIRONMENT
+%-----------------------------------------------------------------
+
+\newenvironment{mydedication}
+	{\clearpage           % we want a new page
+	\thispagestyle{empty}% no header and footer
+	\vspace*{\stretch{1}}% some space at the top
+	\itshape             % the text is in italics
+	\raggedleft          % flush to the right margin
+	}
+	{\par % end the paragraph
+	\vspace{\stretch{3}} % space at bottom is three times that at the top
+	\clearpage           % finish off the page
+	}
+
+%-----------------------------------------------------------------
+%	PDF INFO AND HYPERREF
+%-----------------------------------------------------------------
+\usepackage{hyperref}
+\hypersetup{colorlinks, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black}
+\usepackage{cleveref}
+	\crefname{section}{\S}{\SS}
+	\Crefname{section}{\S}{\SS}
+	\crefname{listing}{snippet}{}
+
+\newcommand*{\mytitle}{Savings Optimisation Strategies}
+% \newcommand*{\mysubtitle}{-}
+\newcommand*{\myauthor}{\textit{Alejandro Jiménez Rico}}
+% \newcommand*{\mysupervisor}{J. Minguillón}
+% \newcommand*{\mytutor}{}
+\newcommand*{\myuni}{Centre de Recerca  Matemàtica}
+\newcommand*{\mydate}{2018}
+
+\pdfstringdefDisableCommands{\def\and{and }}
+
+\usepackage{hyperxmp}
+\hypersetup{pdfauthor={\myauthor}, pdftitle={\mytitle}}
+
+%-----------------------------------------------------------------
+%	TITLE SECTION AND DOCUMENT BEGINNING
+%-----------------------------------------------------------------
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
+\title{
+	\normalfont
+	\small \scshape{\myuni} \\ [25pt]
+	\horrule{0.5pt} \\ [0.4cm]
+	\Huge \mytitle \\[0.2cm]
+% 	\large \mysubtitle \\
+	\horrule{2pt} \\ [10.5cm]
+}
+\author{\myauthor }
+% \\ \footnotesize Supervised by: \mysupervisor \\ \footnotesize Academic tutor: \mytutor}
+\date{\mydate}
+
+\begin{document}
+
+%\counterwithin{lstlisting}{section}
+
+\clearpage
+\maketitle
+\thispagestyle{empty}
+\addtocounter{page}{-1}
+
+%-----------------------------------------------------------------
+%	DEDICATION
+%-----------------------------------------------------------------
+\begin{mydedication}
+	A man got to have a code. \\[0.1cm]
+	\emph{Omar Little}
+\end{mydedication}
+
+% --------------------------------------------------------- 
+%   QUOTES
+%----------------------------------------------------------
+
+
+
+%-----------------------------------------------------------------
+%	DOCUMENT BODY
+%-----------------------------------------------------------------
+% \cleardoubleevenemptypage
+\include{./contents/abstract}
+
+\pdfbookmark[1]{\contentsname}{toc}
+\tableofcontents
+
+\include{./contents/intro}
+\include{./contents/risk}
+\include{./contents/cppi}
+\include{./contents/alternative}
+\include{./contents/comparison}
+\include{./contents/tails}
+\include{./contents/mortality}
+% \begin{appendices}
+% \include{./contents/A-code}
+% \end{appendices}
+
+%-----------------------------------------------------------------
+%	BIBLIOGRAPHY
+%-----------------------------------------------------------------
+
+
+\printbibliography[heading=bibintoc]
+\setcounter{secnumdepth}{0}
+% \section{References}
+% \printbibliography[title={Articles}, type=article, heading=subbibliography]
+% \printbibliography[title={Books}, type=book, heading=subbibliography]
+% \printbibliography[title={Websites}, type=online , heading=subbibliography]
+% \printbibliography[title={Basic}, keyword=basic , heading=subbibliography]
+% \printbibliography[title={Data Sets}, keyword=dataset , heading=subbibliography]
+% \printbibliography[title={Licenses}, keyword=license , heading=subbibliography]
+\end{document}

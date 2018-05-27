@@ -1,0 +1,44 @@
+\subsection{Alternative Scheme}
+
+Now that the CPPI model is presented and its logic understood, we can move upon to alternatives. One of the main characteristics of the CPPI model is that it is defined thanks to a constant, invariant $\pi$ that settles the risk exposure of the investor. An interesting approach would not just change this parameter, but make it \emph{variable}.
+
+One interesting way to make the proportion of risky investments variable is to set a dependence on the accumulated wealth. In the work developed in \cite{a:guillen-optimisation} we can see the development of a quite straightforward formula to decide the value of $\pi$~\footnote{In \cite{a:donnelly-savings-decisions}'s work, the authors defined optimal savings strategies and analysed different updating periods for $\pi$.}. With this formula, the capital to be allocated in risky assets is defined as:
+
+\begin{align}
+    X(t)\pi = A\qty(K + X(t) + g(t)) \textit{.}
+\end{align}
+
+Where $X(t)$ is the total wealth at time $t$, $A$ is a parameter that defines the risk aversion profile of the investor, $K$ is the maximum loss the investor is capable to handle and $g(t)$ is the sum of all remaining inputs or outputs of money: $g(t) = \sum_{i=t}^{T}a_i$.
+
+\subsection*{Simulation}
+
+In order to analyse the alternative scheme, the process will be quite similar to the previous one. We set the normal behaviour of the price evolution of the risky asset, and fix all parameters. Thus, the wealth of the investor behaves as follows:
+
+\begin{align}
+    X_{t+1} = \qty(1+N(\alpha, \sigma))X_t \pi_t + \qty(1 - \pi_t)X_t + C(t) \textit{,}
+\end{align}
+
+where
+
+\begin{align}
+    \pi_t = \frac{A\qty(K + X_T + \sum_t^T C(t))}{X_T} & \textit{                           and}
+\end{align}
+
+\begin{equation*}
+    C(t) =
+    \begin{cases*}
+      a & if $t <= T/2$ \\
+      -a       & if $t > T/2$ \textit{.}
+    \end{cases*}
+\end{equation*}
+
+Again, at the end of all $T$ years, the final wealth $X_T$ remaining to the saver it is stored, and then all the process is repeated. This way we manage to compute tens of thousands of different performances and make some statistics out of them.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.65]{./images/fw_alt.png}
+    \caption{Results of the simulation for the \textit{Alternative} model. Final wealth obtained for every simulation, where $T=30$, $\mu = 0.0343$, $\sigma = 0.1544$, $a=10$, $\pi = 0.1$.}
+    \label{fig:alt_fw}
+\end{figure}
+
+In the case of figure \ref{fig:alt_fw}, where the right tail corresponds to large values of wealth, whereas the left part deals with losses; we can see how outrageously obvious is that this it does \textit{not} follow a Normal Distribution.

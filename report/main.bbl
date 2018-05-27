@@ -1,0 +1,304 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{none/global//global/global}
+  \entry{a:perold-constant}{article}{}
+    \name{author}{1}{}{%
+      {{hash=PA}{%
+         family={Perold},
+         familyi={P\bibinitperiod},
+         given={A.},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{PA1}
+    \strng{fullhash}{PA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Constant portfolio insurance}}
+    \field{journaltitle}{Harvard Business School}
+    \field{year}{1986}
+  \endentry
+
+  \entry{a:guillen-optimisation}{article}{}
+    \name{author}{4}{}{%
+      {{hash=GR}{%
+         family={Gerrard},
+         familyi={G\bibinitperiod},
+         given={Russell},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=GM}{%
+         family={Guillén},
+         familyi={G\bibinitperiod},
+         given={Montserrat},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=NJP}{%
+         family={Nielsen},
+         familyi={N\bibinitperiod},
+         given={Jens\bibnamedelima Perch},
+         giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+      {{hash=PMAM}{%
+         family={Pérez-Marín},
+         familyi={P\bibinitperiod-M\bibinitperiod},
+         given={Ana\bibnamedelima M.},
+         giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GR+1}
+    \strng{fullhash}{GRGMNJPPMAM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Long-run Savings and Investment Strategy Optimization}}
+    \field{journaltitle}{Hindawi Publishing Corporation}
+    \field{year}{2014}
+  \endentry
+
+  \entry{b:cootner-random}{book}{}
+    \name{author}{1}{}{%
+      {{hash=CPH}{%
+         family={Cootner},
+         familyi={C\bibinitperiod},
+         given={Paul\bibnamedelima H.},
+         giveni={P\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Journal of Political Economy}%
+    }
+    \strng{namehash}{CPH1}
+    \strng{fullhash}{CPH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{The Random Character of Stock Prices}}
+    \field{volume}{72}
+    \field{year}{1966}
+  \endentry
+
+  \entry{a:samuelson-speculative}{article}{}
+    \name{author}{1}{}{%
+      {{hash=SPA}{%
+         family={Samuelson},
+         familyi={S\bibinitperiod},
+         given={Paul\bibnamedelima A.},
+         giveni={P\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SPA1}
+    \strng{fullhash}{SPA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Mathematics of Speculative Price}}
+    \field{volume}{15}
+    \field{journaltitle}{SIAM Review}
+    \field{year}{1973}
+  \endentry
+
+  \entry{a:markowitz-portfolio}{article}{}
+    \name{author}{1}{}{%
+      {{hash=MHM}{%
+         family={Markowitz},
+         familyi={M\bibinitperiod},
+         given={Harry\bibnamedelima M.},
+         giveni={H\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MHM1}
+    \strng{fullhash}{MHM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Foundations of Portfolio Theory}}
+    \field{journaltitle}{Journal of Finance}
+    \field{year}{1991}
+  \endentry
+
+  \entry{a:bertsimas-shortfall}{article}{}
+    \name{author}{3}{}{%
+      {{hash=BD}{%
+         family={Bertsimas},
+         familyi={B\bibinitperiod},
+         given={Dimitris},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=LGJ}{%
+         family={Lauperete},
+         familyi={L\bibinitperiod},
+         given={Geoffrey\bibnamedelima J.},
+         giveni={G\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=SA}{%
+         family={Samarov},
+         familyi={S\bibinitperiod},
+         given={Alexander},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BD+1}
+    \strng{fullhash}{BDLGJSA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Shortfall as a risk measure: properties, optimization and
+  applications}}
+    \field{volume}{28}
+    \field{journaltitle}{Journal of Economic Dynamics \& Control}
+    \field{year}{2004}
+  \endentry
+
+  \entry{a:donnelly-savings-decisions}{article}{}
+    \name{author}{4}{}{%
+      {{hash=DC}{%
+         family={Donnelly},
+         familyi={D\bibinitperiod},
+         given={Catherine},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=GM}{%
+         family={Guillen},
+         familyi={G\bibinitperiod},
+         given={Montserrat},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=NJP}{%
+         family={Nielsen},
+         familyi={N\bibinitperiod},
+         given={Jens\bibnamedelima Perch},
+         giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+      {{hash=PMAM}{%
+         family={Pérez-Marín},
+         familyi={P\bibinitperiod-M\bibinitperiod},
+         given={Ana\bibnamedelima Maria},
+         giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{DC+1}
+    \strng{fullhash}{DCGMNJPPMAM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Implementing individual savings decisions for retirement
+  with bounds on wealth}}
+    \field{volume}{48}
+    \field{journaltitle}{ASTIN Bulletin: The Journal of the IAA}
+    \field{year}{2018}
+  \endentry
+
+  \entry{b:handbook-natural}{book}{}
+    \name{author}{1}{}{%
+      {{hash=RG}{%
+         family={Rozenberg},
+         familyi={R\bibinitperiod},
+         given={Grzegorz},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer}%
+    }
+    \strng{namehash}{RG1}
+    \strng{fullhash}{RG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Handbook of Natural Computing}}
+    \field{volume}{4}
+    \field{year}{2012}
+  \endentry
+
+  \entry{a:bongaarts-human}{article}{}
+    \name{author}{1}{}{%
+      {{hash=BJ}{%
+         family={Bongaarts},
+         familyi={B\bibinitperiod},
+         given={John},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BJ1}
+    \strng{fullhash}{BJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Human Population Growth and the Demographic Transition}}
+    \field{journaltitle}{Philosophical Transacions of the Royal Society B:
+  Biological Sciences}
+    \field{year}{2009}
+  \endentry
+
+  \entry{a:donnelly-transparency}{article}{}
+    \name{author}{3}{}{%
+      {{hash=DC}{%
+         family={Donnelly},
+         familyi={D\bibinitperiod},
+         given={Catherine},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=GM}{%
+         family={Guillén},
+         familyi={G\bibinitperiod},
+         given={Montserrat},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=NJP}{%
+         family={Nielsen},
+         familyi={N\bibinitperiod},
+         given={Jens\bibnamedelima Perch},
+         giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{DC+1}
+    \strng{fullhash}{DCGMNJP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Bringing cost transparency to the life annuity market}}
+    \field{journaltitle}{Elsevier}
+    \field{year}{2014}
+  \endentry
+
+  \entry{a:brautigam-pool}{article}{}
+    \name{author}{3}{}{%
+      {{hash=BM}{%
+         family={Bräutigam},
+         familyi={B\bibinitperiod},
+         given={Marcel},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=GM}{%
+         family={Guillén},
+         familyi={G\bibinitperiod},
+         given={Montserrat},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=NJP}{%
+         family={Nielsen},
+         familyi={N\bibinitperiod},
+         given={Jens\bibnamedelima P.},
+         giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BM+1}
+    \strng{fullhash}{BMGMNJP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Facing Up to Longevity with Old Actuarial Methods: A
+  Comparison of Pooled Funds and Income Tontines}}
+    \field{volume}{42}
+    \field{journaltitle}{The Geneva Papers}
+    \field{year}{2017}
+  \endentry
+\enddatalist
+\endinput

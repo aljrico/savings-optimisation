@@ -1,0 +1,54 @@
+\section{Analysis of the Tails}
+
+At this point we should have notice that the real danger of investments does not resides solely within the standard concept of dispersion (standard deviation), nor within the ratio between return and dispersion. The true risk dwells in the worst case scenarios of the distributions, the tails. Where accumulated or great losses may strike down the whole investment plan. Hence, in order to address the risk analysis of any savings strategy, we need to take a closer look at the tails of their distributions. 
+
+Taking a close look at Figure \ref{fig:both_fw}, we are not able to clearly state which one is \textit{less risky}. We can compare their Expected Shortfall, but we will now discuss why this approach could be improved. Acknowledging that those tails are, at the very least, comparable we can pursue a more in-depth analysis for the distribution of those tails.
+
+\subsection{Definition of \textit{Tail}}
+
+The tail of a distribution is not a precisely defined term; it can have many different forms and definitions. Generally, the \textit{tail} is considered a broad term to name the extreme parts of a distribution. In other words, there is not some specific place where you stop being in the middle of the distribution and start being in the tail, and where to put that line is up to every case.
+
+Let's say that we plot a distribution $Y$, the loss of a savings plan (note that negative losses imply profits). We decide to put the distinction between middle and tail at some point named $u$, so the tail would be everything that lands within $Y>u$.
+
+If we understand the tail of a distribution as a distribution itself, we can move that tail to the origin and normalise its area. Thus, being positively defined as
+
+\begin{align}
+    Z = \qty(Y-u | Y>u)
+\end{align}.
+
+Once we have this definition, we can easily define the probability density as
+
+\begin{align}
+    F_Z(z)  &=  P(Z < z) = P\qty(Y-u < z | Y>u)  \\
+            &=  P\qty(Y<z+u | Y>u) \\
+            &= \frac{P\qty(Y<z+u, Y>u)}{P\qty(Y>u)}
+\end{align}
+
+And thus, deriving this expression we find that, for every $z>0$,
+
+\begin{align}
+    f_z(z) = \frac{f_y\qty(z+u)}{1-F_y(u)}\textit{.}
+\end{align}
+
+Interesting thing about this result, is that we can analytically relate the distribution of the tail $f_z(z)$ with the whole distribution $f_y(z)$
+
+\subsection{Convergence of the Expected Shortfall}
+
+So far, we have addressed the necessity of studying the tail of loss danger using the Expected Shortfall. It is quite straightforward and it easily assesses the risk of the tail. But since it is nothing more than a simple mean, it can arise some issues. 
+
+We talked about how the tail of a distribution can be considered a distribution by itself. Thus, the mean of the tail intends to be a summary statistic of this distribution. Despite that, we know that the arithmetic mean is not always a good summary statistic for every given distribution. There are some distributions from which the mean is not the best suited statistic to get a reliable feel of its \emph{general tendency}, especially on very skewed distributions.
+
+Moreover, without previous knowledge about the distribution we may encounter, it exists the possibility of facing a distribution whose arithmetic mean does not exist. This possibility arises a very disturbing problem: The computed value of the Expected Shortfall should not exist. Since we are working with simulated data, and thus finite numbers, we will never face an infinite arithmetic mean. This implies that in order to ensure the reliability of the Expected Shortfall, we first need to check whether its computation makes sense or not.
+
+In Figure \ref{fig:loss_both} we see the density curve of the loss tails of both methods. If we compute the histogram and set the bars of the histogram as points, we can build a scatterplot. 
+In Figure \ref{fig:lm-tails} we can see this scatter plot of their logarithmic density points. It is of great interest noticing that, whereas both tails follow a linear model quite accurately (after taking logarithms), the \textit{Alternative} scheme has a much sharper descending trend. Which would mean that its \textit{Expected Shortfall} is far less likely to be infinite in any analytical distribution. This suggests us that the computed value of the Expected Shortfall is much more reliable for the \textit{Alternative} scheme than for the CPPI one.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{images/lm_tails.png}
+    \caption{Scatter plot and linear regression of the logarithm of the density points of the \textit{CPPI} and \textit{Alternative} methods.}
+    \label{fig:lm-tails}
+\end{figure}
+
+
+

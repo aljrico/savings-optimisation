@@ -1,0 +1,16 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\select@language {british}
+\contentsline {section}{Abstract}{2}{section*.1}
+\contentsline {section}{\numberline {1}Introduction}{5}{section.1}
+\contentsline {section}{\numberline {2}On Risk measures}{6}{section.2}
+\contentsline {section}{\numberline {3}Testing different Strategies}{9}{section.3}
+\contentsline {subsection}{\numberline {3.1}CPPI Scheme}{9}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Alternative Scheme}{12}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Comparison}{14}{subsection.3.3}
+\contentsline {section}{\numberline {4}Analysis of the Tails}{17}{section.4}
+\contentsline {subsection}{\numberline {4.1}Definition of \textit {Tail}}{17}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Convergence of the Expected Shortfall}{18}{subsection.4.2}
+\contentsline {section}{\numberline {5}Pooled Funds and Mortality}{20}{section.5}
+\contentsline {subsection}{\numberline {5.1}Simulation}{20}{subsection.5.1}
+\contentsline {section}{\nonumberline References}{22}{section*.6}
