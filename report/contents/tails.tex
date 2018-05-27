@@ -2,7 +2,7 @@
 
 At this point we should have notice that the real danger of investments does not resides solely within the standard concept of dispersion (standard deviation), nor within the ratio between return and dispersion. The true risk dwells in the worst case scenarios of the distributions, the tails. Where accumulated or great losses may strike down the whole investment plan. Hence, in order to address the risk analysis of any savings strategy, we need to take a closer look at the tails of their distributions. 
 
-Taking a close look at Figure \ref{fig:both_fw}, we are not able to clearly state which one is \textit{less risky}. We can compare their Expected Shortfall, but we will now discuss why this approach could be improved. Acknowledging that those tails are, at the very least, comparable we can pursue a more in-depth analysis for the distribution of those tails.
+Taking a close look at Figure \ref{fig:both_fw}, we are not able to clearly state which one is \textit{less risky}. So far, we have been comparing the values of Expected Shortfall in order to get a sense of the risk. But, since the ES is actually just the average of the tail of the distribution, we will now discuss how we can pursue a more in-depth analysis for the distribution of those tails.
 
 \subsection{Definition of \textit{Tail}}
 
@@ -30,7 +30,7 @@ And thus, deriving this expression we find that, for every $z>0$,
     f_z(z) = \frac{f_y\qty(z+u)}{1-F_y(u)}\textit{.}
 \end{align}
 
-Interesting thing about this result, is that we can analytically relate the distribution of the tail $f_z(z)$ with the whole distribution $f_y(z)$
+Interesting thing about this result, is that we can analytically relate the distribution of the tail $f_z(z)$ with the whole original distribution $f_y(z)$.
 
 \subsection{Convergence of the Expected Shortfall}
 
