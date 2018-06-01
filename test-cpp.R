@@ -112,7 +112,7 @@ cppi.r <- c()
 alt.c <- c()
 alt.r <- c()
 
-m <- 1e3
+m <- 2e3
 
 
 # CPPI simple
@@ -159,4 +159,5 @@ for(i in 1:m){
 cbind(cppi.c, cppi.r, alt.c, alt.r) %>%
 	melt() %>%
 	ggplot(aes(x = Var1, y = value, colour = Var2)) +
-	geom_point()
+	geom_point() +
+	theme_bw()

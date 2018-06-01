@@ -304,3 +304,86 @@ cppi_mortality_graveyard <- function(
 	return(c(ES(X_T, 0.05), ret2, X_T))
 }
 
+
+
+# Generate All Data -------------------------------------------------------
+
+generate_all_data <- function(
+	alpha = 0.343,
+	sigma = 0.1544,
+	a = 10,
+	years = 60,
+	nsim = 1e3,
+	pi = 0.1,
+	K = 42,
+	A = 0.5,
+	include.mortality = FALSE
+){
+	library(tidyverse)
+	library(data.table)
+	library(viridis)
+	library(MASS)
+	library(evir)
+
+	library(Rcpp)
+	sourceCpp("cppi.cpp")
+
+
+	# CPPI simple --------------------------------------------------------------------
+	X_T <- cppi_c(pi = pi,
+								nsim = nsim,
+								alpha = alpha,
+								sigma = sigma,
+								a = a,
+								years = years)
+
+	final_wealth <- as_tibble(as.data.frame(X_T))
+	final_wealth$model <- "cppi-simple"
+	final_wealth$ret <- (1/60)*(-1 + (1 + (8*(X_T))/(a*60))^(1/2))*100
+
+
+	# Alternative simple ------------------------------------------------------
+	X_T <- alt_c(K = K,
+							 nsim = nsim,
+							 alpha = alpha,
+							 sigma = sigma,
+							 a = a,
+							 years = years,
+							 A_factor = A)
+
+	df <- as_tibble(as.data.frame(X_T))
+	df$model <- "alt-simple"
+	df$ret <- (1/60)*(-1 + (1 + (8*(X_T))/(a*60))^(1/2))*100
+	final_wealth <- rbind(final_wealth,df)
+
+if(include.mortality == TRUE){
+		# CPPI | Mortality --------------------------------------------------------
+		X_T <- cppi_mortality(pi = pi,
+													nsim = nsim,
+													alpha = alpha,
+													sigma = sigma,
+													a = a,
+													years = years)[-c(1,2)]
+		df <- as_tibble(as.data.frame(X_T))
+		df$model <- "cppi-mort"
+		df$ret <- (1/60)*(-1 + (1 + (8*(X_T))/(a*60))^(1/2))*100
+		final_wealth <- rbind(final_wealth,df)
+
+		# Alternative | Mortality ------------------------------------------------------
+		X_T <- alt_mort(K = K,
+										nsim = nsim,
+										alpha = alpha,
+										sigma = sigma,
+										a = a,
+										years = years)[-c(1,2)]
+		df <- as_tibble(as.data.frame(X_T))
+		df$model <- "alt-mort"
+		df$ret <- (1/60)*(-1 + (1 + (8*(X_T))/(a*60))^(1/2))*100
+		final_wealth <- rbind(final_wealth,df)
+
+
+
+	}
+
+	return(final_wealth)
+}
