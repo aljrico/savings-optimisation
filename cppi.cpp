@@ -187,9 +187,7 @@ double equiv_pi_c(int m, double ret, int nsim, float alpha, float sigma, float a
 		if(est_ret < ret){
 			min_pi = pi;
 			pi = (pi + max_pi)/2;
-		}
-
-		if(est_ret > ret){
+		}else{
 			max_pi = pi;
 			pi = (pi + min_pi)/2;
 		}

@@ -90,3 +90,73 @@ test <- cbind(lol,lol2)
 test %>% melt() %>%
 	ggplot(aes(x = value)) +
 	geom_histogram(aes(fill = Var2), position = "identity", alpha =0.5)
+
+
+
+
+# Different Models --------------------------------------------------------
+
+alpha <- 0.0343 # Expected return of the risky market
+sigma <- 0.1544 # Expected volatility of the risky market
+a <- 10 # Factor 'a'
+years <- 60 # Total time
+nsim <- 1e6 # Number of simulations
+pi <- 0.1 # Constant proportion for risky investment
+K <- 70
+A <- 0.5
+
+
+# Measure
+cppi.c <- c()
+cppi.r <- c()
+alt.c <- c()
+alt.r <- c()
+
+m <- 1e3
+
+
+# CPPI simple
+for(i in 1:m){
+	nsim <- i
+
+	cppi.c[i] <- system.time({X_T <- cppi_c(pi = pi,
+												 nsim = nsim,
+												 alpha = alpha,
+												 sigma = sigma,
+												 a = a,
+												 years = years)
+	})
+
+	cppi.r[i] <- system.time({X_T <- cppi(pi = pi,
+																	 nsim = nsim,
+																	 alpha = alpha,
+																	 sigma = sigma,
+																	 a = a,
+																	 years = years)
+	})
+
+
+	alt.c[i] <- system.time({	X_T <- alt_c(K = K,
+																				 nsim = nsim,
+																				 alpha = alpha,
+																				 sigma = sigma,
+																				 a = a,
+																				 years = years,
+																				 A_factor = A)
+	})
+
+	alt.r[i] <- system.time({	X_T <- montses(K = K,
+																				 nsim = nsim,
+																				 alpha = alpha,
+																				 sigma = sigma,
+																				 a = a,
+																				 years = years,
+																				 A = A)
+	})
+
+}
+
+cbind(cppi.c, cppi.r, alt.c, alt.r) %>%
+	melt() %>%
+	ggplot(aes(x = Var1, y = value, colour = Var2)) +
+	geom_point()
