@@ -22,7 +22,7 @@ pi <- 0.1 # Constant proportion for risky investment
 K <- 42
 A <- 0.5
 
-data <- generate_all_data(alpha = alpha,
+all_data <- generate_all_data(alpha = alpha,
 						 sigma = sigma,
 						 a = a,
 						 years = years,
@@ -35,8 +35,10 @@ data <- generate_all_data(alpha = alpha,
 
 # GPD ---------------------------------------------------------------------
 
+data <- all_data %>%
+	filter(model == "cppi-simple")
 # We first try to guess some threshold in order to define the tail.
-threshold <- 20
+threshold <- 0
 u <- threshold
 
 # Vector of Losses
@@ -65,16 +67,25 @@ lines(grid, dgpd(grid, xi = fit.gpd[["xi"]], beta = fit.gpd[["beta"]]))
 # Now we'll try to do the same but using the functions from the 'ercv' library. Which does this automatically
 fit.gpd2 <- fitpot(y, threshold = 0)
 ccdfplot(y, fit.gpd2)
+Tm(y,threshold=0,evi=0) # Small p-values state that this is NOT a GPD.
 
-# As it is obvious, threshold = 0 is not a wise option. In the plot we may notice that the general behaviour utterly deviates from x=27.
-# Maybe that ought to be the threshold.
-fit.gpd2 <- fitpot(y, threshold=27)
+# As it is obvious, threshold = 0 is not a wise option. In the plot we may notice that the general behaviour is well defined at the begginning,
+# But it eventually deviates.
+
+# Maybe we ought to change the threshold.
+fit.gpd2 <- fitpot(y, threshold=7)
 ccdfplot(y, fit.gpd2,log="y")
+Tm(y,threshold=7,evi=0)
 
-# The result makes a lot more sense for even more extreme values.
-Tm(y,threshold=27,evi=0)
+# The result makes a lot more sense for even more extreme values, with this new threshold.
+
+# Fortunaletly, we have a function that automatically seeks this optimal threshold, instead of having to guess it.
+auto.thresh <- thrselect(y, evi = 0)
+fit.gpd3 <- fitpot(y, threshold = auto.thresh$solution[["threshold"]])
+ccdfplot(y, fit.gpd3)
+
+# Actually, we can notice that the auto selected threshold marks the point from where the distribution enters the rang of the coefficient of variation.
 cvplot(y)
-threhselect(y, evi = 0)
 
 
 

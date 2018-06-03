@@ -306,6 +306,15 @@ cppi_mortality_graveyard <- function(
 
 
 
+# Factor K/ES -------------------------------------------------------------
+factor_kes <- function(alpha = 0.0343,
+											 sigma = 0.1544,
+											 years = 60,
+											 theta = 0.95,
+											 A){
+	factor <- 1/(-1 + (1/(1 - theta))*exp(alpha*A*years)*pnorm(qnorm(1-theta)- A*sigma*sqrt(years)))
+}
+
 # Generate All Data -------------------------------------------------------
 
 generate_all_data <- function(
@@ -341,6 +350,8 @@ generate_all_data <- function(
 	final_wealth$model <- "cppi-simple"
 	final_wealth$ret <- (1/60)*(-1 + (1 + (8*(X_T))/(a*60))^(1/2))*100
 
+	K = ES(X_T)*factor_kes(A =A)
+
 
 	# Alternative simple ------------------------------------------------------
 	X_T <- alt_c(K = K,
@@ -368,6 +379,8 @@ if(include.mortality == TRUE){
 		df$model <- "cppi-mort"
 		df$ret <- (1/60)*(-1 + (1 + (8*(X_T))/(a*60))^(1/2))*100
 		final_wealth <- rbind(final_wealth,df)
+
+		K = ES(X_T)*factor_kes(A =A)
 
 		# Alternative | Mortality ------------------------------------------------------
 		X_T <- alt_mort(K = K,
