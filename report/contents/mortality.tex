@@ -1,8 +1,8 @@
 \section{Pooled Funds and Mortality}
 
-One important risk, not rarely underestimated, is the so-called \textbf{Longevity Risk}. Longevity risk is the risk of retirees that will live longer than expected and will thus exhaust all their savings. This risk might doom some individuals to utter poverty or to burden relatives.
+So far, we have managed to test two different strategies. We have analyzed their return and risk in a simulated scenario, within the context of a pension plan. In order to assess the risk of the strategies, so far we have been measuring the market risk of the inestment, by computing the \emph{Expected Shortfall}. However, in real-scenario pension plans, there are plenty of other risks that should be taken into consideration. One important risk, not rarely underestimated, is the so-called \textbf{Longevity Risk}. Longevity risk is the risk of retirees that will live longer than expected and will thus exhaust all their savings. This risk might doom some individuals to utter poverty or to burden relatives.
 
-Recently, two worldwide phenomena ought to be highlighted. The collapse in low-risk assets returns as government bonds or blue chip stocks. And the observed demographic transition~\textcite{b:handbook-natural, a:bongaarts-human}, in which both birth rates and death rates are plumbing down; increasing the life expectancy of elder individuals. The combination of these two factors is leading to an increase in longevity risk that the pension plans providers are facing, rising pension premiums and stagnating disposable incomes by savers and pushing them to work longer years before retirement.
+Recently, two worldwide phenomena ought to be highlighted. The collapse in low-risk assets returns as government bonds or blue chip stocks. And the observed demographic transition~\textcite{b:demographic, a:bongaarts-human}, in which both birth rates and death rates are plumbing down; increasing the life expectancy of elder individuals. The combination of these two factors is leading to an increase in longevity risk that the pension plans providers are facing, rising pension premiums and stagnating disposable incomes by savers and pushing them to work longer years before retirement.
 
 As a response to this challenging, the work of~\cite{a:donnelly-transparency} and \cite{a:brautigam-pool} suggested a different approach to face longevity risk,  the concept of \textbf{Pooled Funds}. 
 
@@ -15,40 +15,65 @@ In this section we will study the application of both CPPI and Alternative schem
 
 In order to simulate the pooled fund, we will construct a simple scenario where many investors of the same age start investing at the same time. We will take real death probabilities at each age, and we will simulate the death of some of the savers. 
 
-When savers die, some proportion $w$ their saved money stays in the pool, benefiting the survivors. The rest is extracted from the pool, to their family or inheritors.
+When savers die, some proportion $w$ of their saved money stays in the pool, benefiting the survivors. The rest is extracted from the pool, to their family or inheritors. In order to simulate the probability of death for each individual, we took the empirical measures of death probability for every age from the Spanish Government. This way, we can assume that from a starting number of persons $n$ of the same age, and thus with the same death probability $p$, the number of persons that would die $X$ before the next year should follow a \emph{Binomial Distribution}. Thus the probability of $k$ deaths is:
 
-\IncMargin{1em}
-\begin{algorithm}[H]
-  \caption{Simulated CPPI with mortality}
-  \label{alg:cppi-mortality}
-  \DontPrintSemicolon
-  \SetKwFunction{LinearModel}{LinearModel}
-  \SetKwFunction{GetStatistic}{GetStatistic}
-  \SetKwFunction{Filter}{Filter}
-  \SetKwFunction{SubSet}{SubSet}
-  \SetKwFunction{Permute}{Permute}
-    \KwData{Hurricane observational data $O$, with paired variables $X$, $Y$; classified by SST class ($C : \qty{low ,high}$), with $n$ and $m$ observations respectively}
-    \KwResult{$p$-values defined under the null hypothesis}
-    % initialization\;
-    $O_{low}$ $\gets$ \SubSet($(x,y) \in O \mid c \equiv low$)\;
-    $O_{high}$ $\gets$ \SubSet($(x,y) \in O \mid c \equiv high$)
-    \tcp*{Notice that $O_{low} \cap O_{high} = O$}
-    fit$_{low}$ $\gets$ \LinearModel($Y_{low} \sim X_{low}$)\;
-    fit$_{high}$ $\gets$ \LinearModel($Y_{high} \sim X_{high}$)\;
-    T $\gets$ \GetStatistic(fit$_{low}$, fit$_{high}$) \;
-    count = 0 \;
-    \For{$i \gets 1$ \textbf{to} $N$}{
-      $O'$ $\gets$ \Permute($O$) \;
-      $O_{low}\sast$ $\gets$ \SubSet($(x,y)_{i} \in O', \forall i \in [1, n]$ )\;
-      $O_{high}\sast$ $\gets$ \SubSet($(x,y)_{i} \in O', \forall i \in [n+1, n+m]$ )
-      \tcp*{$O_{low}\sast \cap O_{high}\sast = O'$}
-      fit$_{low}\sast$ $\gets$ \LinearModel($Y_{low}\sast \sim X_{low}\sast$)\;
-    fit$_{high}\sast$ $\gets$ \LinearModel($Y_{high}\sast \sim X_{high}\sast$)\;
-      T$\sast$ $\gets$ \GetStatistic(fit$_{low}\sast$, fit$_{high}\sast$) \;
-      \If{$\text{T}\sast > \text{T}$}{
-        count $\gets$ count + 1
-      }
-    }
-    \Return{$p$-value $\gets$ count / n.sim} \;
-\end{algorithm}
-\DecMargin{1em}
+\begin{align}
+  Pr(X = k) = \frac{n!}{k!(n-k)!} p^k (1-p)^{n-k} \emph{.}
+\end{align}
+
+Now we can now make use of the algorithm described in \cite{a:schmeiser-binomial} to generate random numbers $k$ that follow a Binomial Distribution, and assume those $k$ to be the simulated deaths for the following year. Once we have $k$, we can compute how much proportional wealth $M$ has been given to every investor of the common pool by:
+
+\begin{align}
+  M = \frac{k}{n}w \emph{.}
+\end{align}
+
+In the following snippet we show the necessary R code to perform this simulation for both CPPI and Alternative schemes:
+
+\begin{lstlisting}[language = R]
+
+  ### CPPI ### 
+
+	C <- append(rep(a, round(years/2)),rep(-a, round(years/2)))
+	mort_table <- fread("mortality.csv")/1000
+	X_T <- c()
+
+	for (j in 1:nsim){
+		x <- c()
+		x[1] <- a # Initial wealth
+		number_humans_alive <- starting_humans
+
+		for (i in 1:(years-1)){
+			prob_mort <- mort_table$total[i+starting_age-1]
+			number_deads <- rbinom(1,number_humans_alive,prob_mort)
+			number_humans_alive <- number_humans_alive - number_deads
+
+
+			random <- rnorm(1, mean = alpha, sd = sigma)
+			x[i+1] <- x[i]*(1+random)*pi + (1-pi)*x[i] + C[i+1] + (x[i]*number_deads/number_humans_alive)*w
+		}
+		X_T[j] <- x[years]
+  }
+  
+  ### Alternative ### 
+  
+	C <- append(rep(a, round(years/2)),rep(-a, round(years/2)))
+	mort_table <- fread("mortality.csv")/1000
+	X_T <- c()
+
+	for (j in 1:nsim){
+		x <- c()
+		x[1] <- a # Initial wealth
+		number_humans_alive <- starting_humans
+
+		for (i in 1:(years-1)){
+			prob_mort <- mort_table$total[i+starting_age-1]
+			number_deads <- rbinom(1,number_humans_alive,prob_mort)
+			number_humans_alive <- number_humans_alive - number_deads
+
+      pi <- fpi(A,K,X,C,i)
+			random <- rnorm(1, mean = alpha, sd = sigma)
+			x[i+1] <- x[i]*(1+random)*pi + (1-pi)*x[i] + C[i+1] + (x[i]*number_deads/number_humans_alive)*w
+		}
+		X_T[j] <- x[years]
+	}
+\end{lstlisting}

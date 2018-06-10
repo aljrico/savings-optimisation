@@ -199,25 +199,24 @@
     \field{year}{2018}
   \endentry
 
-  \entry{b:handbook-natural}{book}{}
+  \entry{b:demographic}{book}{}
     \name{author}{1}{}{%
-      {{hash=RG}{%
-         family={Rozenberg},
-         familyi={R\bibinitperiod},
-         given={Grzegorz},
-         giveni={G\bibinitperiod},
+      {{hash=CJC}{%
+         family={Caldwell},
+         familyi={C\bibinitperiod},
+         given={John\bibnamedelima C.},
+         giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod},
       }}%
     }
     \list{publisher}{1}{%
       {Springer}%
     }
-    \strng{namehash}{RG1}
-    \strng{fullhash}{RG1}
+    \strng{namehash}{CJC1}
+    \strng{fullhash}{CJC1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{title}{{Handbook of Natural Computing}}
-    \field{volume}{4}
-    \field{year}{2012}
+    \field{title}{{TDemographic Transition Theory}}
+    \field{year}{2006}
   \endentry
 
   \entry{a:bongaarts-human}{article}{}
@@ -299,6 +298,30 @@
     \field{volume}{42}
     \field{journaltitle}{The Geneva Papers}
     \field{year}{2017}
+  \endentry
+
+  \entry{a:schmeiser-binomial}{article}{}
+    \name{author}{2}{}{%
+      {{hash=KV}{%
+         family={Kachitvichyanukul},
+         familyi={K\bibinitperiod},
+         given={V.},
+         giveni={V\bibinitperiod},
+      }}%
+      {{hash=SBW}{%
+         family={Schmeiser},
+         familyi={S\bibinitperiod},
+         given={B.\bibnamedelima W.},
+         giveni={B\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KVSBW1}
+    \strng{fullhash}{KVSBW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Binomial random variate generation.}}
+    \field{journaltitle}{AMC}
+    \field{year}{1988}
   \endentry
 \enddatalist
 \endinput

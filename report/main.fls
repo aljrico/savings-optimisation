@@ -56,7 +56,7 @@ INPUT /usr/share/texmf-dist/tex/generic/babel-english/british.ldf
 INPUT /usr/share/texmf-dist/tex/generic/babel-english/british.ldf
 INPUT /usr/share/texmf-dist/tex/generic/babel-english/english.ldf
 INPUT /usr/share/texmf-dist/tex/generic/babel/babel.def
-INPUT /usr/share/texmf-dist/tex/generic/babel/switch.def
+INPUT /usr/share/texmf-dist/tex/generic/babel/txtbabel.def
 INPUT /usr/share/texmf-dist/tex/latex/biblatex/biblatex.sty
 INPUT /usr/share/texmf-dist/tex/latex/biblatex/biblatex.sty
 INPUT /usr/share/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
@@ -281,11 +281,9 @@ INPUT /usr/share/texmf-dist/tex/latex/siunitx/siunitx.sty
 INPUT /usr/share/texmf-dist/tex/latex/siunitx/siunitx.sty
 INPUT /usr/share/texmf-dist/tex/latex/tools/array.sty
 INPUT /usr/share/texmf-dist/tex/latex/tools/array.sty
-INPUT /usr/share/texmf-dist/tex/latex/beamer/translator/translator.sty
-INPUT /usr/share/texmf-dist/tex/latex/beamer/translator/translator.sty
-INPUT /usr/share/texmf-dist/tex/latex/beamer/translator/translator.sty
-INPUT /usr/share/texmf-dist/tex/latex/beamer/translator/translator-language-mappings.tex
-INPUT /usr/share/texmf-dist/tex/latex/beamer/translator/translator-language-mappings.tex
+INPUT /usr/share/texmf-dist/tex/latex/translator/translator.sty
+INPUT /usr/share/texmf-dist/tex/latex/translator/translator.sty
+INPUT /usr/share/texmf-dist/tex/latex/translator/translator.sty
 INPUT /usr/share/texmf-dist/tex/latex/bbm-macros/bbm.sty
 INPUT /usr/share/texmf-dist/tex/latex/bbm-macros/bbm.sty
 INPUT /usr/share/texmf-dist/tex/latex/cancel/cancel.sty
@@ -444,6 +442,8 @@ INPUT /usr/share/texmf-dist/tex/latex/hyperxmp/hyperxmp.sty
 INPUT /usr/share/texmf-dist/tex/latex/hyperxmp/hyperxmp.sty
 INPUT /usr/share/texmf-dist/tex/generic/oberdiek/stringenc.sty
 INPUT /usr/share/texmf-dist/tex/generic/oberdiek/stringenc.sty
+INPUT /usr/share/texmf-dist/tex/latex/ifmtarg/ifmtarg.sty
+INPUT /usr/share/texmf-dist/tex/latex/ifmtarg/ifmtarg.sty
 INPUT /usr/share/texmf-dist/tex/latex/biblatex/lbx/british.lbx
 INPUT /usr/share/texmf-dist/tex/latex/biblatex/lbx/british.lbx
 INPUT /usr/share/texmf-dist/tex/latex/biblatex/lbx/english.lbx
@@ -462,10 +462,10 @@ INPUT ./contents/alternative.aux
 INPUT ./contents/alternative.aux
 INPUT ./contents/comparison.aux
 INPUT ./contents/comparison.aux
-INPUT ./contents/tails.aux
-INPUT ./contents/tails.aux
 INPUT ./contents/mortality.aux
 INPUT ./contents/mortality.aux
+INPUT ./contents/tails.aux
+INPUT ./contents/tails.aux
 OUTPUT main.aux
 INPUT /usr/share/texmf-dist/tex/latex/base/ts1cmr.fd
 INPUT /usr/share/texmf-dist/tex/latex/base/ts1cmr.fd
@@ -530,8 +530,8 @@ INPUT /usr/share/texmf-dist/tex/latex/oberdiek/grfext.sty
 INPUT /usr/share/texmf-dist/tex/latex/oberdiek/grfext.sty
 INPUT /usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 INPUT /usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-INPUT /usr/share/texmf-dist/tex/latex/beamer/translator/dicts/translator-basic-dictionary/translator-basic-dictionary-English.dict
-INPUT /usr/share/texmf-dist/tex/latex/beamer/translator/dicts/translator-basic-dictionary/translator-basic-dictionary-English.dict
+INPUT /usr/share/texmf-dist/tex/latex/translator/translator-basic-dictionary-English.dict
+INPUT /usr/share/texmf-dist/tex/latex/translator/translator-basic-dictionary-English.dict
 INPUT /usr/share/texmf-dist/tex/latex/siunitx/siunitx-abbreviations.cfg
 INPUT /usr/share/texmf-dist/tex/latex/siunitx/siunitx-abbreviations.cfg
 INPUT /usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
@@ -654,6 +654,9 @@ INPUT ./images/fw_both.png
 INPUT ./images/loss_both.png
 INPUT ./images/loss_both.png
 INPUT ./images/loss_both.png
+OUTPUT ./contents/mortality.aux
+INPUT ./contents/mortality.tex
+INPUT ./contents/mortality.tex
 OUTPUT ./contents/tails.aux
 INPUT ./contents/tails.tex
 INPUT ./contents/tails.tex
@@ -661,12 +664,6 @@ INPUT /usr/share/texmf-dist/fonts/tfm/public/lm/ec-lmbxi10.tfm
 INPUT images/lm_tails.png
 INPUT ./images/lm_tails.png
 INPUT ./images/lm_tails.png
-OUTPUT ./contents/mortality.aux
-INPUT ./contents/mortality.tex
-INPUT ./contents/mortality.tex
-INPUT /usr/share/texmf-dist/fonts/tfm/public/lm/ec-lmbx8.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/public/lm/ec-lmtt12.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/public/lm/ec-lmbxi10.tfm
 INPUT main.aux
 INPUT ./contents/abstract.aux
 INPUT ./contents/abstract.aux
@@ -680,10 +677,10 @@ INPUT ./contents/alternative.aux
 INPUT ./contents/alternative.aux
 INPUT ./contents/comparison.aux
 INPUT ./contents/comparison.aux
-INPUT ./contents/tails.aux
-INPUT ./contents/tails.aux
 INPUT ./contents/mortality.aux
 INPUT ./contents/mortality.aux
+INPUT ./contents/tails.aux
+INPUT ./contents/tails.aux
 INPUT ./main.out
 INPUT ./main.out
 INPUT main.run.xml
@@ -695,7 +692,6 @@ INPUT /usr/share/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc
 INPUT /usr/share/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc
 INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmbx10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmbx12.pfb
-INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmbx8.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmex10.pfb
@@ -713,5 +709,4 @@ INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmsy10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmsy8.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmtk10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmtt10.pfb
-INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmtt12.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/lm/lmtti10.pfb

@@ -1,4 +1,4 @@
-\section{Analysis of the Tails}
+\section{Tails Analysis}
 
 At this point we should have notice that the real danger of investments does not resides solely within the standard concept of dispersion (standard deviation), nor within the ratio between return and dispersion. The true risk dwells in the worst case scenarios of the distributions, the tails. Where accumulated or great losses may strike down the whole investment plan. Hence, in order to address the risk analysis of any savings strategy, we need to take a closer look at the tails of their distributions. 
 
@@ -49,6 +49,15 @@ In Figure \ref{fig:lm-tails} we can see this scatter plot of their logarithmic d
     \caption{Scatter plot and linear regression of the logarithm of the density points of the \textit{CPPI} and \textit{Alternative} methods.}
     \label{fig:lm-tails}
 \end{figure}
+
+
+\subsection{Extreme Value Analysis: Fitting a General Pareto Distribution}
+
+So far, we have used the \emph{Expected Shortfall} as our standard assessment of risk. And we have for which of our simple schemes makes more sense to use it. 
+
+In this section, we will go one step further and try to fit some specific distribution to those tails. This way we will be able to see in more detail the behaviour of the losses of our strategies.
+
+Let us say that we have settled the threshold of our tail at $u = 0$. Since this limit is arbitrary, it makes sense to put it such that our tail is the distribution of losses. Following this logic, we can more easily think of this distribution as the risky side of the investment, and thus its behaviour as the behaviour of the risk of the investment.
 
 
 
