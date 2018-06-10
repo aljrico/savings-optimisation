@@ -57,6 +57,28 @@ So far, we have used the \emph{Expected Shortfall} as our standard assessment of
 
 In this section, we will go one step further and try to fit some specific distribution to those tails. This way we will be able to see in more detail the behaviour of the losses of our strategies.
 
+We can say that, if the distribution of the losses obtained is $X$, our tail could be defined as
+
+\begin{align}
+    F_u(y) = \qty( X - u \leq y| X > u ) \emph{.}
+\end{align}
+
+The Pickands-Balkema-de Haan theorem states that for a large class of distributions $X$, exists $u$ such as that $F_u$ is well approximated by the Generalized Pareto Distribution (GPD) $G$. Where the standard cumulative distribution function of the GPD can be defined as:
+
+
+\[F_{\xi}(y) = \left\{
+  \begin{array}{lr}
+    1 - \qty(1 + \xi y)^{\sfrac{-1}{\xi}} & : \xi \neq 0\\
+    1 - e^{-y} & : \xi = 0
+  \end{array}
+\right.
+\]
+
+
+
+
+
+
 Let us say that we have settled the threshold of our tail at $u = 0$. Since this limit is arbitrary, it makes sense to put it such that our tail is the distribution of losses. Following this logic, we can more easily think of this distribution as the risky side of the investment, and thus its behaviour as the behaviour of the risk of the investment.
 
 
