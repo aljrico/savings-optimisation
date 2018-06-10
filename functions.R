@@ -339,6 +339,7 @@ generate_all_data <- function(
 
 
 	# CPPI simple --------------------------------------------------------------------
+	cat("... CPPI Simple ... \n")
 	X_T <- cppi_c(pi = pi,
 								nsim = nsim,
 								alpha = alpha,
@@ -354,6 +355,7 @@ generate_all_data <- function(
 
 
 	# Alternative simple ------------------------------------------------------
+	cat("... Alternative Simple ... \n")
 	X_T <- alt_c(K = K,
 							 nsim = nsim,
 							 alpha = alpha,
@@ -369,6 +371,7 @@ generate_all_data <- function(
 
 if(include.mortality == TRUE){
 		# CPPI | Mortality --------------------------------------------------------
+	cat("... CPPI Mortality ... \n")
 		X_T <- cppi_mortality(pi = pi,
 													nsim = nsim,
 													alpha = alpha,
@@ -383,6 +386,7 @@ if(include.mortality == TRUE){
 		K = ES(X_T)*factor_kes(A =A)
 
 		# Alternative | Mortality ------------------------------------------------------
+		cat("... Alternative Mortality ... \n")
 		X_T <- alt_mort(K = K,
 										nsim = nsim,
 										alpha = alpha,

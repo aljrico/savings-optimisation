@@ -17,7 +17,7 @@ alpha <- 0.0343 # Expected return of the risky market
 sigma <- 0.1544 # Expected volatility of the risky market
 a <- 10 # Factor 'a'
 years <- 60 # Total time
-nsim <- 1e6 # Number of simulations
+nsim <- 1e4 # Number of simulations
 pi <- 0.1 # Constant proportion for risky investment
 K <- 42
 A <- 0.5
@@ -30,8 +30,8 @@ es <- c()
 final_data <- tibble(thresh,pvalue,pi_record, model)
 
 for(k in c("cppi-simple","alt-simple")){
-	pi_start <- 0.01
-	for(i in 1:100){
+	pi_start <- 0.1
+	for(i in 1:10){
 		pi <- pi_start*i
 		pi_record[i] <- pi
 		all_data <- generate_all_data(alpha = alpha,
