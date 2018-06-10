@@ -351,6 +351,8 @@ generate_all_data <- function(
 	final_wealth$model <- "cppi-simple"
 	final_wealth$ret <- (1/60)*(-1 + (1 + (8*(X_T))/(a*60))^(1/2))*100
 
+	write.csv(X_T, "data/cppi_simple.csv")
+
 	K = ES(X_T)*factor_kes(A =A)
 
 
@@ -369,6 +371,8 @@ generate_all_data <- function(
 	df$ret <- (1/60)*(-1 + (1 + (8*(X_T))/(a*60))^(1/2))*100
 	final_wealth <- rbind(final_wealth,df)
 
+	write.csv(X_T, "data/alt_simple.csv")
+
 if(include.mortality == TRUE){
 		# CPPI | Mortality --------------------------------------------------------
 	cat("... CPPI Mortality ... \n")
@@ -382,6 +386,8 @@ if(include.mortality == TRUE){
 		df$model <- "cppi-mort"
 		df$ret <- (1/60)*(-1 + (1 + (8*(X_T))/(a*60))^(1/2))*100
 		final_wealth <- rbind(final_wealth,df)
+
+		write.csv(X_T, "data/cppi_mortality.csv")
 
 		K = ES(X_T)*factor_kes(A =A)
 
@@ -398,7 +404,7 @@ if(include.mortality == TRUE){
 		df$ret <- (1/60)*(-1 + (1 + (8*(X_T))/(a*60))^(1/2))*100
 		final_wealth <- rbind(final_wealth,df)
 
-
+		write.csv(X_T, "data/alt_mortality.csv")
 
 	}
 
