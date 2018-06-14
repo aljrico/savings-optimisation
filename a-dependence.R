@@ -118,8 +118,8 @@ for(pi in pis){
 # Comparing Pi
 df_total %>%
 	# filter(mort == FALSE) %>%
-	ggplot(aes(colour = as.factor(mort))) +
-	geom_line(aes(y = pi_b, x = A, linetype = as.factor(in_pi)), size=1) +
+	ggplot(aes(colour = as.factor(in_pi))) +
+	geom_line(aes(y = pi_b, x = A), size=1) +
 	geom_point(aes(y = pi_b, x = A), size = 1.25) +
 	# geom_line(aes(y = in_pi, x = A), size = 0.75, linetype = "dashed")+
 	# facet_grid(.~ mort) +
@@ -128,7 +128,7 @@ df_total %>%
 	# scale_colour_brewer(palette = "Set1") +
 	xlab("A") +
 	ylab(expression(pi)) +
-	labs(linetype = "Actual Pi of the \nBenchmark", colour = "Mortality")
+	labs(colour = "Actual Pi of the \nBenchmark")
 
 
 # Comparing Mortality

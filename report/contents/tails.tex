@@ -52,19 +52,46 @@ The Pickands-Balkema-de Haan theorem states that for a large class of distributi
 \right. \emph{.}
 \]
 
-Thus, we are going to seek that point $u$ from which our tail could fit a GPD.
+Thus, we can seek that point $u$ from which our tail could fit a GPD. That would imply that, from that point $u$ forward, the distribution follows a GPD. The kind of GPD would be determined by the value of $\xi$. This number, usually called \emph{Extreme Value Index}, that determines  the shape of the distribution. The larger the value of $\xi$, the thicker the tail grows, and the slowly it converges to zero. In general:
 
+\begin{itemize}
+    \item $\xi > 0$. The tail does not converge to zero, ever. Power-law
+    \item $\xi = 0$. The tail converges to zero at infinity. Exponential
+    \item $\xi < 0$. The tail converges to zero in a finite point.
+\end{itemize}
+
+In what risk analysis concerns, the value of $\xi$ is crucial. Since we are studying the risk of a strategy looking at the tail of distributions where distribution are the frequency of losses, we could think that the wider or thicker the tail, the riskier the strategy. 
 
 \subsection{Extreme Value Analysis: Fitting a General Pareto Distribution}
 
-Let us repeat the simulation for the CPPI, using $\pi = 0.1$, and plot the histogram of its losses.
+Let us repeat the simulation for the CPPI, using $\pi = 0.1$, and plot the histogram of its losses as an example.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{images/cppi-losses-hist.png}
+    \includegraphics[scale=0.75]{images/cppi-losses-hist.png}
     \caption{Frequency Histogram of the losses of the CPPI strategy. Using $\pi = 0.1$, $\alpha = 0.0343$, $\sigma = 0.1544$ and $1000000$ simulations.}
-    \label{fig:lm-tails}
+    \label{fig:cppi-losses-histogram}
 \end{figure}
+
+If we now plot that density as points in a logarithmic scale, we might see something like the following:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{images/cppi-dens-points.png}
+    \caption{Density Distribution of the losses of the CPPI strategy in a logarithmic scale. Using $\pi = 0.1$, $\alpha = 0.0343$, $\sigma = 0.1544$ and $1000000$ simulations.}
+    \label{fig:cppi-dens-points}
+\end{figure}
+
+Now, we could try to add here the Complementary Cumulative Distribution Function of a Generalized Pareto Distribution, and see if it fits to our distribution as it is now.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{images/cppi-ccdf-0.png}
+    \caption{Density Distribution of the losses of the CPPI strategy in a logarithmic scale. Using $\pi = 0.1$, $\alpha = 0.0343$, $\sigma = 0.1544$ and $1000000$ simulations.}
+    \label{fig:cppi-ccdf-0}
+\end{figure}
+
+Clearly, we can see how badly it fits for larger numbers. This indicates that our distribution is not following a GPD. Nevertheless, we can still find a proper $u$ for which it would.
 
 
 

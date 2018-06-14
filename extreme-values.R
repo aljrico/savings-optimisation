@@ -36,7 +36,7 @@ all_data <- generate_all_data(alpha = alpha,
 # GPD ---------------------------------------------------------------------
 
 data <- all_data %>%
-	filter(model == "cppi-simple")
+	filter(model == "alt-simple")
 # We first try to guess some threshold in order to define the tail.
 threshold <- 0
 u <- threshold
@@ -56,11 +56,11 @@ freq_tail <- hist(y,
 
 as_tibble(y) %>%
 	ggplot() +
-	geom_histogram(aes(value), binwidth = 2,  fill = "grey", colour = "black") +
+	geom_histogram(aes(x = value, y = ..count../sum(..count..)), binwidth = 2,  fill = "grey", colour = "black") +
 	theme_bw() +
 	scale_x_continuous(limits = c(0, 50)) +
 	xlab("Loss") +
-	ylab("Count")
+	ylab("Frequency")
 
 
 tibble(x = freq_tail$mids, y = freq_tail$density) %>%
@@ -73,7 +73,7 @@ tibble(x = freq_tail$mids, y = freq_tail$density) %>%
 	scale_y_log10(limits = c(1e-04, 1e-01))
 
 # Points plot of that frequency, but with log(y)
-plot(x = freq_tail$mids, freq_tail$density, log= 'y')
+plot(x = freq_tail$mids, freq_tail$density, log= 'y', xlab = "Loss", ylab = "Frequency")
 
 # We try to fit a General Pareto Distribution (GPD) to those points.
 fit.gpd <- gpd(y, 0)$par.ests
@@ -97,10 +97,10 @@ Tm(y,threshold=30,evi=0)
 # The result makes a lot more sense for even more extreme values, with this new threshold.
 
 # Fortunaletly, we have a function that automatically seeks this optimal threshold, instead of having to guess it.
-auto.thresh <- thrselect(y, evi = 0)
+auto.thresh <- thrselect(y)
 fit.gpd3 <- fitpot(y, threshold = auto.thresh$solution[["threshold"]])
 ccdfplot(y, fit.gpd3)
-Tm(y,threshold=auto.thresh$solution[["threshold"]],evi=0)
+Tm(y,threshold=auto.thresh$solution[["threshold"]])
 
 
 # Actually, we can notice that the auto selected threshold marks the point from where the distribution enters the rang of the coefficient of variation.

@@ -11,6 +11,6 @@
 \contentsline {subsection}{\numberline {4.1}Simulation}{17}{subsection.4.1}
 \contentsline {section}{\numberline {5}Tails Analysis}{20}{section.5}
 \contentsline {subsection}{\numberline {5.1}Definition of \textit {Tail}}{20}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Convergence of the Expected Shortfall}{21}{subsection.5.2}
-\contentsline {subsection}{\numberline {5.3}Extreme Value Analysis: Fitting a General Pareto Distribution}{21}{subsection.5.3}
-\contentsline {section}{\nonumberline References}{23}{section*.6}
+\contentsline {subsection}{\numberline {5.2}Extreme Value Analysis: Fitting a General Pareto Distribution}{21}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Convergence of the Expected Shortfall}{24}{subsection.5.3}
+\contentsline {section}{\nonumberline References}{26}{section*.6}

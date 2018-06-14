@@ -17,21 +17,22 @@ alpha <- 0.0343 # Expected return of the risky market
 sigma <- 0.1544 # Expected volatility of the risky market
 a <- 10 # Factor 'a'
 years <- 60 # Total time
-nsim <- 1e4 # Number of simulations
+nsim <- 1e5 # Number of simulations
 pi <- 0.1 # Constant proportion for risky investment
 K <- 42
 A <- 0.5
 
-thresh <- c(NA)
-pvalue <- c(NA)
-pi_record <- c(NA)
-model <- c(NA)
+thresh <- c()
+pvalue <- c()
+pi_record <- c()
+model <- c()
 es <- c()
-final_data <- tibble(thresh,pvalue,pi_record, model)
+evi <- c()
+final_data <- tibble()
 
 for(k in c("cppi-simple","alt-simple")){
-	pi_start <- 0.1
-	for(i in 1:10){
+	pi_start <- 0.01
+	for(i in 1:100){
 		pi <- pi_start*i
 		pi_record[i] <- pi
 		all_data <- generate_all_data(alpha = alpha,
@@ -46,7 +47,8 @@ for(k in c("cppi-simple","alt-simple")){
 		# GPD ---------------------------------------------------------------------
 
 		data <- all_data %>%
-			filter(model == k)
+			filter(model == k) %>%
+			na.omit()
 
 		es[i] <- ES(data$X_T)
 		# We first try to guess some threshold in order to define the tail.
@@ -61,11 +63,12 @@ for(k in c("cppi-simple","alt-simple")){
 
 
 		# Auto threshold
-		auto.thresh <- thrselect(y, evi = 0)
+		auto.thresh <- thrselect(y)
 		thresh[i] <- auto.thresh$solution[["threshold"]]
 		pvalue[i] <- auto.thresh$solution[["pvalue"]]
+		evi[i] <- auto.thresh$solution[["evi"]]
 	}
-	df <- cbind(thresh, pvalue, pi_record) %>% as_tibble()
+	df <- cbind(thresh, pvalue, pi_record, evi, es) %>% as_tibble()
 	df$model <- k
 	final_data <- rbind(final_data,df)
 }
@@ -78,4 +81,13 @@ final_data %>%
 	theme_minimal() +
 	xlab("Pi") +
 	ylab("Threshold")
+
+final_data %>%
+	filter(pvalue >0.05) %>%
+	as_tibble() %>%
+	ggplot() +
+	geom_point(aes(y = evi, x = pi_record, colour = model)) +
+	theme_minimal() +
+	xlab("Pi") +
+	ylab("EVI")
 
