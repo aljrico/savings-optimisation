@@ -17,7 +17,7 @@ alpha <- 0.0343 # Expected return of the risky market
 sigma <- 0.1544 # Expected volatility of the risky market
 a <- 10 # Factor 'a'
 years <- 60 # Total time
-nsim <- 1e5 # Number of simulations
+nsim <- 1e6 # Number of simulations
 pi <- 0.1 # Constant proportion for risky investment
 K <- 42
 A <- 0.5
@@ -30,13 +30,13 @@ all_data <- generate_all_data(alpha = alpha,
 						 pi = pi,
 						 K = K,
 						 A = 0.5,
-						 include.mortality = TRUE)
+						 include.mortality = FALSE)
 
 
 # GPD ---------------------------------------------------------------------
 
 data <- all_data %>%
-	filter(model == "cppi-mort")
+	filter(model == "cppi-simple")
 # We first try to guess some threshold in order to define the tail.
 threshold <- 0
 u <- threshold
@@ -54,6 +54,23 @@ freq_tail <- hist(y,
 									# breaks=exp(log_hist$breaks),
 									freq = FALSE)
 
+as_tibble(y) %>%
+	ggplot() +
+	geom_histogram(aes(value), binwidth = 2,  fill = "grey", colour = "black") +
+	theme_bw() +
+	scale_x_continuous(limits = c(0, 50)) +
+	xlab("Loss") +
+	ylab("Count")
+
+
+tibble(x = freq_tail$mids, y = freq_tail$density) %>%
+	ggplot() +
+	geom_point(aes(y = (y), x = x), colour = "black", size = 2, shape = 1, stroke = 1) +
+	theme_bw() +
+	scale_x_continuous(limits = c(0, 50)) +
+	xlab("Loss") +
+	ylab("Frequency") +
+	scale_y_log10(limits = c(1e-04, 1e-01))
 
 # Points plot of that frequency, but with log(y)
 plot(x = freq_tail$mids, freq_tail$density, log= 'y')

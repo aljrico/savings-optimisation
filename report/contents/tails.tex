@@ -2,11 +2,14 @@
 
 At this point we should have notice that the real danger of investments does not resides solely within the standard concept of dispersion (standard deviation), nor within the ratio between return and dispersion. The true risk dwells in the worst case scenarios of the distributions, the tails. Where accumulated or great losses may strike down the whole investment plan. Hence, in order to address the risk analysis of any savings strategy, we need to take a closer look at the tails of their distributions. 
 
+
 Taking a close look at Figure \ref{fig:both_fw}, we are not able to clearly state which one is \textit{less risky}. So far, we have been comparing the values of Expected Shortfall in order to get a sense of the risk. But, since the ES is actually just the average of the tail of the distribution, we will now discuss how we can pursue a more in-depth analysis for the distribution of those tails.
+
+In this section, we will go one step further and try to fit some specific distribution to those tails. This way we will be able to see in more detail the behaviour of the losses of our strategies, and set more accurate risk measures.
 
 \subsection{Definition of \textit{Tail}}
 
-The tail of a distribution is not a precisely defined term; it can have many different forms and definitions. Generally, the \textit{tail} is considered a broad term to name the extreme parts of a distribution. In other words, there is not some specific place where you stop being in the middle of the distribution and start being in the tail, and where to put that line is up to every case.
+First things first. What is \emph{the} Tail of a distribution? The tail of a distribution is not a precisely defined term; it can have many different forms and definitions. Generally, the \textit{tail} is considered a broad term to name the extreme parts of a distribution. In other words, there is not some specific place where you stop being in the middle of the distribution and start being in the tail, and where to put that line is up to every case.
 
 Let's say that we plot a distribution $Y$, the loss of a savings plan (note that negative losses imply profits). We decide to put the distinction between middle and tail at some point named $u$, so the tail would be everything that lands within $Y>u$.
 
@@ -32,6 +35,40 @@ And thus, deriving this expression we find that, for every $z>0$,
 
 Interesting thing about this result, is that we can analytically relate the distribution of the tail $f_z(z)$ with the whole original distribution $f_y(z)$.
 
+Therefore, we can say that, if the distribution of the losses obtained is $Y$, our tail could be defined as
+
+\begin{align}
+    F_u(y) = \qty( Y - u \leq y| Y > u ) \emph{.}
+\end{align}
+
+The Pickands-Balkema-de Haan theorem states that for a large class of distributions $X$, exists $u$ such as that $F_u$ is well approximated by the Generalized Pareto Distribution (GPD) $G$. Where the standard cumulative distribution function of the GPD can be defined as:
+
+
+\[F_{\xi}(y) = \left\{
+  \begin{array}{lr}
+    1 - \qty(1 + \xi y)^{\sfrac{-1}{\xi}} & : \xi \neq 0\\
+    1 - e^{-y} & : \xi = 0
+  \end{array}
+\right. \emph{.}
+\]
+
+Thus, we are going to seek that point $u$ from which our tail could fit a GPD.
+
+
+\subsection{Extreme Value Analysis: Fitting a General Pareto Distribution}
+
+Let us repeat the simulation for the CPPI, using $\pi = 0.1$, and plot the histogram of its losses.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{images/cppi-losses-hist.png}
+    \caption{Frequency Histogram of the losses of the CPPI strategy. Using $\pi = 0.1$, $\alpha = 0.0343$, $\sigma = 0.1544$ and $1000000$ simulations.}
+    \label{fig:lm-tails}
+\end{figure}
+
+
+
+
 \subsection{Convergence of the Expected Shortfall}
 
 So far, we have addressed the necessity of studying the tail of loss danger using the Expected Shortfall. It is quite straightforward and it easily assesses the risk of the tail. But since it is nothing more than a simple mean, it can arise some issues. 
@@ -49,30 +86,4 @@ In Figure \ref{fig:lm-tails} we can see this scatter plot of their logarithmic d
     \caption{Scatter plot and linear regression of the logarithm of the density points of the \textit{CPPI} and \textit{Alternative} methods.}
     \label{fig:lm-tails}
 \end{figure}
-
-
-\subsection{Extreme Value Analysis: Fitting a General Pareto Distribution}
-
-So far, we have used the \emph{Expected Shortfall} as our standard assessment of risk. And we have for which of our simple schemes makes more sense to use it. 
-
-In this section, we will go one step further and try to fit some specific distribution to those tails. This way we will be able to see in more detail the behaviour of the losses of our strategies.
-
-We can say that, if the distribution of the losses obtained is $X$, our tail could be defined as
-
-\begin{align}
-    F_u(y) = \qty( X - u \leq y| X > u ) \emph{.}
-\end{align}
-
-The Pickands-Balkema-de Haan theorem states that for a large class of distributions $X$, exists $u$ such as that $F_u$ is well approximated by the Generalized Pareto Distribution (GPD) $G$. Where the standard cumulative distribution function of the GPD can be defined as:
-
-
-\[F_{\xi}(y) = \left\{
-  \begin{array}{lr}
-    1 - \qty(1 + \xi y)^{\sfrac{-1}{\xi}} & : \xi \neq 0\\
-    1 - e^{-y} & : \xi = 0
-  \end{array}
-\right.
-\]
-
-
 
