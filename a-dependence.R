@@ -41,12 +41,12 @@ m_inpi <- c()
 df_total <- tibble()
 
 error_count <- 0
-# Without Mortality -------------------------------------------------------
 
 for(pi in pis){
 	es <- cppi_c(alpha = alpha, sigma = sigma, years = years, pi = pi, a=a, nsim = nsim) %>%
 		ES()
 
+	# Without Mortality -------------------------------------------------------
 	for(i in 1:max_A){
 		A <- init_A*i
 		factor <- 1/(-1 + (1/(1 - theta))*exp(alpha*A*years)*pnorm(qnorm(1-theta)- A*sigma*sqrt(years)))
@@ -60,7 +60,7 @@ for(pi in pis){
 			compute_return(c = a, years = years); error_count <- error_count + 1}
 
 
-		cat(paste0("...",ret, "... \n"))
+		cat(paste0("...",i/max_A*100, "()% ... \n"))
 		pi_b[i] <- equiv_pi(ret = ret, m=m)
 		all_rets[i] <- ret
 	}
@@ -91,8 +91,7 @@ for(pi in pis){
 			pi_b[i] <- 0
 			all_rets[i] <- 0
 			}
-
-
+		cat(paste0("...",i/max_A*100, "()% ... \n"))
 	}
 
 	m_pi <- as_tibble(data.frame(pi_b))
@@ -115,16 +114,18 @@ for(pi in pis){
 
 # Comparing Pi
 df_total %>%
-	filter(mort == FALSE) %>%
-	ggplot(aes(colour = as.factor(in_pi))) +
-	geom_line(aes(y = pi_b, x = A), size=1.3) +
-	geom_point(aes(y = pi_b, x = A), size = 2) +
-	geom_line(aes(y = in_pi, x = A), size = 0.75, linetype = "dashed")+
+	# filter(mort == FALSE) %>%
+	ggplot(aes(colour = as.factor(mort))) +
+	geom_line(aes(y = pi_b, x = A, linetype = as.factor(in_pi)), size=1) +
+	geom_point(aes(y = pi_b, x = A), size = 1.25) +
+	# geom_line(aes(y = in_pi, x = A), size = 0.75, linetype = "dashed")+
+	# facet_grid(.~ mort) +
 	theme_minimal() +
-	scale_colour_viridis(discrete=TRUE, end =0.75) +
+	scale_colour_viridis(discrete=TRUE, end =0.75, begin = 0.1) +
+	# scale_colour_brewer(palette = "Set1") +
 	xlab("A") +
 	ylab(expression(pi)) +
-	labs(colour = "Actual Pi of the \nBenchmark")
+	labs(linetype = "Actual Pi of the \nBenchmark", colour = "Mortality")
 
 
 # Comparing Mortality
