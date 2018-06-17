@@ -19,7 +19,7 @@ fpi <- function(A, K, X, C, time){
 
 # Expected Shortfall
 ES <- function(distr, a = 0.05){
-	VaR <- quantile(distr, a)
+	VaR <- quantile(distr, a, na.rm = TRUE)
 	ES <- mean(distr[distr<VaR])
 
 	return(ES)
@@ -107,7 +107,7 @@ cppi_mortality <- function(pi,
 	x_m <- median(X_T)
 	ret2 <- (1/years)*(-1 + (1 + (8*(x_m))/(c*years))^(1/2))*100
 
-	return(c(ES(X_T, 0.05), ret2, X_T))
+	return(X_T)
 }
 
 
@@ -207,7 +207,7 @@ alt_mort <- function(K,
 	ret2 <- (1/years)*(-1 + (1 + (8*(x_m))/(c*years))^(1/2))*100
 	pi_b <- log(1+ret2)/alpha
 
-	return(c(pi_b,ret2, X_T))
+	return(X_T)
 }
 
 
@@ -376,12 +376,12 @@ generate_all_data <- function(
 if(include.mortality == TRUE){
 		# CPPI | Mortality --------------------------------------------------------
 	cat("... CPPI Mortality ... \n")
-		X_T <- cppi_mortality(pi = pi,
+		X_T <- cppi_mort_fasto(pi = pi,
 													nsim = nsim,
 													alpha = alpha,
 													sigma = sigma,
 													a = a,
-													years = years)[-c(1,2)]
+													years = years)
 		df <- as_tibble(as.data.frame(X_T))
 		df$model <- "cppi-mort"
 		df$ret <- (1/60)*(-1 + (1 + (8*(X_T))/(a*60))^(1/2))*100
@@ -389,16 +389,16 @@ if(include.mortality == TRUE){
 
 		write.csv(X_T, "data/cppi_mortality.csv")
 
-		K = ES(X_T)*factor_kes(A =A)
+		K = ES(X_T)*factor_kes(A = A)
 
 		# Alternative | Mortality ------------------------------------------------------
 		cat("... Alternative Mortality ... \n")
-		X_T <- alt_mort(K = K,
+		X_T <- alt_mort_fasto(K = K,
 										nsim = nsim,
 										alpha = alpha,
 										sigma = sigma,
 										a = a,
-										years = years)[-c(1,2)]
+										years = years)
 		df <- as_tibble(as.data.frame(X_T))
 		df$model <- "alt-mort"
 		df$ret <- (1/60)*(-1 + (1 + (8*(X_T))/(a*60))^(1/2))*100
@@ -410,3 +410,91 @@ if(include.mortality == TRUE){
 
 	return(final_wealth)
 }
+
+
+
+
+
+
+
+# Test Mortality ----------------------------------------------------------
+
+alt_mort_fasto <- function(K,
+										 nsim,
+										 alpha = 0.0343,
+										 sigma = 0.1544,
+										 a = 10,
+										 years = 60,
+										 A = 0.5,
+										 starting_humans = 1e3,
+										 starting_age = 30){
+
+	library(Rcpp)
+	sourceCpp("cppi.cpp")
+
+	gamma <- -alpha/(A*sigma^2)+1 # Factor 'gamma'
+	c <- a # Factor 'c'
+
+	x <- c()
+	x[1] <- a # Initial wealth
+
+	C <- append(rep(a, round(years/2)),rep(-a, round(years/2)))
+	X_T <- c()
+	M <- c()
+
+	mort_table <- fread("mortality.csv")/1000
+
+	number_humans_alive <- starting_humans
+
+	for (i in 1:(years-1)){
+		prob_mort <- mort_table$total[i+starting_age-1]
+		number_deads <- rbinom(1,number_humans_alive,prob_mort)
+		number_humans_alive <- number_humans_alive - number_deads
+		M[i] <- number_deads/number_humans_alive
+	}
+
+	X_T <- alt_mort_c(alpha = alpha, sigma = sigma, years = years, a = a, K = K, nsim = nsim, A = A, M = M)
+
+	return(X_T)
+}
+
+cppi_mort_fasto <- function(pi,
+													 nsim,
+													 alpha = 0.0343,
+													 sigma = 0.1544,
+													 a = 10,
+													 years = 60,
+													 A = 0.5,
+													 starting_humans = 1e3,
+													 starting_age = 30){
+
+	library(Rcpp)
+	sourceCpp("cppi.cpp")
+
+	gamma <- -alpha/(A*sigma^2)+1 # Factor 'gamma'
+	c <- a # Factor 'c'
+
+	x <- c()
+	x[1] <- a # Initial wealth
+
+	C <- append(rep(a, round(years/2)),rep(-a, round(years/2)))
+	X_T <- c()
+	M <- c()
+
+	mort_table <- fread("mortality.csv")/1000
+
+	number_humans_alive <- starting_humans
+
+	for (i in 1:(years-1)){
+		prob_mort <- mort_table$total[i+starting_age-1]
+		number_deads <- rbinom(1,number_humans_alive,prob_mort)
+		number_humans_alive <- number_humans_alive - number_deads
+		M[i] <- number_deads/number_humans_alive
+	}
+
+	X_T <- cppi_mort_c(alpha = alpha, sigma = sigma, years = years, a = a, pi = pi, nsim = nsim, M = M)
+
+	return(X_T)
+}
+
+

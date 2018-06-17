@@ -10,6 +10,7 @@ A level-1 auxiliary file: ./contents/alternative.aux
 A level-1 auxiliary file: ./contents/comparison.aux
 A level-1 auxiliary file: ./contents/mortality.aux
 A level-1 auxiliary file: ./contents/tails.aux
+A level-1 auxiliary file: ./contents/results.aux
 Reallocated glb_str_ptr (elt_size=8) to 20 items from 10.
 Reallocated global_strs (elt_size=20001) to 20 items from 10.
 Reallocated glb_str_end (elt_size=8) to 20 items from 10.
@@ -31,42 +32,42 @@ Reallocated wiz_functions (elt_size=8) to 9000 items from 6000.
 Reallocated singl_function (elt_size=8) to 100 items from 50.
 You've used 13 entries,
             6268 wiz_defined-function locations,
-            1250 strings with 10448 characters,
-and the built_in function-call counts, 61812 in all, are:
-= -- 4319
+            1253 strings with 10514 characters,
+and the built_in function-call counts, 62300 in all, are:
+= -- 4364
 > -- 1072
 < -- 242
 + -- 1341
-- -- 352
-* -- 4238
-:= -- 6247
+- -- 354
+* -- 4304
+:= -- 6294
 add.period$ -- 0
 call.type$ -- 13
 change.case$ -- 122
 chr.to.int$ -- 30
 cite$ -- 24
-duplicate$ -- 6371
-empty$ -- 6133
+duplicate$ -- 6381
+empty$ -- 6190
 format.name$ -- 736
-if$ -- 12858
+if$ -- 12960
 int.to.chr$ -- 0
 int.to.str$ -- 27
 missing$ -- 0
-newline$ -- 323
+newline$ -- 328
 num.names$ -- 501
-pop$ -- 4199
+pop$ -- 4193
 preamble$ -- 1
 purify$ -- 185
 quote$ -- 0
 skip$ -- 1851
 stack$ -- 0
-substring$ -- 7523
-swap$ -- 1402
+substring$ -- 7660
+swap$ -- 1419
 text.length$ -- 244
 text.prefix$ -- 0
 top$ -- 1
 type$ -- 430
 warning$ -- 0
-while$ -- 716
+while$ -- 717
 width$ -- 0
-write$ -- 311
+write$ -- 316

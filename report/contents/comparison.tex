@@ -11,9 +11,9 @@ First of all we plot together the frequency histograms for the final wealth dist
     \label{fig:both_fw}
 \end{figure}
 
-Looking at Figure \ref{fig:both_fw} we may notice that they follow a considerably different distribution. We could say that the alternative model presents more dispersion, even though it is always a \textit{positive} deviation from the mean. 
+Looking at Figure \ref{fig:both_fw} we may notice that they follow a considerably different distribution. We could say that the alternative strategy presents more dispersion, even though it is always a \textit{positive} deviation from the mean.
 
-In section \ref{sec:risk} we have discussed a little bit some implications of the definition of risk. Affirm that the alternative model presents more risk, just because its result is more disperse, would may seem a little simplistic. 
+In section \ref{sec:risk} we have discussed a little bit some implications of the definition of risk. Affirm that the alternative strategy presents more risk, just because its result is more disperse, would may seem a little simplistic.
 
 On the other hand, we can take a look at those rare cases when the final wealth happens to be negative. These are the cases worth exploring, for it is the scenario every investor is afraid of: losing money. Zooming in into the negative zone, as shown in figure \ref{fig:loss_both}, we can focus in the difference between the two models. Even though we can see some spurious differences in some places, the most honest answer is that it is not clear whose result is less risky.
 
@@ -24,15 +24,21 @@ On the other hand, we can take a look at those rare cases when the final wealth 
     \label{fig:loss_both}
 \end{figure}
 
-In order to compare the degree of risk taken by every model, we make use of the \textit{Expected Shortfall}, as explained in section \ref{sec:risk}. If we set this parameter as the level of risk and we set it constant in both models, we can compare their returns. In~\cite{a:guillen-optimisation} it is shown that the Alternative model is able to set its Expected Shortfall (ES) by its $K$, using a closed formula.
+In order to compare the degree of risk taken by every model, we make use of the \textit{Expected Shortfall}, as explained in section \ref{sec:risk}. If we set this parameter as the level of risk and we set it constant in both models, we can compare their returns. In~\cite{a:guillen-optimisation} it is shown that the Alternative model is able to set its Expected Shortfall (ES) by its $K$, using this formula:
+
+\begin{align}
+	\frac{K}{ES} = \frac{1}{-1 + \qty(1 - \theta)^{-1} e^{\alpha A T}\Phi\qty(\Phi^{-1}\qty(1 - \theta) - A\sigma\sqrt{T})}
+\end{align}
+
+Where $\alpha$ is the expected return of the risky asset, $\sigma$ is the standard deviation of the risky asset, $\theta$ is the quantile on which the Expected Shortfall is measured, $A$ is the parameter that settles the risk aversion profile and $\Phi$ represents the standard Normal distribution function.
 
 Therefore, the approach is the following: We set a constant proportion $\pi$ for the CPPI model, we simulate it many times and measure the ES for the results. Then we find the $K$ in order to set the same ES on the Alternative model. This way we can simulate both models making sure they will assume the same risk, and thus we can freely compare their returns.
 
-Setting $\alpha = 0.343$, $\sigma = 0.1544$, $a = 10$, $T = 60$, $A = 0.5$ and number of simulations $N = 100,000$ we find the results shown in table \ref{tab:cppi_alt}, in which we can see the outperformance of the alternative model, for many different levels of risk.
+Setting $\alpha = 0.343$, $\sigma = 0.1544$, $a = 10$, $T = 60$, $A = 0.5$ and number of simulations $N = 100,000$ we find the results shown in Table \ref{tab:cppi_alt}, in which we can see the outperformance of the alternative strategy, for many different levels of risk.
 
 \begin{table}[H]
 \centering
-\caption{Results of $100,000$ simulations using different risk levels. These results match approximately those presented in \cite{a:guillen-optimisation}, on Table 1 at page 8. Any differences are attributable to the intrinsic randomness of simulations.}
+\caption{Results of $100,000$ simulations using different risk levels, with $\alpha = 0.343$, $\sigma = 0.1544$, $a = 10$, $T = 60$, $A = 0.5$ and therefore $ES/K = -3.3$. These results match approximately those presented in \cite{a:guillen-optimisation}, on Table 1 at page 8. Any differences are attributable to the intrinsic randomness of simulations.}
 \label{tab:cppi_alt}
 \begin{tabular}{ccccccc}
 \textbf{$\pi$} & \textbf{ES } & \textbf{$K$} & \textbf{CPPI ret} & \textbf{Alt ret} & \textbf{diff}  & \textbf{equiv $\pi$}\\
@@ -48,3 +54,20 @@ Setting $\alpha = 0.343$, $\sigma = 0.1544$, $a = 10$, $T = 60$, $A = 0.5$ and n
 1     & -205.09 & 667.57 & 2.58     & 4.27    & 1.70    & *
 \end{tabular}
 \end{table}
+
+The interesting conclusion that can be extracted from Table \ref{tab:cppi_alt} is the value of the last column. It states that the necessary value of $\pi$ that the CPPI should get in order to equal the return of the Alternative strategy, what we call the equivalent $\pi$. Thus, if the Expected Shortfall was settled by some $\pi$ and the required equivalent $\pi$ is greatar than that, we are saying that the CPPI should undertake in more risk in order to equal the return of the Alternative Scheme.
+
+This equivalent $\pi$ thus works as a succint metric to compare the performance of this two strategies, taking into account both return and risk. Hence, as long as the equivalent $pi$ is greater than the initial $\pi$, we can say that the Alternative Strategy is outperforming the CPPI. Which is clear for many values of initial $\pi$ and a fixed value for $A$.
+
+However, in Figure \ref{fig:pi-A_all-pis} we can show the iterated simulation of Table \ref{tab:cppi_alt}, for many different values of $\pi$ and many values of $A$. It is quite interesting to notice how this \emph{outperformance} occurs whilst the continuous line is above the dashed line. And their downhill tendency suggests that the Alternative Strategy is more worth ir for smaller values of $A$.
+
+Since the value of $A$ is interpreted as the risk aversion of the investor, we could argue that the riskier the inversor the less worth it the Alternative Scheme becomes, until a point (usually around $A = 1.5$) where the CPPI is outperforming the Alternative Strategy.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{./images/pi-A-all-pis.png}
+    \caption{Plot that shows the relation between equivalent $\pi$ and $A$, for many different initial $\pi$. From the results of $100,000$ simulations for each curve, with $\alpha = 0.343$, $\sigma = 0.1544$, $a = 10$, $T = 60$.}
+    \label{fig:pi-A_all-pis}
+\end{figure}
+

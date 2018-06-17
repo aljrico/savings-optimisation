@@ -2,13 +2,27 @@
 
 Now that the CPPI model is presented and its logic understood, we can move upon to alternatives. One of the main characteristics of the CPPI model is that it is defined thanks to a constant, invariant $\pi$ that settles the risk exposure of the investor. An interesting approach would not just change this parameter, but make it \emph{variable}.
 
-One interesting way to make the proportion of risky investments variable is to set a dependence on the accumulated wealth. In the work developed in \cite{a:guillen-optimisation} we can see the development of a quite straightforward formula to decide the value of $\pi$~\footnote{In \cite{a:donnelly-savings-decisions}'s work, the authors defined optimal savings strategies and analysed different updating periods for $\pi$.}. With this formula, the capital to be allocated in risky assets is defined as:
+Normally, the simplest approach to ensure that an investment has a defined and controlled risk profile is to set a $\pi$ constant proportion of the investment to be allocated in risky assets, as done in the CPPI. That proportion is defined by the risk aversion profile of the investor, but is invariable throughout the investment.
+
+However, the work of \cite{a:guillen-optimisation} showed that, given some investment plan ending at time $T$ with $X(T)$ final wealth, risk aversion profile defined by $\gamma$ and a maximum possible allowed loss $K$, we can set the utility function
 
 \begin{align}
-    X(t)\pi = A\qty(K + X(t) + g(t)) \textit{.}
+    u_\gamma = \frac{1}{\gamma}\qty(X(T) + K)^\gamma \emph{.}
 \end{align}
 
-Where $X(t)$ is the total wealth at time $t$, $A$ is a parameter that defines the risk aversion profile of the investor, $K$ is the maximum loss the investor is capable to handle and $g(t)$ is the sum of all remaining inputs or outputs of money: $g(t) = \sum_{i=t}^{T}a_i$.
+Whose expected value for any given present wealth $x = X(t)$ is defined as
+
+\begin{align}\label{eq:maxE}
+    \max_{\pi}\EX\giventhat{u_{X(T)}}{x} \emph{,}
+\end{align}
+
+which can be maximized by a strategy that invests a relative amount in risky assets variable at any time $t \in [0,T)$, whose solution is:
+
+\begin{align}
+    \pi(t)X(t) = A\qty(K + X(t) + g(t)) \textit{.}
+\end{align}
+
+Where $X(t)$ is the wealth at time $t$, $A$ is a parameter that defines the risk aversion profile of the investor, $K$ is the maximum loss the investor is capable to handle and $g(t)$ is the sum of all remaining inputs or outputs of money: $g(t) = \sum_{i=t}^{T}a_i$.~\footnote{In \cite{a:donnelly-savings-decisions}'s work, the authors defined optimal savings strategies and analysed different updating periods for $\pi$.}.
 
 \subsection*{Simulation}
 

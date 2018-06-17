@@ -1,19 +1,18 @@
-\section{Pooled Funds and Mortality}
+\section{Optimisation of Pooled Funds Investment Strategies}
 
 So far, we have managed to test two different strategies. We have analyzed their return and risk in a simulated scenario, within the context of a pension plan. In order to assess the risk of the strategies, so far we have been measuring the market risk of the inestment, by computing the \emph{Expected Shortfall}. However, in real-scenario pension plans, there are plenty of other risks that should be taken into consideration. One important risk, not rarely underestimated, is the so-called \textbf{Longevity Risk}. Longevity risk is the risk of retirees that will live longer than expected and will thus exhaust all their savings. This risk might doom some individuals to utter poverty or to burden relatives.
 
 Recently, two worldwide phenomena ought to be highlighted. The collapse in low-risk assets returns as government bonds or blue chip stocks. And the observed demographic transition~\textcite{b:demographic, a:bongaarts-human}, in which both birth rates and death rates are plumbing down; increasing the life expectancy of elder individuals. The combination of these two factors is leading to an increase in longevity risk that the pension plans providers are facing, rising pension premiums and stagnating disposable incomes by savers and pushing them to work longer years before retirement.
 
-As a response to this challenging, the work of~\cite{a:donnelly-transparency} and \cite{a:brautigam-pool} suggested a different approach to face longevity risk,  the concept of \textbf{Pooled Funds}. 
+As a response to this challenging, the work of~\cite{a:donnelly-transparency} and \cite{a:brautigam-pool} suggested a different approach to face longevity risk, the concept of \textbf{Pooled Funds}.
 
 Pooled Funds are funds formed by many different individual savers that aggregate their savings together. Alongside other advantages, pooled funds benefit from economies of scale, cheaper diversification and a more efficient management of longevity risk.
 
-In this section we will study the application of both CPPI and Alternative schemes that we have developed in previous sections under the framework of a pooled fund. 
+In this section we will study the application of both CPPI and Alternative schemes that we have developed in previous sections under the framework of a pooled fund.
 
+\subsection{Simulating the Pooled Fund}
 
-\subsection{Simulation}
-
-In order to simulate the pooled fund, we will construct a simple scenario where many investors of the same age start investing at the same time. We will take real death probabilities at each age, and we will simulate the death of some of the savers. 
+In order to simulate the pooled fund, we will construct a simple scenario where many investors of the same age start investing at the same time. We will take real death probabilities at each age, and we will simulate the death of some of the savers.
 
 When savers die, some proportion $w$ of their saved money stays in the pool, benefiting the survivors. The rest is extracted from the pool, to their family or inheritors. In order to simulate the probability of death for each individual, we took the empirical measures of death probability for every age from the Spanish Government. This way, we can assume that from a starting number of persons $n$ of the same age, and thus with the same death probability $p$, the number of persons that would die $X$ before the next year should follow a \emph{Binomial Distribution}. Thus the probability of $k$ deaths is:
 
@@ -27,11 +26,23 @@ Now we can now make use of the algorithm described in \cite{a:schmeiser-binomial
   M = \frac{k}{n}w \emph{.}
 \end{align}
 
+The point of constructing the Pooled Fund in such a way, is that we are not altering the core principles of the assumptions taken building the Alternative Model. The relative proportion $\pi$ of wealth to be allocated in risky assets remains untouched, we are just altering the $x = X(t)$ present in  Equation~\ref{eq:maxE}. Resulting in
+
+\begin{align}
+	\max_{\pi}\EX\giventhat{u_{X(T)}}{x(1 + M)} \emph{.}
+\end{align}
+
+And thus the wealth of the investor will behave as
+
+\begin{align}
+	dX = \alpha \pi(t)X(t)dt + \sigma \pi(t)X(t)dW(t) + dC(t) + dM(t)X(t) \textit{.}
+\end{align}
+
 In the following snippet we show the necessary R code to perform this simulation for both CPPI and Alternative schemes:
 
 \begin{lstlisting}[language = R]
 
-  ### CPPI ### 
+  ### CPPI ###
 
 	C <- append(rep(a, round(years/2)),rep(-a, round(years/2)))
 	mort_table <- fread("mortality.csv")/1000
@@ -53,9 +64,9 @@ In the following snippet we show the necessary R code to perform this simulation
 		}
 		X_T[j] <- x[years]
   }
-  
-  ### Alternative ### 
-  
+
+  ### Alternative ###
+
 	C <- append(rep(a, round(years/2)),rep(-a, round(years/2)))
 	mort_table <- fread("mortality.csv")/1000
 	X_T <- c()
@@ -77,3 +88,28 @@ In the following snippet we show the necessary R code to perform this simulation
 		X_T[j] <- x[years]
 	}
 \end{lstlisting}
+
+
+\subsection{Results}
+
+Now we are going to replicate the measures taken in the previous section but with the added conditioni of mortality and see whether or not the differences spotted between the CPPI and the Alternative strategies remain similar.
+
+\begin{table}[H]
+\centering
+\caption{Results of $100,000$ simulations of both CPPI and Alternative models in a Pooled Fund, using different risk levels, with $\alpha = 0.343$, $\sigma = 0.1544$, $a = 10$, $T = 60$, $A = 0.5$ and therefore $ES/K = -3.3$.}
+\label{tab:cppi_alt}
+\begin{tabular}{ccccccc}
+\textbf{$\pi$} & \textbf{ES } & \textbf{$K$} & \textbf{CPPI ret} & \textbf{Alt ret} & \textbf{diff}  & \textbf{equiv $\pi$}\\
+0.1  & -                & -                & -               & -                  & -                & -                   \\
+0.2  & -                & -                & -               & -                  & -                & -                   \\
+0.3  & -                & -                & -               & -                  & -                & -                   \\
+0.4  & 22.13   & -72.04 & 3.11 & -0.08 & -3.19 & 0 \\
+0.5  & -27.70 & 90.18  & 3.45 & 2.80    & -0.64 & 0             \\
+0.6  & -98.78 & 321.52  & 3.80 & 4.96  & 1.16  & 2.37                \\
+0.7  & -121.94 & 396.91  & 4.13 & 5.66  & 1.52 & 1.28              \\
+0.8  & -143.56 & 467.30  & 4.74  & 6.03   & 1.29  & 3.01                   \\
+0.9  & -168.69 & 549.08  & 4.78  & 6.48   & 1.70 & *                    \\
+1 & -248.76 & 809.72  & 5.24  & 7.82  & 2.57 & *
+\end{tabular}
+\end{table}
+

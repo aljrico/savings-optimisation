@@ -93,6 +93,22 @@ Now, we could try to add here the Complementary Cumulative Distribution Function
 
 Clearly, we can see how badly it fits for larger numbers. This indicates that our distribution is not following a GPD. Nevertheless, we can still find a proper $u$ for which it would.
 
+A usual method in order to seek that $u$ threshold is to consecutively tryng increasing numbers until one fits the distribution properly. We know that for that value on, the distribution will follow a GPD.
+
+In this example, the first value that we find satisfies this is $u = 42.59$. And the result can be visualized in the following plot:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{images/cppi-ccdf-autothresh.png}
+    \caption{Exploratory empirical residual coefficient of variation of losses of the CPPI strategy in a logarithmic scale. Using $\pi = 0.1$, $\alpha = 0.0343$, $\sigma = 0.1544$ and $1000000$ simulations.}
+    \label{fig:ololol}
+\end{figure}
+
+The Extreme Value Index (EVI) obtained in this example is $\xi = 0.14$.
+
+
+
+
 
 
 

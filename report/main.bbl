@@ -44,7 +44,7 @@
          giveni={R\bibinitperiod},
       }}%
       {{hash=GM}{%
-         family={Guillén},
+         family={Guill{\'{e}}n},
          familyi={G\bibinitperiod},
          given={Montserrat},
          giveni={M\bibinitperiod},
@@ -56,7 +56,7 @@
          giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod},
       }}%
       {{hash=PMAM}{%
-         family={Pérez-Marín},
+         family={P{\'{e}}rez-Mar{\'{i}}n},
          familyi={P\bibinitperiod-M\bibinitperiod},
          given={Ana\bibnamedelima M.},
          giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod},
@@ -66,8 +66,13 @@
     \strng{fullhash}{GRGMNJPPMAM1}
     \field{labelnamesource}{author}
     \field{labeltitlesource}{title}
-    \field{title}{{Long-run Savings and Investment Strategy Optimization}}
-    \field{journaltitle}{Hindawi Publishing Corporation}
+    \verb{doi}
+    \verb 10.1155/2014/510531
+    \endverb
+    \field{issn}{1537744X}
+    \field{title}{{Long-run savings and investment strategy optimization}}
+    \field{volume}{2014}
+    \field{journaltitle}{The Scientific World Journal}
     \field{year}{2014}
   \endentry
 

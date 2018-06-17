@@ -20,10 +20,12 @@ alpha <- 0.0343 # Expected return of the risky market
 sigma <- 0.1544 # Expected volatility of the risky market
 a <- 10 # Factor 'a'
 years <- 60 # Total time
-nsim <- 1e7 # Number of simulations
-pi <- 0.1 # Constant proportion for risky investment
+nsim <- 1e6 # Number of simulations
+pi <- 0.5 # Constant proportion for risky investment
 K <- 42
 A <- 0.5
+
+factor <- factor_kes(A = A)
 
 # CPPI simple --------------------------------------------------------------------
 X_T <- cppi_c(pi = pi,
@@ -59,11 +61,12 @@ X_T <- cppi_mortality(pi = pi,
 						alpha = alpha,
 						sigma = sigma,
 						a = a,
-						years = years)[-c(1,2)]
+						years = years)
 df <- as_tibble(as.data.frame(X_T))
 df$model <- "cppi-mort"
-df$ret <- (1/60)*(-1 + (1 + (8*(X_T))/(a*60))^(1/2))*100
+df$ret <- X_T %>% compute_return()
 final_wealth <- rbind(final_wealth,df)
+K <- ES(X_T)*factor
 
 # Alternative | Mortality ------------------------------------------------------
 X_T <- alt_mort(K = K,
@@ -172,8 +175,8 @@ final_wealth %>%
 	xlab("Final Wealth") +
 	ylab("") +
 	scale_fill_viridis(discrete=TRUE, begin = 1) +
-	theme(legend.position = "NONE") +
-	scale_x_continuous(limits = c(-100,450))
+	theme(legend.position = "NONE")
+	# scale_x_continuous(limits = c(-100,450))
 
 #FW Alternatie-mort
 final_wealth %>%
@@ -188,8 +191,8 @@ final_wealth %>%
 	xlab("Final Wealth") +
 	ylab("") +
 	scale_fill_viridis(discrete=TRUE, begin = 0) +
-	theme(legend.position = "NONE") +
-	scale_x_continuous(limits = c(-100,450))
+	theme(legend.position = "NONE")
+	# scale_x_continuous(limits = c(-100,450))
 
 
 #FW Both
@@ -202,38 +205,21 @@ final_wealth %>%
 	theme_bw() +
 	xlab("Final Wealth") +
 	ylab("") +
-	scale_fill_viridis(discrete=TRUE) +
-	theme(legend.position = "NONE") +
-	scale_x_continuous(limits = c(-100,500))
+	scale_fill_viridis(discrete=TRUE)+
+	theme(legend.position = "NONE")
+	# scale_x_continuous(limits = c(-100,500))
 
 # Loss Both
 final_wealth %>%
 	filter(model %in% c("cppi-mort","alt-mort")) %>%
 	filter(X_T <=0) %>%
 	ggplot() +
-	geom_density(aes(x=X_T, fill = model), alpha = 0.75, position="identity", show.legend = FALSE) +
+	geom_density(aes(x=X_T, fill = model), alpha = 0.75, position="identity") +
 	xlab("Final Wealth") +
 	ylab("Density") +
 	theme_bw() +
-	scale_fill_viridis(discrete=TRUE) +
-	scale_x_continuous(limits = c(-40,0))
-
-
-
-
-# Histogram
-final_wealth %>%
-	filter(model %in% c("cppi-simple", "alt-simple")) %>%
-	filter(X_T <=10) %>%
-	mutate(X_T = -X_T + 10) %>%
-	ggplot() +
-	geom_histogram(aes(x = X_T, fill = model, y = (..count../sum(..count..))),
-								 bins=200,
-								 alpha = 0.75,
-								 position = "identity") +
-	theme_minimal() +
-	scale_fill_viridis(discrete=TRUE)
-
+	scale_fill_viridis(discrete=TRUE)+
+	theme(legend.position = "NONE")
 
 
 # Tails -------------------------------------------------------------------

@@ -17,7 +17,7 @@ alpha <- 0.0343 # Expected return of the risky market
 sigma <- 0.1544 # Expected volatility of the risky market
 a <- 10 # Factor 'a'
 years <- 60 # Total time
-nsim <- 1e6 # Number of simulations
+nsim <- 1e7 # Number of simulations
 pi <- 0.1 # Constant proportion for risky investment
 K <- 42
 A <- 0.5
@@ -36,7 +36,7 @@ all_data <- generate_all_data(alpha = alpha,
 # GPD ---------------------------------------------------------------------
 
 data <- all_data %>%
-	filter(model == "alt-simple")
+	filter(model == "cppi-simple")
 # We first try to guess some threshold in order to define the tail.
 threshold <- 0
 u <- threshold

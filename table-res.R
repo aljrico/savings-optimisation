@@ -8,6 +8,7 @@
 library(ggplot2)
 library(dplyr)
 source("functions.R")
+sourceCpp("cppi.cpp")
 source("estimate_equiv-pi.R")
 library(data.table)
 
@@ -29,8 +30,8 @@ es <- c()
 cppi_ret <- c()
 montses_ret <- c()
 pis <- c()
-mortality <- FALSE
-nsim <- 1e4
+mortality <- TRUE
+nsim <- 1e5
 set.seed(666)
 
 if(mortality == TRUE ){
@@ -41,24 +42,23 @@ if(mortality == TRUE ){
 		print(i)
 		pi <- 0.1*i
 		pis[i] <- pi
-		cppi_res<-  cppi_mortality(pi = pi,
+		cppi_res<-  cppi_mort_fasto(pi = pi,
 															 nsim = nsim,
 															 alpha = alpha,
 															 sigma = sigma,
 															 a = a,
 															 years = years)
-		es[i] <- cppi_res[1]
+		es[i] <- cppi_res %>% ES()
 		K[i] <- es[i]*factor
-		cppi_ret[i] <- cppi_res[2]
-		#K[K <0] <- 0
-		# K[i] <- -K[i]
-		montses_res <- alt_mort(K = K[i],
+		cppi_ret[i] <- cppi_res %>% compute_return()
+
+		montses_res <- alt_mort_fasto(K = K[i],
 														nsim = nsim,
 														alpha = alpha,
 														sigma = sigma,
 														a = a,
 														years = years)
-		montses_ret[i] <- montses_res[2]
+		montses_ret[i] <- montses_res %>% na.omit() %>% compute_return()
 		pi_b[i] <- equiv_pi(ret = montses_ret[i], mortality = mortality)
 	}
 
@@ -72,23 +72,23 @@ if(mortality != TRUE){
 		print(i)
 		pi <- 0.1*i
 		pis[i] <- pi
-		cppi_res<- cppi(pi = pi,
+		cppi_res<- cppi_c(pi = pi,
 										nsim = nsim,
 										alpha = alpha,
 										sigma = sigma,
 										a = a,
 										years = years)
-		es[i] <- cppi_res[1]
+		es[i] <- cppi_res %>% ES()
 		K[i] <- es[i]*factor
-		cppi_ret[i] <- cppi_res[2]
-		montses_res <- montses(K = K[i],
+		cppi_ret[i] <- cppi_res %>% compute_return()
+		montses_res <- alt_c(K = K[i],
 													 nsim = nsim,
 													 alpha = alpha,
 													 sigma = sigma,
 													 a = a,
 													 years = years,
 													 A = A)
-		montses_ret[i] <- montses_res[2]
+		montses_ret[i] <- montses_res %>% compute_return()
 		pi_b[i] <- equiv_pi(ret = montses_ret[i], mortality = mortality)
 	}
 

@@ -1,0 +1,5 @@
+PWD /home/aljrico/Code/R/savings-optimisation/report/contents
+INPUT /usr/share/texmf-dist/web2c/texmf.cnf
+INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
+INPUT abstract.tex
+OUTPUT abstract.log

@@ -22,20 +22,22 @@ pi <- 0.1 # Constant proportion for risky investment
 K <- 42
 A <- 0.5
 
-thresh <- c()
-pvalue <- c()
-pi_record <- c()
-model <- c()
-es <- c()
-evi <- c()
-final_data <- tibble()
+thresh <- c(NA)
+pvalue <- c(NA)
+pi <- c(NA)
+model <- c(NA)
+es <- c(NA)
+evi <- c(NA)
 
-for(k in c("cppi-simple","alt-simple")){
-	pi_start <- 0.01
-	for(i in 1:100){
-		pi <- pi_start*i
-		pi_record[i] <- pi
-		all_data <- generate_all_data(alpha = alpha,
+df <- data.table(thresh, pvalue, pi, model, es, evi)
+final_data <- data.table()
+
+pi_start <- 0.01
+
+for(r in 1:3){
+for(i in 1:100){
+	pi <- pi_start*i
+	all_data <- generate_all_data(alpha = alpha,
 															sigma = sigma,
 															a = a,
 															years = years,
@@ -44,13 +46,13 @@ for(k in c("cppi-simple","alt-simple")){
 															K = K,
 															A = A,
 															include.mortality = FALSE)
-		# GPD ---------------------------------------------------------------------
 
+	for(k in c("cppi-simple","alt-simple")){
+		# GPD ---------------------------------------------------------------------
 		data <- all_data %>%
 			filter(model == k) %>%
 			na.omit()
 
-		es[i] <- ES(data$X_T)
 		# We first try to guess some threshold in order to define the tail.
 		threshold <- 0
 		u <- threshold
@@ -64,30 +66,68 @@ for(k in c("cppi-simple","alt-simple")){
 
 		# Auto threshold
 		auto.thresh <- thrselect(y)
-		thresh[i] <- auto.thresh$solution[["threshold"]]
-		pvalue[i] <- auto.thresh$solution[["pvalue"]]
-		evi[i] <- auto.thresh$solution[["evi"]]
+
+		df$es <- ES(data$X_T)
+		df$thresh <- auto.thresh$solution[["threshold"]]
+		df$pvalue <- auto.thresh$solution[["pvalue"]]
+		df$evi <- auto.thresh$solution[["evi"]]
+		df$model <- k
+		df$pi <- pi
+
+		final_data <- rbind(final_data,df)
 	}
-	df <- cbind(thresh, pvalue, pi_record, evi, es) %>% as_tibble()
-	df$model <- k
-	final_data <- rbind(final_data,df)
+}
 }
 
+# Threshold | Pi
 final_data %>%
 	filter(pvalue >0.05) %>%
 	as_tibble() %>%
 	ggplot() +
-	geom_point(aes(y = thresh, x = pi_record, colour = model)) +
+	geom_jitter(aes(y = thresh, x = pi, colour = model)) +
 	theme_minimal() +
 	xlab("Pi") +
 	ylab("Threshold")
 
+
+# EVi | Pi
 final_data %>%
 	filter(pvalue >0.05) %>%
 	as_tibble() %>%
 	ggplot() +
-	geom_point(aes(y = evi, x = pi_record, colour = model)) +
+	geom_jitter(aes(y = evi, x = pi, colour = model)) +
 	theme_minimal() +
 	xlab("Pi") +
 	ylab("EVI")
+
+# EVI | ES
+final_data %>%
+	filter(pvalue >0.05) %>%
+	as_tibble() %>%
+	ggplot() +
+	geom_jitter(aes(y = evi, x = es, colour = model)) +
+	theme_minimal() +
+	xlab("Expected Shortfall") +
+	ylab("EVI")
+
+
+# ES | ES
+cppi_es <- final_data %>%
+	filter(model == "cppi-simple") %>%
+	dplyr::select(es) %>%
+	c()
+
+alt_es <- final_data %>%
+	filter(model == "alt-simple") %>%
+	dplyr::select(es) %>%
+	c()
+
+cbind(cppi = -cppi_es$es, alt= -alt_es$es) %>%
+	as_tibble() %>%
+	ggplot() +
+	geom_jitter(aes(x = cppi, y = alt)) +
+	theme_minimal() +
+	xlab("CPPI (ES)") +
+	ylab("Alternative (ES)")
+
 

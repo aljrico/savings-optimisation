@@ -125,6 +125,16 @@
 
 \newcommand*\acr[1]{\textscale{.85}{#1}}
 
+% Conditional Probability
+\makeatletter
+\newcommand{\@giventhatstar}[2]{\left(#1\;\middle|\;#2\right)}
+\newcommand{\@giventhatnostar}[3][]{#1(#2\;#1|\;#3#1)}
+\newcommand{\giventhat}{\@ifstar\@giventhatstar\@giventhatnostar}
+\makeatother
+
+% Expected Value
+\DeclareMathOperator{\EX}{\mathbb{E}}% expected value
+
 
 %-----------------------------------------------------------------
 %   CODE
@@ -450,7 +460,7 @@
 	\emph{Omar Little}
 \end{mydedication}
 
-% --------------------------------------------------------- 
+% ---------------------------------------------------------
 %   QUOTES
 %----------------------------------------------------------
 
@@ -472,6 +482,7 @@
 \include{./contents/comparison}
 \include{./contents/mortality}
 \include{./contents/tails}
+\include{./contents/results}
 % \begin{appendices}
 % \include{./contents/A-code}
 % \end{appendices}

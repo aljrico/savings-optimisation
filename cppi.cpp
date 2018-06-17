@@ -125,6 +125,63 @@ NumericVector alt_c(float alpha, float sigma, float a, int years, int nsim, floa
 	return final_wealth;
 }
 
+// [[Rcpp::export]]
+NumericVector alt_mort_c(float alpha, float sigma, float a, int years, int nsim, float K, float A_factor, NumericVector M){
+
+	NumericVector final_wealth(nsim);
+	int i,j,time;
+	float x_next,x_curr,rndm;
+	NumericVector f(years);
+	float pi;
+
+	for(i=0; i<years/2; i++){f[i] = a;}
+	for(i=years/2; i<years; i++){f[i] = -a;}
+
+	for(j=0;j<nsim;j++)
+	{
+		x_curr=a;
+
+		for(i=0;i<years-1;i++)
+		{
+			rndm = normal(alpha,sigma);
+			time = i;
+			pi = fpi(A_factor, K, x_curr, f, time, years)/x_curr;
+			x_next = x_curr * (1 + rndm + M[i]) * pi + (1-pi) * x_curr + f[i+1];
+			x_curr = x_next;
+		}
+
+		final_wealth[j] = x_next;
+	}
+	return final_wealth;
+}
+
+// [[Rcpp::export]]
+NumericVector cppi_mort_c(int nsim, float alpha, float sigma, float a, int years, float pi, NumericVector M){
+
+	NumericVector final_wealth(nsim);
+	int i,j;
+	float x_next,x_curr,rndm;
+	NumericVector f(years);
+
+	for(i=0; i<years/2; i++){f[i] = a;}
+	for(i=years/2; i<years; i++){f[i] = -a;}
+
+	for(j=0;j<nsim;j++)
+	{
+		x_curr=a;
+
+		for(i=0;i<years-1;i++)
+		{
+			rndm = normal(alpha,sigma);
+			x_next = x_curr * (1 + rndm + M[i]) * pi + (1-pi) * x_curr + f[i+1];
+			x_curr = x_next;
+		}
+
+		final_wealth[j] = x_next;
+	}
+	return final_wealth;
+}
+
 // Sort vector
 // [[Rcpp::export]]
 NumericVector sort_c(NumericVector vec)

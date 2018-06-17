@@ -1,15 +1,17 @@
 \BOOKMARK [1][-]{section*.1}{Abstract}{}% 1
 \BOOKMARK [1][-]{toc.1}{Contents}{}% 2
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 3
-\BOOKMARK [1][-]{section.2}{On Risk measures}{}% 4
-\BOOKMARK [1][-]{section.3}{Testing different Strategies}{}% 5
+\BOOKMARK [1][-]{section.2}{Background On Risk Measures}{}% 4
+\BOOKMARK [1][-]{section.3}{Optimisation of Investment Strategies}{}% 5
 \BOOKMARK [2][-]{subsection.3.1}{CPPI Scheme}{section.3}% 6
 \BOOKMARK [2][-]{subsection.3.2}{Alternative Scheme}{section.3}% 7
 \BOOKMARK [2][-]{subsection.3.3}{Comparison}{section.3}% 8
-\BOOKMARK [1][-]{section.4}{Pooled Funds and Mortality}{}% 9
-\BOOKMARK [2][-]{subsection.4.1}{Simulation}{section.4}% 10
-\BOOKMARK [1][-]{section.5}{Tails Analysis}{}% 11
-\BOOKMARK [2][-]{subsection.5.1}{Definition of Tail}{section.5}% 12
-\BOOKMARK [2][-]{subsection.5.2}{Extreme Value Analysis: Fitting a General Pareto Distribution}{section.5}% 13
-\BOOKMARK [2][-]{subsection.5.3}{Convergence of the Expected Shortfall}{section.5}% 14
-\BOOKMARK [1][-]{section*.6}{References}{}% 15
+\BOOKMARK [1][-]{section.4}{Optimisation of Pooled Funds Investment Strategies}{}% 9
+\BOOKMARK [2][-]{subsection.4.1}{Simulating the Pooled Fund}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.2}{Results}{section.4}% 11
+\BOOKMARK [1][-]{section.5}{Tails Analysis}{}% 12
+\BOOKMARK [2][-]{subsection.5.1}{Definition of Tail}{section.5}% 13
+\BOOKMARK [2][-]{subsection.5.2}{Extreme Value Analysis: Fitting a General Pareto Distribution}{section.5}% 14
+\BOOKMARK [2][-]{subsection.5.3}{Convergence of the Expected Shortfall}{section.5}% 15
+\BOOKMARK [1][-]{section.6}{Results}{}% 16
+\BOOKMARK [1][-]{section*.6}{References}{}% 17

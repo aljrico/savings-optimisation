@@ -1,8 +1,8 @@
-\section{On Risk measures} \label{sec:risk}
+\section{Background On Risk Measures} \label{sec:risk}
 
-When simulating a savings scheme, the first assumption is regarding risk. It is usual to make a stark distinction between risky and risk-free investments. 
+When simulating a savings scheme, the first assumption is regarding risk. It is usual to make a stark distinction between risky and risk-free investments.
 
-But what do we mean by \textit{risk}? We define risk as the uncertainty of the outcome of a given investment. So if we save some money at a $0.1 \%$ bank deposit, we can fairly assume that this investment is risk-free, because we know how much money we will receive at the end. A different scenario could be to invest this money in some market-dependent asset with $1 \%$ expected return but no guarantee of that return. 
+But what do we mean by \textit{risk}? We define risk as the uncertainty of the outcome of a given investment. So if we save some money at a $0.1 \%$ bank deposit, we can fairly assume that this investment is risk-free, because we know how much money we will receive at the end. A different scenario could be to invest this money in some market-dependent asset with $1 \%$ expected return but no guarantee of that return.
 
 But how do we reckon that degree of uncertainty? In stock markets is usual to assume that the price of stocks behaviour is a brownian motion (see~\cite{b:cootner-random, a:samuelson-speculative}), and as such we can define their movement by \textit{trend} and \textit{dispersion} parameters. Since the return obtained by investing in stock assets comes from the relative difference in price between purchase and selling, it is easy to deduce that if we assume that the price follows a geometric brownian motion with trend $\mu$ and dispersion $\sigma$, the expected return of our investment would be $\mu$ with standard deviation $\sigma$. Thanks to this mathematical scheme, we can numerically define the expected return and some degree of uncertainty on it that we will henceforth use as our starting theoretical point. So, the returns at time $t$ are defined as:
 

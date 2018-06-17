@@ -14,7 +14,7 @@ alpha <- 0.0343 # Expected return of the risky market
 sigma <- 0.1544 # Expected volatility of the risky market
 A <- 2
 init_A <- 0.1
-nsim <- 1e5
+nsim <- 1e3
 theta <- 0.95
 years <- 60
 m <- 1e2
@@ -43,7 +43,6 @@ m_inpi <- c()
 df_total <- tibble()
 
 error_count <- 0
-
 for(pi in pis){
 	es <- cppi_c(alpha = alpha, sigma = sigma, years = years, pi = pi, a=a, nsim = nsim) %>%
 		ES()
@@ -62,7 +61,7 @@ for(pi in pis){
 			compute_return(c = a, years = years); error_count <- error_count + 1}
 
 
-		cat(paste0("...",i/max_A*100, "()% ... \n"))
+		cat(paste0("...",i/max_A*100, "% ... \n"))
 		pi_b[i] <- equiv_pi(ret = ret, m=m)
 		all_rets[i] <- ret
 	}
@@ -75,17 +74,19 @@ for(pi in pis){
 
 	df_wm <- cbind(pi = wm_pi, mort = wm_mort, A = wm_A, ret = wm_ret, in_pi = wm_inpi)
 
+	cat(paste0("... ... ...",pi/length(pis)*100, "% ... ... ...\n"))
+
 	# With Mortality ----------------------------------------------------------
 	if(with_mortality){
 		pi_b <- c()
-		es <- cppi_mortality(pi = pi, nsim =nsim)[[1]]
+		es <- cppi_mortality(pi = pi, nsim =nsim) %>% ES()
 
 		for(i in 1:max_A){
 			A <- init_A*i
 			factor <- 1/(-1 + (1/(1 - theta))*exp(alpha*A*years)*pnorm(qnorm(1-theta)- A*sigma*sqrt(years)))
 			K <- es*factor
 
-			ret <- alt_mort(K = K, nsim = nsim, A = A)[[2]]
+			ret <- alt_mort(K = K, nsim = nsim, A = A) %>% compute_return()
 			if(!is.na(ret)){
 				all_rets[i] <- ret
 				pi_b[i] <- equiv_pi(ret = ret, m=m)
@@ -121,14 +122,16 @@ df_total %>%
 	ggplot(aes(colour = as.factor(in_pi))) +
 	geom_line(aes(y = pi_b, x = A), size=1) +
 	geom_point(aes(y = pi_b, x = A), size = 1.25) +
-	# geom_line(aes(y = in_pi, x = A), size = 0.75, linetype = "dashed")+
+	geom_line(aes(y = in_pi, x = A), size = 0.85, linetype = "dashed")+
 	# facet_grid(.~ mort) +
 	theme_minimal() +
-	scale_colour_viridis(discrete=TRUE, end =0.75, begin = 0.1) +
+	scale_colour_viridis(discrete=TRUE, end =1, begin = 0, option = "D") +
 	# scale_colour_brewer(palette = "Set1") +
 	xlab("A") +
 	ylab(expression(pi)) +
-	labs(colour = "Actual Pi of the \nBenchmark")
+	labs(colour = "Actual Pi of the \nBenchmark") +
+	scale_y_continuous(limits = c(0,1)) +
+	scale_x_continuous(limits = c(0,2))
 
 
 # Comparing Mortality
@@ -144,4 +147,19 @@ df_total %>%
 	ylab(expression(pi)) +
 	labs(colour = "Mortality")
 
+
+# Comparing Pi
+df_total %>%
+	filter(mort == TRUE) %>%
+	ggplot(aes(colour = as.factor(in_pi))) +
+	geom_line(aes(y = pi_b, x = A), size=1) +
+	geom_point(aes(y = pi_b, x = A), size = 1.25) +
+	geom_line(aes(y = in_pi, x = A), size = 0.85, linetype = "dashed")+
+	# facet_grid(.~ mort) +
+	theme_minimal() +
+	scale_colour_viridis(discrete=TRUE, end =1, begin = 0, option = "D") +
+	# scale_colour_brewer(palette = "Set1") +
+	xlab("A") +
+	ylab(expression(pi)) +
+	labs(colour = "Actual Pi of the \nBenchmark")
 
