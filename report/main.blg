@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2017/Arch Linux)
+This is BibTeX, Version 0.99d (TeX Live 2018/Arch Linux)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: main.aux
 The style file: biblatex.bst
@@ -10,7 +10,10 @@ A level-1 auxiliary file: ./contents/alternative.aux
 A level-1 auxiliary file: ./contents/comparison.aux
 A level-1 auxiliary file: ./contents/mortality.aux
 A level-1 auxiliary file: ./contents/tails.aux
-A level-1 auxiliary file: ./contents/results.aux
+A level-1 auxiliary file: ./contents/conclusions.aux
+A level-1 auxiliary file: ./contents/cppi_simple-code.aux
+A level-1 auxiliary file: ./contents/alt_simple-code.aux
+A level-1 auxiliary file: ./contents/mort-code.aux
 Reallocated glb_str_ptr (elt_size=8) to 20 items from 10.
 Reallocated global_strs (elt_size=20001) to 20 items from 10.
 Reallocated glb_str_end (elt_size=8) to 20 items from 10.
@@ -30,44 +33,44 @@ Database file #2: bibliography.bib
 Biblatex version: 3.8
 Reallocated wiz_functions (elt_size=8) to 9000 items from 6000.
 Reallocated singl_function (elt_size=8) to 100 items from 50.
-You've used 13 entries,
+You've used 17 entries,
             6268 wiz_defined-function locations,
-            1253 strings with 10514 characters,
-and the built_in function-call counts, 62300 in all, are:
-= -- 4364
-> -- 1072
-< -- 242
-+ -- 1341
-- -- 354
-* -- 4304
-:= -- 6294
+            1276 strings with 11314 characters,
+and the built_in function-call counts, 81213 in all, are:
+= -- 5651
+> -- 1355
+< -- 298
++ -- 1867
+- -- 462
+* -- 5555
+:= -- 8270
 add.period$ -- 0
-call.type$ -- 13
-change.case$ -- 122
+call.type$ -- 17
+change.case$ -- 145
 chr.to.int$ -- 30
-cite$ -- 24
-duplicate$ -- 6381
-empty$ -- 6190
-format.name$ -- 736
-if$ -- 12960
+cite$ -- 32
+duplicate$ -- 8708
+empty$ -- 8027
+format.name$ -- 971
+if$ -- 16729
 int.to.chr$ -- 0
-int.to.str$ -- 27
+int.to.str$ -- 35
 missing$ -- 0
-newline$ -- 328
-num.names$ -- 501
-pop$ -- 4193
+newline$ -- 442
+num.names$ -- 618
+pop$ -- 5618
 preamble$ -- 1
-purify$ -- 185
+purify$ -- 233
 quote$ -- 0
-skip$ -- 1851
+skip$ -- 2337
 stack$ -- 0
-substring$ -- 7660
-swap$ -- 1419
-text.length$ -- 244
+substring$ -- 9643
+swap$ -- 1883
+text.length$ -- 311
 text.prefix$ -- 0
 top$ -- 1
-type$ -- 430
+type$ -- 566
 warning$ -- 0
-while$ -- 717
+while$ -- 982
 width$ -- 0
-write$ -- 316
+write$ -- 426

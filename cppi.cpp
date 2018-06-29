@@ -146,7 +146,7 @@ NumericVector alt_mort_c(float alpha, float sigma, float a, int years, int nsim,
 			rndm = normal(alpha,sigma);
 			time = i;
 			pi = fpi(A_factor, K, x_curr, f, time, years)/x_curr;
-			x_next = x_curr * (1 + rndm + M[i]) * pi + (1-pi) * x_curr + f[i+1];
+			x_next = x_curr * (1 + rndm) * pi + (1-pi) * x_curr + f[i+1] + x_curr*M[i];
 			x_curr = x_next;
 		}
 
@@ -173,7 +173,7 @@ NumericVector cppi_mort_c(int nsim, float alpha, float sigma, float a, int years
 		for(i=0;i<years-1;i++)
 		{
 			rndm = normal(alpha,sigma);
-			x_next = x_curr * (1 + rndm + M[i]) * pi + (1-pi) * x_curr + f[i+1];
+			x_next = x_curr * (1 + rndm) * pi + (1-pi) * x_curr + f[i+1] + x_curr*M[i];
 			x_curr = x_next;
 		}
 

@@ -3,30 +3,25 @@
 
 source("functions.R")
 source("estimate_equiv-pi.R")
-library(data.table)
-library(tidyverse)
-library(viridis)
-library(Rcpp)
-sourceCpp("cppi.cpp")
+
 
 
 alpha <- 0.0343 # Expected return of the risky market
 sigma <- 0.1544 # Expected volatility of the risky market
 A <- 2
 init_A <- 0.1
-nsim <- 1e3
+nsim <- 3e5
 theta <- 0.95
 years <- 60
 m <- 1e2
-max_A <- 25
+max_A <- 20
 a <- 10
 with_mortality <- FALSE
 
 pi_b <- c()
 all_rets <- c()
 
-
-pis <- c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1)
+pis <- c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9)
 
 wm_pi <- c()
 wm_mort <- c()
@@ -43,12 +38,14 @@ m_inpi <- c()
 df_total <- tibble()
 
 error_count <- 0
+pb <- progress_bar$new(total = length(pis)*max_A)
 for(pi in pis){
 	es <- cppi_c(alpha = alpha, sigma = sigma, years = years, pi = pi, a=a, nsim = nsim) %>%
 		ES()
 
 	# Without Mortality -------------------------------------------------------
 	for(i in 1:max_A){
+		pb$tick()
 		A <- init_A*i
 		factor <- 1/(-1 + (1/(1 - theta))*exp(alpha*A*years)*pnorm(qnorm(1-theta)- A*sigma*sqrt(years)))
 		K <- es*factor
@@ -59,9 +56,6 @@ for(pi in pis){
 		# In order to avoid random errors, just repeat it one more time.
 		if(is.na(ret)){	ret <- alt_c(alpha = alpha, sigma = sigma, years = years, a = a, K = K, nsim = nsim, A = A) %>%
 			compute_return(c = a, years = years); error_count <- error_count + 1}
-
-
-		cat(paste0("...",i/max_A*100, "% ... \n"))
 		pi_b[i] <- equiv_pi(ret = ret, m=m)
 		all_rets[i] <- ret
 	}
@@ -74,41 +68,7 @@ for(pi in pis){
 
 	df_wm <- cbind(pi = wm_pi, mort = wm_mort, A = wm_A, ret = wm_ret, in_pi = wm_inpi)
 
-	cat(paste0("... ... ...",pi/length(pis)*100, "% ... ... ...\n"))
-
-	# With Mortality ----------------------------------------------------------
-	if(with_mortality){
-		pi_b <- c()
-		es <- cppi_mortality(pi = pi, nsim =nsim) %>% ES()
-
-		for(i in 1:max_A){
-			A <- init_A*i
-			factor <- 1/(-1 + (1/(1 - theta))*exp(alpha*A*years)*pnorm(qnorm(1-theta)- A*sigma*sqrt(years)))
-			K <- es*factor
-
-			ret <- alt_mort(K = K, nsim = nsim, A = A) %>% compute_return()
-			if(!is.na(ret)){
-				all_rets[i] <- ret
-				pi_b[i] <- equiv_pi(ret = ret, m=m)
-			}else{
-				pi_b[i] <- 0
-				all_rets[i] <- 0
-			}
-			cat(paste0("...",i/max_A*100, "% ... \n"))
-		}
-
-		m_pi <- as_tibble(data.frame(pi_b))
-		m_mort <- TRUE
-		m_A <- (1:max_A)/10
-		m_ret <- all_rets
-		m_inpi <- pi
-
-		df_m <- cbind(pi = m_pi, mort = m_mort, A = m_A, ret = m_ret, in_pi = m_inpi)
-
-
-
-		df_total <- df_total %>% rbind(df_wm, df_m)
-	}else{df_total <- rbind(df_wm, df_total)}
+	df_total <- df_wm
 }
 
 
@@ -124,7 +84,7 @@ df_total %>%
 	geom_point(aes(y = pi_b, x = A), size = 1.25) +
 	geom_line(aes(y = in_pi, x = A), size = 0.85, linetype = "dashed")+
 	# facet_grid(.~ mort) +
-	theme_minimal() +
+	theme_bw() +
 	scale_colour_viridis(discrete=TRUE, end =1, begin = 0, option = "D") +
 	# scale_colour_brewer(palette = "Set1") +
 	xlab("A") +
@@ -133,33 +93,4 @@ df_total %>%
 	scale_y_continuous(limits = c(0,1)) +
 	scale_x_continuous(limits = c(0,2))
 
-
-# Comparing Mortality
-df_total %>%
-	filter(in_pi == 0.4) %>%
-	ggplot(aes(colour = mort)) +
-	geom_line(aes(y = pi_b, x = A), size=1.3) +
-	geom_point(aes(y = pi_b, x = A), size = 2) +
-	# geom_line(aes(y = ret, x = A), size = 1)+
-	theme_minimal() +
-	scale_colour_viridis(discrete=TRUE, end =0.75) +
-	xlab("A") +
-	ylab(expression(pi)) +
-	labs(colour = "Mortality")
-
-
-# Comparing Pi
-df_total %>%
-	filter(mort == TRUE) %>%
-	ggplot(aes(colour = as.factor(in_pi))) +
-	geom_line(aes(y = pi_b, x = A), size=1) +
-	geom_point(aes(y = pi_b, x = A), size = 1.25) +
-	geom_line(aes(y = in_pi, x = A), size = 0.85, linetype = "dashed")+
-	# facet_grid(.~ mort) +
-	theme_minimal() +
-	scale_colour_viridis(discrete=TRUE, end =1, begin = 0, option = "D") +
-	# scale_colour_brewer(palette = "Set1") +
-	xlab("A") +
-	ylab(expression(pi)) +
-	labs(colour = "Actual Pi of the \nBenchmark")
 

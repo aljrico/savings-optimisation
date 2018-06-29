@@ -12,7 +12,7 @@ But how do we reckon that degree of uncertainty? In stock markets is usual to as
 
 Where $P_t$ is the price of a stock at time $t$ and $P_{t-1}$ is the price of the stock at time $t-1$.
 
-Even though many different models can be assumed to describe the behaviour of the financial markets, the point of this section is to understand and exemplify the set up necessary in order to decide how do we measure risk.
+Even though many different models can be assumed to describe the behaviour of financial markets, the point of this section is to understand and exemplify the set up necessary in order to decide how we measure risk.
 
 Another way to look at the risk definition is not just looking at dispersion. Using the standard defilogreturnsnition of risk, any unexpected uplift from the expected return would be considered under the umbrella of 'risky outcomes'. Since it is kind of counter-intuitive to assume the probability of a positive outcome as 'risk', it is fair to assume risk as just one half of that dispersion, the negative part of the random variable\footnote{Losses are negative and profits are positive.}.
 
@@ -35,13 +35,17 @@ But given the irrational and unpredictable behaviour of the markets, we can see 
 
 \subsection*{Expected Shortfall}
 
-In order to measure the importance and the impact of the tails of return distributions, it is common to compute what is called the \textit{Expected Shortfall}. The Expected Shortfall ($ES_{\alpha}$) at an $\alpha$ quantile of a given distribution $X$ is defined as:
+In order to measure the importance and the impact of the tails of return distributions, it is common to compute what is called the \textit{Expected Shortfall}. The Expected Shortfall ($ES_{\alpha}$) at an $\alpha$ quantile of a given distribution $X$ is defined~\cite{a:mcneil-es} as:
 
 \begin{align} \label{expected-shortfall}
 ES_{\alpha} = \frac{1}{\alpha}\int_{0}^{\alpha}VaR_{\gamma}\qty(X)d\gamma \textit{,}
 \end{align}
 
-Where $\alpha \in \qty(0,1)$, $VaR_{\gamma}\qty(X)$ is the $1-\gamma$ quantile of $X$ and $\gamma \in \qty(0,1)$. This means that the $ES_{\alpha}$ gives us the expected value of the returns distribution in the worst $\alpha \%$ cases.
+Where $\alpha \in \qty(0,1)$, $VaR_{\gamma}\qty(X)$ is the $1-\gamma$ quantile of $X$ and $\gamma \in \qty(0,1)$. This means that the $ES_{\alpha}$ gives us the expected value of the returns distribution in the worst $\alpha \%$ cases. Which, in case of a continuus $X$, can be expressed as
+
+\begin{align}
+	ES_{\alpha} = \EX\giventhat{X}{X < VaR(X)}\emph{.}
+\end{align}
 
 Thus, the Expected Shortfall gives us a much more intuitive and reliable sense of the \textit{risk} of any investment; in addition to its useful mathematical properties~\cite{a:bertsimas-shortfall}.
 

@@ -76,6 +76,82 @@
     \field{year}{2014}
   \endentry
 
+  \entry{a:guillen-performance}{article}{}
+    \name{author}{4}{}{%
+      {{hash=GM}{%
+         family={Guillén},
+         familyi={G\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=NJ}{%
+         family={Nielsen},
+         familyi={N\bibinitperiod},
+         given={J.P.},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=PMA}{%
+         family={Pérez-Marín},
+         familyi={P\bibinitperiod-M\bibinitperiod},
+         given={A.M.},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=PK}{%
+         family={Petersen},
+         familyi={P\bibinitperiod},
+         given={K.S.},
+         giveni={K\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GM+1}
+    \strng{fullhash}{GMNJPMAPK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Performance measurement of pension strategies: a case study
+  of Danish life cycle products}}
+    \field{volume}{2012}
+    \field{journaltitle}{Sc andinavian Actuarial Journal}
+    \field{year}{2012}
+  \endentry
+
+  \entry{a:guillen-guarantee}{article}{}
+    \name{author}{4}{}{%
+      {{hash=GM}{%
+         family={Guillén},
+         familyi={G\bibinitperiod},
+         given={M.},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=KA}{%
+         family={Konicz},
+         familyi={K\bibinitperiod},
+         given={A.K.},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=NJ}{%
+         family={Nielsen},
+         familyi={N\bibinitperiod},
+         given={J.P.},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=PMA}{%
+         family={Pérez-Marín},
+         familyi={P\bibinitperiod-M\bibinitperiod},
+         given={A.M.},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GM+1}
+    \strng{fullhash}{GMKANJPMA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Do not pay for a Danish interest guarantee. The law of the
+  triple blow}}
+    \field{volume}{7}
+    \field{journaltitle}{The annals of Actuarial Science}
+    \field{year}{2013}
+  \endentry
+
   \entry{b:cootner-random}{book}{}
     \name{author}{1}{}{%
       {{hash=CPH}{%
@@ -132,6 +208,37 @@
     \field{title}{{Foundations of Portfolio Theory}}
     \field{journaltitle}{Journal of Finance}
     \field{year}{1991}
+  \endentry
+
+  \entry{a:mcneil-es}{article}{}
+    \name{author}{3}{}{%
+      {{hash=MA}{%
+         family={McNeil},
+         familyi={M\bibinitperiod},
+         given={A.J.},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=FR}{%
+         family={Frey},
+         familyi={F\bibinitperiod},
+         given={R.},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=EP}{%
+         family={Embrechts},
+         familyi={E\bibinitperiod},
+         given={P.},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MA+1}
+    \strng{fullhash}{MAFREP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{{Quantitative Risk Management. Concepts, Techniques and
+  Tools}}
+    \field{journaltitle}{Princeton University Press}
+    \field{year}{2005}
   \endentry
 
   \entry{a:bertsimas-shortfall}{article}{}
@@ -303,6 +410,16 @@
     \field{volume}{42}
     \field{journaltitle}{The Geneva Papers}
     \field{year}{2017}
+  \endentry
+
+  \entry{o:mortality-table}{online}{}
+    \keyw{mortality}
+    \field{labeltitlesource}{title}
+    \field{title}{{Mortality Table}}
+    \verb{url}
+    \verb http://www.ine.es/dyngs/INEbase/es/operacion.htm?c=Estadistica_C&ci
+    \verb d=1254736177004&menu=ultiDatos&idp=1254735573002
+    \endverb
   \endentry
 
   \entry{a:schmeiser-binomial}{article}{}

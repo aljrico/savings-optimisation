@@ -9,7 +9,7 @@ sourceCpp("cppi.cpp")
 equiv_pi <- function(ret
 				 , m = 1e2
 				 , seed_pi = 0.5
-				 , max_pi = 30
+				 , max_pi = 2
 				 , min_pi = 0
 				 , mortality = FALSE
 				 , nsim = 1e4
@@ -24,8 +24,8 @@ equiv_pi <- function(ret
 			est_ret <- cppi_c(alpha = alpha, sigma = sigma, years = years, pi = pi, a=a, nsim = nsim) %>% na.omit() %>% compute_return()
 			while(is.na(est_ret)) est_ret <- cppi_c(alpha = alpha, sigma = sigma, years = years, pi = pi, a=a, nsim = nsim) %>% na.omit() %>% compute_return()
 		}else{
-			est_ret <- cppi_mort_fasto(pi = pi, nsim = 1e3) %>% na.omit() %>% compute_return()
-			while(is.na(est_ret)){est_ret <- cppi_mort_fasto(pi = pi, nsim = 1e3) %>% na.omit() %>% compute_return()}
+			est_ret <- cppi_mort_fasto(pi = pi, nsim = nsim) %>% na.omit() %>% compute_return()
+			while(is.na(est_ret)){est_ret <- cppi_mort_fasto(pi = pi, nsim = nsim) %>% na.omit() %>% compute_return()}
 		}
 
 		if(est_ret < ret){

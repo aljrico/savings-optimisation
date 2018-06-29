@@ -4,11 +4,43 @@
 
 # Libraries ---------------------------------------------------------------
 
-library(ggplot2)
-library(dplyr)
+library(tidyverse)
+library(data.table)
+library(viridis)
+library(Rcpp)
+library(progress)
+library(MASS)
+library(evir)
 
+sourceCpp("cppi.cpp")
 
 # Functions ---------------------------------------------------------------
+
+# From ES to K
+es_to_k <- function(A = 0.5, pi = 0.7, nsim = 1e2, err = 0.01, k_max = 1000){
+	k_result <- c()
+	es_init <- c()
+	es_final <- c()
+	es_record <- c()
+	k_record <- seq(1, k_max, by = 1)
+	pi_record <- pi
+
+	pb <- progress_bar$new(total = length(k_record))
+
+	for(i in 1:length(pi_record)){
+		es_init[i] <- cppi_mort_fasto(pi = pi_record[i], nsim =nsim) %>% na.omit() %>% ES()
+
+		for(j in 1:length(k_record)) {
+			pb$tick()
+			es_record[j] <- alt_mort_fasto(K = k_record[j], nsim = nsim, A = A) %>% na.omit() %>% ES()
+		}
+
+		k_result[i] <- mean(which(abs((es_record - es_init[i])/(es_init[i])) < err))
+		es_final[i] <- es_record[k_result[i]]
+	}
+	return(k_result)
+}
+
 
 # Computation of 'pi' value
 fpi <- function(A, K, X, C, time){
@@ -24,6 +56,9 @@ ES <- function(distr, a = 0.05){
 
 	return(ES)
 }
+
+# VaR
+VaR <- function(distr, a = 0.05){quantile(distr, a, na.rm = TRUE)}
 
 # Compute Return
 compute_return <- function(vec, c = 10, years = 60){
@@ -328,15 +363,6 @@ generate_all_data <- function(
 	A = 0.5,
 	include.mortality = FALSE
 ){
-	library(tidyverse)
-	library(data.table)
-	library(viridis)
-	library(MASS)
-	library(evir)
-
-	library(Rcpp)
-	sourceCpp("cppi.cpp")
-
 
 	# CPPI simple --------------------------------------------------------------------
 	cat("... CPPI Simple ... \n")
@@ -389,7 +415,8 @@ if(include.mortality == TRUE){
 
 		write.csv(X_T, "data/cppi_mortality.csv")
 
-		K = ES(X_T)*factor_kes(A = A)
+		# K = ES(X_T)*factor_kes(A = A)
+		K = es_to_k(A = A, pi = pi, nsim = 1e3)
 
 		# Alternative | Mortality ------------------------------------------------------
 		cat("... Alternative Mortality ... \n")
@@ -429,8 +456,6 @@ alt_mort_fasto <- function(K,
 										 starting_humans = 1e3,
 										 starting_age = 30){
 
-	library(Rcpp)
-	sourceCpp("cppi.cpp")
 
 	gamma <- -alpha/(A*sigma^2)+1 # Factor 'gamma'
 	c <- a # Factor 'c'
@@ -468,8 +493,6 @@ cppi_mort_fasto <- function(pi,
 													 starting_humans = 1e3,
 													 starting_age = 30){
 
-	library(Rcpp)
-	sourceCpp("cppi.cpp")
 
 	gamma <- -alpha/(A*sigma^2)+1 # Factor 'gamma'
 	c <- a # Factor 'c'

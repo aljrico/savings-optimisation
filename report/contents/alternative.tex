@@ -18,7 +18,7 @@ Whose expected value for any given present wealth $x = X(t)$ is defined as
 
 which can be maximized by a strategy that invests a relative amount in risky assets variable at any time $t \in [0,T)$, whose solution is:
 
-\begin{align}
+\begin{align}\label{eq:the_formula}
     \pi(t)X(t) = A\qty(K + X(t) + g(t)) \textit{.}
 \end{align}
 
@@ -56,3 +56,5 @@ Again, at the end of all $T$ years, the final wealth $X_T$ remaining to the save
 \end{figure}
 
 In the case of figure \ref{fig:alt_fw}, where the right tail corresponds to large values of wealth, whereas the left part deals with losses; we can see how outrageously obvious is that this it does \textit{not} follow a Normal Distribution.
+
+The code necessary to replicate these results in R can be found in Appendix \ref{ap:alt-simple}

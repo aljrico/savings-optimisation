@@ -4,10 +4,15 @@
 \documentclass[paper=a4, fontsize=12pt, twoside=semi, abstracton, listof=totoc, toc=left]{scrartcl}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{lmodern}
-% \usepackage{newpxtext}
-% \usepackage{newpxmath}
+% \usepackage{lmodern}
+\usepackage{newpxtext}
+\usepackage{newpxmath}
 \let\openbox\relax
+
+
+\usepackage{caption}
+\usepackage{subcaption}
+
 % \usepackage{kpfonts}
 \usepackage{slantsc}
 \usepackage{microtype}
@@ -414,11 +419,11 @@
 	\Crefname{section}{\S}{\SS}
 	\crefname{listing}{snippet}{}
 
-\newcommand*{\mytitle}{Savings Optimisation Strategies}
-% \newcommand*{\mysubtitle}{-}
-\newcommand*{\myauthor}{\textit{Alejandro Jiménez Rico}}
-% \newcommand*{\mysupervisor}{J. Minguillón}
-% \newcommand*{\mytutor}{}
+\newcommand*{\mytitle}{On Savings Optimisation Strategies}
+\newcommand*{\mysubtitle}{Pooled Funds and scale-free and location-free risk measures}
+\newcommand*{\myauthor}{Alejandro Jiménez Rico}
+\newcommand*{\mysupervisor}{Isabel Serra \& Montserrat Guillén}
+\newcommand*{\mytutor}{Isabel Serra}
 \newcommand*{\myuni}{Centre de Recerca  Matemàtica}
 \newcommand*{\mydate}{2018}
 
@@ -436,11 +441,16 @@
 	\small \scshape{\myuni} \\ [25pt]
 	\horrule{0.5pt} \\ [0.4cm]
 	\Huge \mytitle \\[0.2cm]
-% 	\large \mysubtitle \\
+	% \large \mysubtitle \\
 	\horrule{2pt} \\ [10.5cm]
 }
-\author{\myauthor }
-% \\ \footnotesize Supervised by: \mysupervisor \\ \footnotesize Academic tutor: \mytutor}
+
+\author{
+	\myauthor \\
+	\small Academic tutor: \mytutor \\
+	\small Supervised by: \mysupervisor
+}
+
 \date{\mydate}
 
 \begin{document}
@@ -482,10 +492,13 @@
 \include{./contents/comparison}
 \include{./contents/mortality}
 \include{./contents/tails}
-\include{./contents/results}
-% \begin{appendices}
-% \include{./contents/A-code}
-% \end{appendices}
+\include{./contents/conclusions}
+
+\begin{appendices}
+\include{./contents/cppi_simple-code}
+\include{./contents/alt_simple-code}
+\include{./contents/mort-code}
+\end{appendices}{}
 
 %-----------------------------------------------------------------
 %	BIBLIOGRAPHY

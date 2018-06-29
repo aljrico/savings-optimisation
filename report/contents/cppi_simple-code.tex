@@ -1,0 +1,29 @@
+\section{Simple CPPI Code}\label{ap:cppi-simple}
+
+
+\begin{lstlisting}[language = R]
+nsim <- 10000
+
+pi <- 0.1
+alpha <- 0.0343 # Expected return of the risky market
+sigma <- 0.1544 # Expected volatility of the risky market
+a <- 10 # Factor 'a'
+years <- 60 # Total time
+
+C <- append(rep(a, round(years/2)),rep(-a, round(years/2)))
+
+X_T <- c()
+
+for (j in 1:nsim){
+	x <- c()
+	x[1] <- a # Initial wealth
+
+	for (i in 1:(years-1)){
+		random <- rnorm(1, mean = alpha, sd = sigma)
+		x[i+1] <- x[i]*(1+random)*pi + (1-pi)*x[i] + C[i+1]
+	}
+	X_T[j] <- x[years]
+
+}
+\end{lstlisting}
+
