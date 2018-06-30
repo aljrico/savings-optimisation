@@ -22,7 +22,13 @@ which can be maximized by a strategy that invests a relative amount in risky ass
     \pi(t)X(t) = A\qty(K + X(t) + g(t)) \textit{.}
 \end{align}
 
-Where $X(t)$ is the wealth at time $t$, $A$ is a parameter that defines the risk aversion profile of the investor, $K$ is the maximum loss the investor is capable to handle and $g(t)$ is the sum of all remaining inputs or outputs of money: $g(t) = \sum_{i=t}^{T}a_i$.~\footnote{In \cite{a:donnelly-savings-decisions}'s work, the authors defined optimal savings strategies and analysed different updating periods for $\pi$.}.
+Where $X(t)$ is the wealth at time $t$, $A$ is a parameter that defines the risk aversion profile of the investor, $K$ is the maximum loss the investor is capable to handle and $g(t)$ is the sum of all remaining inputs or outputs of money: $g(t) = \sum_{i=t}^{T}a_i$.~\footnote{In \cite{a:donnelly-savings-decisions}'s work, the authors defined optimal savings strategies and analysed different updating periods for $\pi$.}. Thus, the time evolution of the wealth $X$ of an investor would behave as following:
+
+\begin{align}
+    dX = \alpha \pi(t)X(t)dt + \sigma \pi(t)X(t)dW(t) + dC(t)\textit{.}
+\end{align}
+
+Where $\alpha$ is the expected return of the risky market, $\sigma$ is the expected volatility of the risky market, $W(t)$ is a Wiener process and $C(t)$ is the allocated or consumed capital by the investor at every time step.
 
 \subsection*{Simulation}
 
@@ -55,6 +61,6 @@ Again, at the end of all $T$ years, the final wealth $X_T$ remaining to the save
     \label{fig:alt_fw}
 \end{figure}
 
-In the case of figure \ref{fig:alt_fw}, where the right tail corresponds to large values of wealth, whereas the left part deals with losses; we can see how outrageously obvious is that this it does \textit{not} follow a Normal Distribution.
+In the case of figure \ref{fig:alt_fw}, where the right tail corresponds to large values of wealth, whereas the left part deals with losses; we can see how outrageously obvious is that it does \textit{not} follow a Normal Distribution.
 
-The code necessary to replicate these results in R can be found in Appendix \ref{ap:alt-simple}
+The code necessary to replicate these results in R can be found in Appendix \ref{ap:alt-simple}.

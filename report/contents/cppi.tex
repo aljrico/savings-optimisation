@@ -11,10 +11,10 @@ Firstly, we will start defining the \textit{benchmark} model. The constant portf
 This methodology consists in investing a constant proportion $\pi$ of the savings in risky assets (subject to volatility), whilst investing the rest $1 - \pi$ in risk-free assets. Thus, the time evolution of the wealth $X$ of an investor would behave as following:
 
 \begin{align}
-	dX = \alpha \pi(t)X(t)dt + \sigma \pi(t)X(t)dW(t) + dC(t)\textit{.}
+	dX = \alpha \pi X(t)dt + \sigma \pi X(t)dW(t) + dC(t)\textit{.}
 \end{align}
 
-Where $\alpha$ is the expected return of the risky market, $\sigma$ is the expected volatility of the risky market, $W(t)$ is a Wiener process and $C(t)$ is the allocated or consumed capital by the investor at every time.
+Where $\alpha$ is the expected return of the risky market, $\sigma$ is the expected volatility of the risky market, $W(t)$ is a Wiener process and $C(t)$ is the allocated or consumed capital by the investor at every time step.
 
 The point of this strategy is to present an intuitive straightforward way to control the risk exposure in savings strategies. The simplicity of this approach let us tweak $\pi$ in order to make the investment best suited for the risk aversion profile of each investor individually.
 
@@ -22,7 +22,7 @@ The point of this strategy is to present an intuitive straightforward way to con
 
 In order to simulate the performance of this kind of strategy, we start assuming that the risky assets follow a simplified geometric brownian motion, with \emph{trend} $\alpha$ and \emph{volatility} $\sigma$. Thus, if the saver invests $x$ in this asset at day $t$, the wealth of the saver at the next day would be $x_{t+1} = (1 + N\qty(\alpha, \sigma)) x_t$.
 
-This way, we construct the scenario of an investor, saving a fixed amount of money - which is denoted as $a$ -   throughout $T/2$ years, and that money being allocated $( 1 - \pi) a$ in the risk-free asset, which we will set with return 0; and $\pi a$ allocated in the risky asset, whose expected return is $\alpha$ and volatility is $\sigma$. Thus, if we set $x_t$ as the wealth at any given time $t$, we can see that
+This way, we construct the scenario of an investor, saving a fixed amount of money - which is denoted as $a$ -   throughout $T/2$ years. That money being allocated $( 1 - \pi) a$ in the risk-free asset, which we will set with return 0; and $\pi a$ allocated in the risky asset, whose expected return is $\alpha$ and volatility is $\sigma$. Thus, if we set $x_t$ as the wealth at any given time $t$, we can see that
 
 \begin{align}
 	x_{t+1} = (1+N(\alpha, \sigma))x_{t}\pi + (1 - \pi)x_{t} + a \textit{.}

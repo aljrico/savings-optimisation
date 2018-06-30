@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/Arch Linux) (preloaded format=pdflatex 2018.6.24)  29 JUN 2018 20:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/Arch Linux) (preloaded format=pdflatex 2018.6.24)  30 JUN 2018 22:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -3494,16 +3494,22 @@ Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
 \@quotereset=\count484
 (./main.aux (./contents/abstract.aux) (./contents/intro.aux)
 (./contents/risk.aux) (./contents/cppi.aux) (./contents/alternative.aux)
-(./contents/comparison.aux) (./contents/mortality.aux) (./contents/tails.aux)
-(./contents/conclusions.aux) (./contents/cppi_simple-code.aux)
-(./contents/alt_simple-code.aux) (./contents/mort-code.aux))
+(./contents/comparison.aux) (./contents/mortality.aux
+
+LaTeX Warning: Label `fig:es-es_mort' multiply defined.
+
+
+LaTeX Warning: Label `fig:es-es_mort@cref' multiply defined.
+
+) (./contents/tails.aux) (./contents/conclusions.aux)
+(./contents/cppi_simple-code.aux) (./contents/alt_simple-code.aux)
+(./contents/mort-code.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/npxmi/m/it on input line 456.
 LaTeX Font Info:    Try loading font information for OML+npxmi on input line 45
 6.
-
-(/usr/share/texmf-dist/tex/latex/newpx/omlnpxmi.fd
+ (/usr/share/texmf-dist/tex/latex/newpx/omlnpxmi.fd
 File: omlnpxmi.fd 2013/03/21 Fontinst v1.933 font definitions for OML/npxmi.
 )
 LaTeX Font Info:    ... okay on input line 456.
@@ -3518,7 +3524,6 @@ LaTeX Font Info:    ... okay on input line 456.
 LaTeX Font Info:    Checking defaults for U/npxexa/m/n on input line 456.
 LaTeX Font Info:    Try loading font information for U+npxexa on input line 456
 .
-
 (/usr/share/texmf-dist/tex/latex/newpx/unpxexa.fd
 File: unpxexa.fd 2013/03/24 Fontinst v1.933 font definitions for U/npxexa.
 )
@@ -4090,28 +4095,35 @@ Package Fancyhdr Warning: \headheight is too small (13.6pt):
 
 
 ]
-<./images/fw_alt.png, id=221, 512.66531pt x 414.79968pt>
+<./images/fw_alt.png, id=220, 512.66531pt x 414.79968pt>
 File: ./images/fw_alt.png Graphic file (type png)
 <use ./images/fw_alt.png>
-Package pdftex.def Info: ./images/fw_alt.png  used on input line 53.
+Package pdftex.def Info: ./images/fw_alt.png  used on input line 59.
 (pdftex.def)             Requested size: 333.2285pt x 269.6166pt.
-)
+
 
 Package Fancyhdr Warning: \headheight is too small (13.6pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[12 <./images/fw_alt.png (PNG copy)>]
+[12 <./images/fw_alt.png (PNG copy)>])
+
+Package Fancyhdr Warning: \headheight is too small (13.6pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[13]
 \openout2 = `./contents/comparison.aux'.
 
  (./contents/comparison.tex
-<./images/fw_both.png, id=231, 512.66531pt x 414.79968pt>
+<./images/fw_both.png, id=236, 512.66531pt x 414.79968pt>
 File: ./images/fw_both.png Graphic file (type png)
 <use ./images/fw_both.png>
 Package pdftex.def Info: ./images/fw_both.png  used on input line 9.
 (pdftex.def)             Requested size: 333.2285pt x 269.6166pt.
-<./images/loss_both.png, id=235, 512.66531pt x 414.79968pt>
+<./images/loss_both.png, id=240, 512.66531pt x 414.79968pt>
 File: ./images/loss_both.png Graphic file (type png)
 <use ./images/loss_both.png>
 Package pdftex.def Info: ./images/loss_both.png  used on input line 22.
@@ -4126,7 +4138,7 @@ Package Fancyhdr Warning: \headheight is too small (13.6pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[13
+[14
 
 
  <./images/fw_both.png (PNG copy)>]
@@ -4139,8 +4151,8 @@ Package Fancyhdr Warning: \headheight is too small (13.6pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[14 <./images/loss_both.png (PNG copy)>]
-<./images/pi-A-all-pis.png, id=258, 429.85594pt x 414.79968pt>
+[15 <./images/loss_both.png (PNG copy)>]
+<./images/pi-A-all-pis.png, id=263, 429.85594pt x 414.79968pt>
 File: ./images/pi-A-all-pis.png Graphic file (type png)
 <use ./images/pi-A-all-pis.png>
 Package pdftex.def Info: ./images/pi-A-all-pis.png  used on input line 69.
@@ -4149,7 +4161,7 @@ Package pdftex.def Info: ./images/pi-A-all-pis.png  used on input line 69.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<./images/es-es_pi.png, id=261, 429.85594pt x 414.79968pt>
+<./images/es-es_pi.png, id=266, 429.85594pt x 414.79968pt>
 File: ./images/es-es_pi.png Graphic file (type png)
 <use ./images/es-es_pi.png>
 Package pdftex.def Info: ./images/es-es_pi.png  used on input line 80.
@@ -4193,28 +4205,28 @@ Package Fancyhdr Warning: \headheight is too small (13.6pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[15]
+[16]
 
 Package Fancyhdr Warning: \headheight is too small (13.6pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[16 <./images/pi-A-all-pis.png (PNG copy)>]
+[17 <./images/pi-A-all-pis.png (PNG copy)>]
 
 Package Fancyhdr Warning: \headheight is too small (13.6pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[17 <./images/es-es_pi.png (PNG copy)>]
+[18 <./images/es-es_pi.png (PNG copy)>]
 
 Package Fancyhdr Warning: \headheight is too small (13.6pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[18]
+[19]
 \openout2 = `./contents/mortality.aux'.
 
  (./contents/mortality.tex
@@ -4224,11 +4236,11 @@ Package Fancyhdr Warning: \headheight is too small (13.6pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[19
+[20
 
 
 ]
-<./images/mort_final_wealth.png, id=304, 429.85594pt x 414.79968pt>
+<./images/mort_final_wealth.png, id=309, 429.85594pt x 414.79968pt>
 File: ./images/mort_final_wealth.png Graphic file (type png)
 <use ./images/mort_final_wealth.png>
 Package pdftex.def Info: ./images/mort_final_wealth.png  used on input line 52.
@@ -4238,7 +4250,7 @@ Package pdftex.def Info: ./images/mort_final_wealth.png  used on input line 52.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<./images/loss_both_mort.png, id=307, 429.85594pt x 414.79968pt>
+<./images/loss_both_mort.png, id=312, 429.85594pt x 414.79968pt>
 File: ./images/loss_both_mort.png Graphic file (type png)
 <use ./images/loss_both_mort.png>
 Package pdftex.def Info: ./images/loss_both_mort.png  used on input line 64.
@@ -4252,25 +4264,12 @@ Package Fancyhdr Warning: \headheight is too small (13.6pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[20]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Package Fancyhdr Warning: \headheight is too small (13.6pt): 
- Make it at least 14.49998pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[21 <./images/mort_final_wealth.png (PNG copy)>]
-<./images/pi-A_mort_2.png, id=328, 429.85594pt x 414.79968pt>
-File: ./images/pi-A_mort_2.png Graphic file (type png)
-<use ./images/pi-A_mort_2.png>
-Package pdftex.def Info: ./images/pi-A_mort_2.png  used on input line 121.
-(pdftex.def)             Requested size: 322.39116pt x 311.099pt.
+[21]
+<./images/es-es.png, id=326, 429.85594pt x 414.79968pt>
+File: ./images/es-es.png Graphic file (type png)
+<use ./images/es-es.png>
+Package pdftex.def Info: ./images/es-es.png  used on input line 73.
+(pdftex.def)             Requested size: 214.92744pt x 207.39934pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -4281,21 +4280,48 @@ Package Fancyhdr Warning: \headheight is too small (13.6pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[22 <./images/loss_both_mort.png (PNG copy)>])
+[22 <./images/mort_final_wealth.png (PNG copy)>]
+<./images/pi-a_mort2.png, id=339, 429.85594pt x 414.79968pt>
+File: ./images/pi-a_mort2.png Graphic file (type png)
+<use ./images/pi-a_mort2.png>
+Package pdftex.def Info: ./images/pi-a_mort2.png  used on input line 118.
+(pdftex.def)             Requested size: 214.92744pt x 207.39934pt.
+<./images/es-es_mort_2.png, id=340, 429.85594pt x 414.79968pt>
+File: ./images/es-es_mort_2.png Graphic file (type png)
+<use ./images/es-es_mort_2.png>
+Package pdftex.def Info: ./images/es-es_mort_2.png  used on input line 124.
+(pdftex.def)             Requested size: 214.92744pt x 207.39934pt.
+
+Underfull \hbox (badness 1107) in paragraph at lines 125--125
+[][][]|\T1/zpltlf/m/n/10.95 (+20) Scat-ter-plot that shows the equi-val-ence
+ []
+
+
+LaTeX Warning: Reference `fig:es-es_mort_2' on page 23 undefined on input line 
+132.
+
 
 Package Fancyhdr Warning: \headheight is too small (13.6pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[23]
+[23 <./images/loss_both_mort.png (PNG copy)>]
 
 Package Fancyhdr Warning: \headheight is too small (13.6pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[24 <./images/pi-A_mort_2.png (PNG copy)>]
+[24 <./images/es-es.png (PNG copy)> <./images/pi-a_mort2.png (PNG copy)> <./ima
+ges/es-es_mort_2.png (PNG copy)>])
+
+Package Fancyhdr Warning: \headheight is too small (13.6pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[25]
 \openout2 = `./contents/tails.aux'.
 
  (./contents/tails.tex
@@ -4311,7 +4337,7 @@ Package Fancyhdr Warning: \headheight is too small (13.6pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[25
+[26
 
 
 ]
@@ -4349,7 +4375,7 @@ File: ts1zpltlf.fd 2015/01/18 v1.0 fd file for TS1/zpltlf
 )
 LaTeX Font Info:    Font shape `TS1/zpltlf/m/n' will be
 (Font)              scaled to size 12.0pt on input line 58.
-<images/cppi-losses-hist.png, id=358, 429.85594pt x 414.79968pt>
+<images/cppi-losses-hist.png, id=372, 429.85594pt x 414.79968pt>
 File: images/cppi-losses-hist.png Graphic file (type png)
 <use images/cppi-losses-hist.png>
 Package pdftex.def Info: images/cppi-losses-hist.png  used on input line 71.
@@ -4358,7 +4384,7 @@ Package pdftex.def Info: images/cppi-losses-hist.png  used on input line 71.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<images/cppi-dens-points.png, id=359, 429.85594pt x 414.79968pt>
+<images/cppi-dens-points.png, id=373, 429.85594pt x 414.79968pt>
 File: images/cppi-dens-points.png Graphic file (type png)
 <use images/cppi-dens-points.png>
 Package pdftex.def Info: images/cppi-dens-points.png  used on input line 80.
@@ -4366,7 +4392,7 @@ Package pdftex.def Info: images/cppi-dens-points.png  used on input line 80.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<images/cppi-ccdf-0.png, id=360, 429.85594pt x 414.79968pt>
+<images/cppi-ccdf-0.png, id=374, 429.85594pt x 414.79968pt>
 File: images/cppi-ccdf-0.png Graphic file (type png)
 <use images/cppi-ccdf-0.png>
 Package pdftex.def Info: images/cppi-ccdf-0.png  used on input line 89.
@@ -4380,8 +4406,8 @@ Package Fancyhdr Warning: \headheight is too small (13.6pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[26]
-<images/cppi-ccdf-autothresh.png, id=369, 429.85594pt x 414.79968pt>
+[27]
+<images/cppi-ccdf-autothresh.png, id=383, 429.85594pt x 414.79968pt>
 File: images/cppi-ccdf-autothresh.png Graphic file (type png)
 <use images/cppi-ccdf-autothresh.png>
 Package pdftex.def Info: images/cppi-ccdf-autothresh.png  used on input line 10
@@ -4401,18 +4427,18 @@ Package Fancyhdr Warning: \headheight is too small (13.6pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[27 <./images/cppi-losses-hist.png (PNG copy)>]
+[28 <./images/cppi-losses-hist.png (PNG copy)>]
 
 Package Fancyhdr Warning: \headheight is too small (13.6pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[28 <./images/cppi-dens-points.png (PNG copy)>]
-<images/evi-pi_.png, id=382, 429.85594pt x 414.79968pt>
-File: images/evi-pi_.png Graphic file (type png)
-<use images/evi-pi_.png>
-Package pdftex.def Info: images/evi-pi_.png  used on input line 129.
+[29 <./images/cppi-dens-points.png (PNG copy)>]
+<images/evi-pi_new.png, id=396, 429.85594pt x 414.79968pt>
+File: images/evi-pi_new.png Graphic file (type png)
+<use images/evi-pi_new.png>
+Package pdftex.def Info: images/evi-pi_new.png  used on input line 129.
 (pdftex.def)             Requested size: 322.39116pt x 311.099pt.
 
 
@@ -4424,26 +4450,36 @@ Package Fancyhdr Warning: \headheight is too small (13.6pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[29 <./images/cppi-ccdf-0.png (PNG copy)>]
+[30 <./images/cppi-ccdf-0.png (PNG copy)>]
+Underfull \vbox (badness 4569) has occurred while \output is active []
+
+
 
 Package Fancyhdr Warning: \headheight is too small (13.6pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[30 <./images/cppi-ccdf-autothresh.png (PNG copy)>]
+[31 <./images/cppi-ccdf-autothresh.png (PNG copy)>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 Package Fancyhdr Warning: \headheight is too small (13.6pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[31 <./images/evi-pi_.png (PNG copy)>]
-<images/evi-es_.png, id=402, 429.85594pt x 414.79968pt>
-File: images/evi-es_.png Graphic file (type png)
-<use images/evi-es_.png>
-Package pdftex.def Info: images/evi-es_.png  used on input line 169.
+[32 <./images/evi-pi_new.png (PNG copy)>]
+<images/evi-es_new2.png, id=415, 429.85594pt x 414.79968pt>
+File: images/evi-es_new2.png Graphic file (type png)
+<use images/evi-es_new2.png>
+Package pdftex.def Info: images/evi-es_new2.png  used on input line 171.
 (pdftex.def)             Requested size: 322.39116pt x 311.099pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 )
 
 Package Fancyhdr Warning: \headheight is too small (13.6pt): 
@@ -4451,7 +4487,14 @@ Package Fancyhdr Warning: \headheight is too small (13.6pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[32 <./images/evi-es_.png (PNG copy)>]
+[33]
+
+Package Fancyhdr Warning: \headheight is too small (13.6pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[34 <./images/evi-es_new2.png (PNG copy)>]
 \openout2 = `./contents/conclusions.aux'.
 
  (./contents/conclusions.tex
@@ -4461,7 +4504,7 @@ Package Fancyhdr Warning: \headheight is too small (13.6pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[33
+[35
 
 
 ])
@@ -4471,7 +4514,7 @@ Package Fancyhdr Warning: \headheight is too small (13.6pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[34]
+[36]
 \openout2 = `./contents/cppi_simple-code.aux'.
 
  (./contents/cppi_simple-code.tex
@@ -4490,7 +4533,7 @@ Package Fancyhdr Warning: \headheight is too small (13.6pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[35
+[37
 
 
 ]
@@ -4503,7 +4546,7 @@ Package Fancyhdr Warning: \headheight is too small (13.6pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[36
+[38
 
 
 ]
@@ -4516,7 +4559,7 @@ Package Fancyhdr Warning: \headheight is too small (13.6pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[37
+[39
 
 
 ])
@@ -4526,7 +4569,7 @@ Package Fancyhdr Warning: \headheight is too small (13.6pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[38]
+[40]
 LaTeX Font Info:    Font shape `T1/zpltlf/m/sc' will be
 (Font)              scaled to size 12.0pt on input line 508.
 Package microtype Info: Character `029' is missing
@@ -4544,7 +4587,7 @@ Package Fancyhdr Warning: \headheight is too small (13.6pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[39
+[41
 
 ]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 517.
@@ -4563,16 +4606,22 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 2.53017pt have occurred.
 
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 61455 strings out of 492649
- 1320863 string characters out of 6135778
+ 61477 strings out of 492649
+ 1321339 string characters out of 6135778
  2059631 words of memory out of 5000000
- 63865 multiletter control sequences out of 15000+600000
- 827083 words of font info for 497 fonts, out of 8000000 for 9000
+ 63880 multiletter control sequences out of 15000+600000
+ 827187 words of font info for 498 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  73i,18n,100p,10377b,2696s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc}{/usr/share/texmf-d
@@ -4592,10 +4641,10 @@ dist/fonts/type1/public/newpx/zplb.pfb></usr/share/texmf-dist/fonts/type1/publi
 c/newpx/zplbi.pfb></usr/share/texmf-dist/fonts/type1/public/newpx/zplr.pfb></us
 r/share/texmf-dist/fonts/type1/public/newpx/zplri.pfb></usr/share/texmf-dist/fo
 nts/type1/public/newpx/zplx-regular.pfb>
-Output written on main.pdf (40 pages, 741731 bytes).
+Output written on main.pdf (42 pages, 966234 bytes).
 PDF statistics:
- 679 PDF objects out of 1000 (max. 8388607)
- 595 compressed objects within 6 object streams
- 241 named destinations out of 1000 (max. 500000)
- 73993 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 698 PDF objects out of 1000 (max. 8388607)
+ 608 compressed objects within 7 object streams
+ 244 named destinations out of 1000 (max. 500000)
+ 74003 words of extra memory for PDF output out of 74296 (max. 10000000)
 

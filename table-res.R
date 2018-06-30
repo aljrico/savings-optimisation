@@ -38,28 +38,28 @@ new_es <- c()
 
 if(mortality == TRUE ){
 
-# Simulation Loop with mortality ------------------------------------------
+	# Simulation Loop with mortality ------------------------------------------
 
 	for(i in 1:10){
 		print(i)
 		pi <- 0.1*i
 		pis[i] <- pi
 		cppi_res<-  cppi_mort_fasto(pi = pi,
-															 nsim = nsim,
-															 alpha = alpha,
-															 sigma = sigma,
-															 a = a,
-															 years = years)
+																nsim = nsim,
+																alpha = alpha,
+																sigma = sigma,
+																a = a,
+																years = years)
 		es[i] <- cppi_res %>% ES()
 		K[i] <- es_to_k(A = A, pi = pi, nsim = 1000, err = 0.15, k_max = 1200)
 		cppi_ret[i] <- cppi_res %>% compute_return()
 
 		montses_res <- alt_mort_fasto(K = K[i],
-														nsim = nsim,
-														alpha = alpha,
-														sigma = sigma,
-														a = a,
-														years = years)
+																	nsim = nsim,
+																	alpha = alpha,
+																	sigma = sigma,
+																	a = a,
+																	years = years)
 		montses_ret[i] <- montses_res %>% na.omit() %>% compute_return()
 		new_es[i] <- montses_res %>% na.omit() %>% ES()
 		pi_b[i] <- equiv_pi(ret = montses_ret[i], mortality = mortality, max_pi = 2, m = 50, nsim = 1e3)
@@ -69,7 +69,7 @@ if(mortality == TRUE ){
 }
 
 if(mortality != TRUE){
-# Simulation Loop without mortality ---------------------------------------
+	# Simulation Loop without mortality ---------------------------------------
 
 	for(i in 1:10){
 		print(i)

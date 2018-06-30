@@ -51,7 +51,7 @@ for(r in 1:1){
 																	include.mortality = TRUE)
 
 			for(k in c("cppi-simple","alt-simple", "cppi-mort", "alt-mort")){
-				if(!(k %in% c("cppi-mort", "alt-mort") & pi < 0.53)) {
+				# if(!(k %in% c("cppi-mort", "alt-mort") & pi < 0.053)) {
 					# GPD ---------------------------------------------------------------------
 					data <- all_data %>%
 						filter(model == k) %>%
@@ -77,6 +77,11 @@ for(r in 1:1){
 						# Tail Definition
 						y  <- x[x>(-u)]-u
 					}
+					if(length(y) < 25){
+						y <- -data$X_T
+					}
+
+					if(length(y) < 25) next
 
 
 					# Auto threshold
@@ -92,7 +97,7 @@ for(r in 1:1){
 					df$A_record <- j
 
 					final_data <- rbind(final_data,df) %>% na.omit()
-				}
+				# }
 			}
 		}
 	}
@@ -115,7 +120,7 @@ final_data %>%
 	as_tibble() %>%
 	ggplot() +
 	geom_jitter(aes(y = evi, x = pi, colour = model)) +
-	theme_minimal() +
+	theme_bw() +
 	xlab("Pi") +
 	ylab("EVI")
 
@@ -125,7 +130,7 @@ final_data %>%
 	as_tibble() %>%
 	ggplot() +
 	geom_jitter(aes(y = evi, x = es, colour = model)) +
-	theme_minimal() +
+	theme_bw() +
 	xlab("Expected Shortfall") +
 	ylab("EVI")
 

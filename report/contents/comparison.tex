@@ -13,7 +13,7 @@ First of all we plot together the frequency histograms for the final wealth dist
 
 Looking at Figure \ref{fig:both_fw} we may notice that they follow a considerably different distribution. We could say that the alternative strategy presents more dispersion, even though it is always a \textit{positive} deviation from the mean.
 
-In section \ref{sec:risk} we have discussed a little bit some implications of the definition of risk. Affirm that the alternative strategy presents more risk, just because its result is more disperse, would may seem a little simplistic.
+In section \ref{sec:risk} we have discussed a little bit some implications of the definition of risk. Affirm that the alternative strategy presents more risk, just because its result is more disperse, may seem a little simplistic.
 
 On the other hand, we can take a look at those rare cases when the final wealth happens to be negative. These are the cases worth exploring, for it is the scenario every investor is afraid of: losing money. Zooming in into the negative zone, as shown in figure \ref{fig:loss_both}, we can focus in the difference between the two models. Even though we can see some spurious differences in some places, the most honest answer is that it is not clear whose result is less risky.
 
@@ -27,7 +27,7 @@ On the other hand, we can take a look at those rare cases when the final wealth 
 In order to compare the degree of risk taken by every model, we make use of the \textit{Expected Shortfall}, as explained in section \ref{sec:risk}. If we set this parameter as the level of risk and we set it constant in both models, we can compare their returns. In~\cite{a:guillen-optimisation} it is shown that the Alternative model is able to set its Expected Shortfall (ES) by its $K$, using this formula:
 
 \begin{align}\label{eq:kes}
-	\frac{K}{ES} = \frac{1}{-1 + \qty(1 - \theta)^{-1} e^{\alpha A T}\Phi\qty(\Phi^{-1}\qty(1 - \theta) - A\sigma\sqrt{T})}
+	\frac{K}{ES} = \frac{1}{-1 + \qty(1 - \theta)^{-1} e^{\alpha A T}\Phi\qty(\Phi^{-1}\qty(1 - \theta) - A\sigma\sqrt{T})} \emph{.}
 \end{align}
 
 Where $\alpha$ is the expected return of the risky asset, $\sigma$ is the standard deviation of the risky asset, $\theta$ is the quantile on which the Expected Shortfall is measured, $A$ is the parameter that settles the risk aversion profile and $\Phi$ represents the standard Normal distribution function.
@@ -55,7 +55,7 @@ Setting $\alpha = 0.343$, $\sigma = 0.1544$, $a = 10$, $T = 60$, $A = 0.5$ and n
 \end{tabular}
 \end{table}
 
-The interesting conclusion that can be extracted from Table \ref{tab:cppi_alt} is the value of the last column. It states that the necessary value of $\pi$ that the CPPI should get in order to equal the return of the Alternative strategy, what we call the equivalent $\pi$. Thus, if the Expected Shortfall was settled by some $\pi$ and the required equivalent $\pi$ is greatar than that, we are saying that the CPPI should undertake in more risk in order to equal the return of the Alternative Scheme.
+The interesting conclusion that can be extracted from Table \ref{tab:cppi_alt} is the value of the last column. It states the necessary value of $\pi$ that the CPPI should get in order to equal the return of the Alternative strategy, what we call the equivalent $\pi$. Thus, if the Expected Shortfall was settled by some $\pi$ and the required equivalent $\pi$ is greater than that, we are saying that the CPPI should undertake in more risk in order to equal the return of the Alternative Scheme.
 
 This equivalent $\pi$ thus works as a succint metric to compare the performance of this two strategies, taking into account both return and risk. Hence, as long as the equivalent $\pi$ is greater than the initial $\pi$, we can say that the Alternative Strategy is outperforming the CPPI. Which is clear for many values of initial $\pi$ and a fixed value for $A$.
 
@@ -72,7 +72,7 @@ Since the value of $A$ is interpreted as the inverse of the risk aversion~\cite{
 \end{figure}
 
 
-It is important to highlight that all the deductions derived from the study of these results is a consequence of the assumption that the Expected Shortfall of both schemes is equal for each value of $\pi$. As concluded by Equation~\ref{eq:kes}. Just to double-check, we have measured that this holds true for all simulations partaken in the results above, as shown in Figure \ref{fig:es-es_pi2}. We might notice a slight deviation from that when the Expected Shortfall approaches 0, but nothing that could undermine the conclusions deduced from these results.
+It is important to highlight that all the deductions derived from the study of these results is a consequence of the assumption that the Expected Shortfall of both schemes is equalise for each value of $\pi$. As concluded by Equation~\ref{eq:kes}. Just to double-check, we have measured that this holds true for all simulations partaken in the results shown in Figure \ref{fig:es-es_pi2}. We might notice a slight deviation from that when the Expected Shortfall approaches 0, but nothing that could undermine the conclusions deduced from these results.
 
 
 \begin{figure}[h]

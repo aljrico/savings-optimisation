@@ -1,10 +1,10 @@
 \section{Optimisation of Pooled Funds Investment Strategies}
 
-So far, we have managed to test two different strategies. We have analyzed their return and risk in a simulated scenario, within the context of a pension plan. In order to assess the risk of the strategies, so far we have been measuring the market risk of the inestment, by computing the \emph{Expected Shortfall}. However, in real-scenario pension plans, there are plenty of other risks that should be taken into consideration. One important risk, not rarely underestimated, is the so-called \textbf{Longevity Risk}. Longevity risk is the risk of retirees that will live longer than expected and will thus exhaust all their savings. This risk might doom some individuals to utter poverty or to burden relatives.
+So far, we have managed to test two different strategies. We have analysed their return and risk in a simulated scenario, within the context of a pension plan. In order to assess the risk of the strategies, so far we have been measuring the market risk of the investment, by computing the \emph{Expected Shortfall}. However, in real-scenario pension plans, there are plenty of other risks that should be taken into consideration. One important risk, not rarely underestimated, is the so-called \textbf{Longevity Risk}. Longevity risk is referred to the probability of retirees that will live longer than expected and will thus exhaust all their savings, and all the costs incurred. This risk might doom some individuals to utter poverty or to burden relatives.
 
-Recently, two worldwide phenomena ought to be highlighted. The collapse in low-risk assets returns as government bonds or blue chip stocks. And the observed demographic transition~\textcite{b:demographic, a:bongaarts-human}, in which both birth rates and death rates are plumbing down; increasing the life expectancy of elder individuals. The combination of these two factors is leading to an increase in longevity risk that the pension plans providers are facing, rising pension premiums and stagnating disposable incomes by savers and pushing them to work longer years before retirement.
+Recently, two worldwide phenomena ought to be highlighted. The collapse in low-risk assets returns as government bonds or blue chip stocks. And the observed demographic transition~\textcite{b:demographic, a:bongaarts-human}, in which both birth rates and death rates are plumbing down; increasing the life expectancy of elder individuals. The combination of these two factors is leading to an increase in longevity risk that pension plans providers are facing, rising pension premiums and stagnating disposable incomes by savers and pushing them to work longer years before retirement.
 
-As a response to this challenging, the work of~\cite{a:donnelly-transparency} and \cite{a:brautigam-pool} suggested a different approach to face longevity risk, the concept of \textbf{Pooled Funds}.
+As a response to this challenge, the work of~\cite{a:donnelly-transparency} and \cite{a:brautigam-pool} suggested a different approach to face longevity risk, the concept of \textbf{Pooled Funds}.
 
 Pooled Funds are funds formed by many different individual savers that aggregate their savings together. The main characteristic of Pooled Funds is the fact that it takes into account the survival rate of the savers. Sadly, not all investors live long enough to cash back the profits of their investments. Pooled Funds make a strength out of this and proportionally redistributes the invested money of the deceased among the rest of the investors. Alongside other advantages, pooled funds benefit from economies of scale, cheaper diversification and a more efficient management of longevity risk.
 
@@ -42,7 +42,7 @@ In the snippet in Appendix~\ref{ap:mort-code} we show the necessary R code to pe
 
 \subsection{Results}
 
-Now we are going to replicate the measures taken in the previous section but with the added conditioni of mortality and see whether or not the differences spotted between the CPPI and the Alternative strategies remain similar.
+Now we are going to replicate the measures taken in the previous section but with the added condition of mortality and see whether or not the differences spotted between the CPPI and the Alternative strategies remain similar.
 
 Firstly, we plot together the frequency histograms for the final wealth distribution for
 both models.
@@ -50,7 +50,7 @@ both models.
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.75]{./images/mort_final_wealth.png}
-    \caption{Results of $1,000,000$ simulations for the both models with mortality. Final wealth obtained for every simulation. The blue one is the CPPI, and the red one is the Alternative. With $\pi = 0.5$, $\alpha = 0.343$, $\sigma = 0.1544$, $a = 10$, $T = 60$, $A = 0.5$ and therefore $ES/K = -3.3$.}
+    \caption{Results of $1,000,000$ simulations for the both models with mortality. Final wealth obtained for every simulation. The blue one is the CPPI, and the red one is the Alternative. With $\pi = 0.5$, $\alpha = 0.343$, $\sigma = 0.1544$, $a = 10$, $T = 60$, $A = 0.5$.}
     \label{fig:mort_fw}
 \end{figure}
 
@@ -62,30 +62,20 @@ With a quick glimpse at Figure \ref{fig:mort_loss} we can already notice the gre
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.75]{./images/loss_both_mort.png}
-    \caption{Results of $1,000,000$ simulations for the both models with mortality. Losses obtained for every simulation. The blue one is the CPPI, and the red one is the Alternative. With $\pi = 0.5$, $\alpha = 0.343$, $\sigma = 0.1544$, $a = 10$, $T = 60$, $A = 0.5$ and therefore $ES/K = -3.3$.}
+    \caption{Results of $1,000,000$ simulations for the both models with mortality. Losses obtained for every simulation. The blue one is the CPPI, and the red one is the Alternative. With $\pi = 0.5$, $\alpha = 0.343$, $\sigma = 0.1544$, $a = 10$, $T = 60$, $A = 0.5$.}
     \label{fig:mort_loss}
 \end{figure}
 
-Since the conclusions extracted from just one value of $\pi$ may be misleading, let us iterate these simulations for many values of $\pi$ and $K$, using Formula \ref{eq:kes} and see the results of Table \ref{tab:cppi_alt_mort}.
+Since the conclusions extracted from just one value of $\pi$ may be misleading, let us iterate these simulations for many values of $\pi$ and $K$. In order to equalise the level of risk of the result of both strategies, we ought to make use of Formula \ref{eq:kes}, as we have done before. The problem is that we can not be sure that the assumptions and deduction from~\cite{a:guillen-optimisation} will be standing for this scenario that we are constructing. In fact, looking at the results of Figure~\ref{fig:es-es_mort} we can be sure that the measured Expected Shortfall are not the same for both strategies when in a Pooled Fund.
 
-% \begin{table}[h]
-% \centering
-% \caption{Results of $100,000$ simulations of both CPPI and Alternative models in a Pooled Fund, using different risk levels, with $\alpha = 0.343$, $\sigma = 0.1544$, $a = 10$, $T = 60$, $A = 0.5$ and therefore $ES/K = -3.3$.}
-% \label{tab:cppi_alt_mort2}
-% \begin{tabular}{ccccccc}
-% \textbf{$\pi$} & \textbf{ES } & \textbf{$K$} & \textbf{CPPI ret} & \textbf{Alt ret} & \textbf{diff}  & \textbf{equiv $\pi$}\\
-% 0.1  & -                & -                & -               & -                  & -                & -                   \\
-% 0.2  & -                & -                & -               & -                  & -                & -                   \\
-% 0.3  & -                & -                & -               & -                  & -                & -                   \\
-% 0.4  & -   & - & - & - & - & - \\
-% 0.5  & -27.70 & 90.18  & 3.45 & 2.80    & -0.64 & 0             \\
-% 0.6  & -98.78 & 321.52  & 3.80 & 4.96  & 1.16  & 2.37                \\
-% 0.7  & -121.94 & 396.91  & 4.13 & 5.66  & 1.52 & 1.28              \\
-% 0.8  & -143.56 & 467.30  & 4.74  & 6.03   & 1.29  & 3.01                   \\
-% 0.9  & -168.69 & 549.08  & 4.78  & 6.48   & 1.70 & *                    \\
-% 1 & -248.76 & 809.72  & 5.24  & 7.82  & 2.57 & *
-% \end{tabular}
-% \end{table}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{./images/es-es.png}
+    \caption{Expected Shortfall measured from the results of $100,000,000$ simulations for the both models with mortality. With  many values for $\pi$, $A$ and $K$; $\alpha = 0.343$, $\sigma = 0.1544$, $a = 10$, $T = 60$ and $A = 0.5$.}
+    \label{fig:es-es_mort}
+\end{figure}
+
+In order to pursue further results, the necessary value of $K$ in order to ensure equal Expected Shortfall for both strategies has been found numerically, whose results are shown in Figure~\ref{fig:pi-a_mort}, Figure~\ref{fig:es-es_mort} and Table~\ref{tab:cppi_alt_mort}.
 
 
 \begin{table}[h]
@@ -109,23 +99,41 @@ Since the conclusions extracted from just one value of $\pi$ may be misleading, 
 \end{table}
 
 
-The Pooled Fund has the effect of the wealth of all savers to increase dramatically. In fact, for lower risk levels as for $\pi < 0.5$, the final wealth of all simulations is so huge that the Expected Shortfall happenes to result positive and utterly large, instead of negative. So in order for the Alternative Strategy to equal that Expected Shortfall, the Formula \ref{eq:the_formula} leads to so hugely negative value of $K$ that the $\pi$ comes negative. Implying a short position in the market. Akwnoledging the non-sense that could derive from that decision, we have decided to cast out those simulations and simply state that this equivalence between the Expected Shortfall of both strategies is not valid for positive values of the Expected Shortfall.
+% The Pooled Fund has the effect of the wealth of all savers to increase dramatically. In fact, for lower risk levels as for $\pi < 0.5$, the final wealth of all simulations is so huge that the Expected Shortfall happenes to result positive and utterly large, instead of negative. So in order for the Alternative Strategy to equal that Expected Shortfall, the Formula \ref{eq:the_formula} leads to so hugely negative value of $K$ that the $\pi$ comes negative. Implying a short position in the market. Akwnoledging the non-sense that could derive from that decision, we have decided to cast out those simulations and simply state that this equivalence between the Expected Shortfall of both strategies is not valid for positive values of the Expected Shortfall.
 
 As in the previous section, equivalent values of $\pi$ have been working as a succint metric to compare the performance of this two strategies, taking into account both return and risk. Hence, as long as the equivalent $\pi$ remains above than the initial $\pi$, we can say that the Alternative Strategy is outperforming
-the CPPI. Which is clear for most of the values of initial $\pi$ and a fixed value for $A$.
+the CPPI. Which is clear for most of the values of initial $\pi$ and a fixed value for $A$. Additionally, we can expand this results and find the iterated simulation of Table \ref{tab:cppi_alt_mort} for many values of $A$, as shown in Figure~\ref{fig:pi-a_mort}.
 
-Additionally, we find interesting to show the iterated simulation of Table \ref{tab:cppi_alt_mort} for many values of $A$ .
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[scale=0.75]{./images/pi-A_mort_2.png}
+%     \caption{Plot that shows the relation between equivalent $\pi$ and $A$, for many different initial $\pi$. From the results of $100,000$ simulations for each curve, with $\alpha = 0.343$, $\sigma = 0.1544$, $a = 10$, $T = 60$.}
+%     \label{fig:pi-a_mort}
+% \end{figure}
 
-\begin{figure}[h]
+\begin{figure}
+\centering
+\begin{subfigure}{.5\textwidth}
     \centering
-    \includegraphics[scale=0.75]{./images/pi-A_mort_2.png}
-    \caption{Plot that shows the relation between equivalent $\pi$ and $A$, for many different initial $\pi$. From the results of $100,000$ simulations for each curve, with $\alpha = 0.343$, $\sigma = 0.1544$, $a = 10$, $T = 60$.}
+    \includegraphics[scale=0.5]{./images/pi-a_mort2.png}
+    \caption{Plot that shows the relation between equivalent $\pi$ and $A$.}
     \label{fig:pi-a_mort}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+    \centering
+    \includegraphics[scale=0.5]{./images/es-es_mort_2.png}
+    \caption{Scatterplot that shows the equivalence between the Expected Shortfall derived from the simulations of Figure \ref{fig:pi-A_all-pis2}.}
+    \label{fig:es-es_mort}
+\end{subfigure}
+\caption{Results from $20,000,000$ simulations performed for many different values of $\pi$ and $A$, with $\alpha = 0.343$, $\sigma = 0.1544$, $a = 10$, $T = 60$.}
+\label{fig:compare_mort}
 \end{figure}
 
-The main difference we can note between Figure \ref{fig:pi-A_all-pis} and Figure \ref{fig:pi-a_mort} is that out of a Pooled Fund, the decision of whether the CPPI strategy or the Alternative are more worth it, in terms of risk, has to do with the value of $A$ alone, not with $\pi$. On the contrary, within the context of a Pooled Fund, we can see that the Alternative model shines over the CPPI for higher values of $\pi$. In fact, for $\pi >= 0.7$ the Alternative strategy outperforms the CPPI so much that it simply does not exist an equivalent value $\pi_b$ for the CPPI to equal the return of the Alternative. This result is of great importance, specially considiering that both strategies incurr in the same risk level.
+The main difference we can note between Figure \ref{fig:es-es_pi} and Figure \ref{fig:es-es_mort_2} is that the equivalence between Expected Shortfall tends to be true, but is far more volatile in the case of a Poolued Fund. This leads to far more disperse result in Figure~\ref{fig:pi-a_mort} than in Figure~\ref{fig:pi-A_all-pis2}. Despite that, we can glimpse some patterns within the results that let us observe some distinctions between the results without and with mortality. Note that the values that are not present in the plot of Figure~\ref{fig:pi-a_mort} is because there were not value of equivalent $\pi$ for the CPPI capable of equaling the results of the Alternative. Note also that this happens more often for higher values of $\pi$.
 
-Despite that, there are some scenarios in a Pooled Fund where the CPPI outperforms the Alternative scheme. As before, we can see that this happens for huge levels of $A$, where $A$ is interpretd as the inverse of the risk aversion. Nonetheless, in Figure \ref{fig:pi-A_all-pis} we could clearly spot a downhill behaviour of the plot; which is not the case in Figure \ref{fig:pi-a_mort}. This leads us to highlight a sweetspot on $1.0 < A < 1.5$ where the Alternative strategy shows the comparatively better performance.
+Attending at the obtained results, we can see that outside of a Pooled Fund, the decision of whether the CPPI strategy or the Alternative are more worth it, has to do with the value of $A$ alone, not with $\pi$. On the contrary, within the context of a Pooled Fund, we can see that the Alternative model shines over the CPPI for higher values of $\pi$. In fact, for higher values of $\pi$, the Alternative strategy outperforms the CPPI so much that often an equivalent value $\pi_b$ for the CPPI to equal the return of the Alternative simply does not exist. This result is of great importance, specially considiering that both strategies incurr in the same risk level, as it is shown in Figure~\ref{fig:es-es_mort}.
+
+As before, we can roughly observe a downhill behaviour of the plot.  This trend indicates that, for higher levels of $A$, where $A$ is interpretd as the inverse of the risk aversion, the Alternative strategy tends to be less relatively worth it, compared to the CPPI. Nonetheless, we should highlight a sweetspot around $A = 1.5$ where the plot gets to relative maximum for many levels of $\pi$.
 
 
 

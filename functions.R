@@ -17,12 +17,12 @@ sourceCpp("cppi.cpp")
 # Functions ---------------------------------------------------------------
 
 # From ES to K
-es_to_k <- function(A = 0.5, pi = 0.7, nsim = 1e2, err = 0.01, k_max = 1000){
+es_to_k <- function(A = 0.5, pi = 0.7, nsim = 1e2, err = 0.01, k_max = 1000, size = 1){
 	k_result <- c()
 	es_init <- c()
 	es_final <- c()
 	es_record <- c()
-	k_record <- seq(1, k_max, by = 1)
+	k_record <- seq(1, k_max, by = size)
 	pi_record <- pi
 
 	pb <- progress_bar$new(total = length(k_record))
@@ -34,9 +34,7 @@ es_to_k <- function(A = 0.5, pi = 0.7, nsim = 1e2, err = 0.01, k_max = 1000){
 			pb$tick()
 			es_record[j] <- alt_mort_fasto(K = k_record[j], nsim = nsim, A = A) %>% na.omit() %>% ES()
 		}
-
 		k_result[i] <- mean(which(abs((es_record - es_init[i])/(es_init[i])) < err))
-		es_final[i] <- es_record[k_result[i]]
 	}
 	return(k_result)
 }
@@ -416,7 +414,10 @@ if(include.mortality == TRUE){
 		write.csv(X_T, "data/cppi_mortality.csv")
 
 		# K = ES(X_T)*factor_kes(A = A)
-		K = es_to_k(A = A, pi = pi, nsim = 1e3)
+		K = es_to_k(A = A, pi = pi, nsim = 1e2, k_max = 1000, err = 0.01)
+		if(is.na(K)) K <- es_to_k(A = A, pi = pi, nsim = 1e2, k_max = 1000, size = 10, err = 0.1)
+		if(is.na(K)) K <- es_to_k(A = A, pi = pi, nsim = 1e2, k_max = 10000, size = 25, err = 0.25)
+		if(is.na(K)) K <- es_to_k(A = A, pi = pi, nsim = 1e2, k_max = 1000, size = 50, err = 0.5)
 
 		# Alternative | Mortality ------------------------------------------------------
 		cat("... Alternative Mortality ... \n")

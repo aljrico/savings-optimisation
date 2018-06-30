@@ -13,7 +13,7 @@ sourceCpp("cppi.cpp")
 alpha <- 0.0343 # Expected return of the risky market
 sigma <- 0.1544 # Expected volatility of the risky market
 A <- 0.5
-nsim <- 1e3
+nsim <- 1e4
 theta <- 0.95
 years <- 60
 m <- 1e2
@@ -29,10 +29,9 @@ as <- c(0.5, 1, 1.5, 2)
 as <- seq(from = 0.5, to =2, by = 0.1)
 dat <- tibble()
 
-pb <- progress_bar$new(total = length(as)*50)
 for(j in 1:length(as)){
-	for(i in 50:100){
-		pb$tick()
+	cat(paste0("... ", j, " ... \n"))
+	for(i in 1:100){
 		A_record[i] <- as[j]
 		pi <- i/100
 		pi_record[i] <- pi
@@ -40,13 +39,10 @@ for(j in 1:length(as)){
 			ES()
 		# factor <- 1/(-1 + (1/(1 - theta))*exp(alpha*A*years)*pnorm(qnorm(1-theta)- A*sigma*sqrt(years)))
 		# K <- es_cppi[i]*factor
-		K <- es_to_k(A = A, pi = pi, nsim = 100, err = 0.01)
+		K <- es_to_k(A = A, pi = pi, nsim = 100, err = 0.15, k_max = 1200)
 
 		es_alt[i] <- alt_mort_fasto(alpha = alpha, sigma = sigma, years = years, a = a, K = K, nsim = nsim, A = A) %>%
 			ES()
-
-		while(is.na(es_alt[i])) {es_alt[i] <- alt_mort_fasto(alpha = alpha, sigma = sigma, years = years, a = a, K = K, nsim = nsim, A = A) %>%
-			ES()}
 
 		df <- cbind(A_record, es_cppi, es_alt, pi_record)
 	}
@@ -55,12 +51,18 @@ for(j in 1:length(as)){
 
 dat %>%
 	as_tibble() %>%
+	dplyr::mutate(pi_record = ifelse(pi_record <= 0.1, 0.1, pi_record)) %>%
+	dplyr::mutate(pi_record = ifelse(pi_record >= 0.9, 0.9, pi_record)) %>%
+	dplyr::mutate(pi_record = (floor(pi_record*10)/10) %>% as.factor()) %>%
 	ggplot() +
-	geom_point(aes(x = es_cppi, y = (es_alt), colour = pi_record)) +
+	geom_point(aes(x = es_cppi, y = (es_alt))) +
 	xlab("ES (CPPI)") +
 	ylab("ES (Alternative)") +
 	geom_abline(intercept = 0, slope = 1) +
-	theme_bw()
+	scale_colour_viridis(discrete=TRUE, name = "Pi") +
+	theme_bw() +
+	theme(legend.position = "none")
+
 
 dat %>%
 	as_tibble() %>%

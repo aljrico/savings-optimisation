@@ -126,17 +126,19 @@ Since a Power Law can be expressed as a particular case of a Generalized Pareto 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[scale=0.75]{images/evi-pi_.png}
-    \caption{Extreme Value Index measured by varying values of $\pi$.  Using $\alpha = 0.0343$, $\sigma = 0.1544$, $A = 0.5$ and $1000000$ simulations.}
+    \includegraphics[scale=0.75]{images/evi-pi_new.png}
+    \caption{Extreme Value Index measured by varying values of $\pi$ and $A$.  Using $\alpha = 0.0343$, $\sigma = 0.1544$, and $1000000$ simulations.}
     \label{fig:evi-pi}
 \end{figure}
 
-In Figure \ref{fig:evi-pi} we can see a particular example in which none of the simulations happened to spot a situation where clearly $\xi \geq \sfrac{1}{2}$. Despite that, whereas for negatives values of $\xi$ we can fairly assume that the ES is going to converge, could not be the case for $\xi$ close to $0$ or even positive. In our results we have spotted some of the, specially in smaller values of $\pi$ got values so close to that critical value that we are not able to confirm that the ES might converge. This kind of result arises doubts on the reliability of some of the previously computed values for the Expected Shortfall.
+In Figure \ref{fig:evi-pi} we can see a particular example in which most of the simulations did not spotted a situation where clearly $\xi \geq \sfrac{1}{2}$. Despite that, whereas for negatives values of $\xi$ we can fairly assume that the ES is going to converge, could not be the case for $\xi$ close to $0$ or even positive. In our results we have spotted most of them for smaller values of $\pi$. Therefore, we might not able to confirm that the ES might converge in those situations. This kind of result arises doubts on the reliability of some of the previously computed values for the Expected Shortfall. We have indeed being using the Expected Shortfall as the standard reliable risk measure upon which we rely the whole analysis.
 
 
 \subsection{Extreme Value Index as Risk Measure}
 
-In financial investment strategies and, in savings strategies, one of the main concerns is the assessment of risk. In order to address that, we make use of what we call \emph{risk measures}. We have discussed pros and cons of some of them. Is common practice to praise risk measures that falls withint the category of \emph{coherent risk measures}, and for good reasons, because gien a risk measure $\rho$, we define it as coherent if it satisfies the following properties:
+In financial investment strategies and, in savings strategies, one of the main concerns is the assessment of risk. In order to address that, we make use of what we call \emph{risk measures}. We have discussed pros and cons of some of them and spotted situations where the standard ones might be misleading.
+
+It is common practice to praise risk measures that falls withint the category of \emph{coherent risk measures}, and for good reasons, because gien a risk measure $\rho$, we define it as coherent if it satisfies the following properties:
 
 \begin{align}
 \begin{split}
@@ -147,7 +149,7 @@ In financial investment strategies and, in savings strategies, one of the main c
 \end{split}
 \end{align}
 
-Instead, the work of **INSERT REF** proposed the definition of Scale-free and Location-Free risk measures, defined by the following properties, where $X$ and $\rho$ are limited to be positive:
+This properties ensure that the risk measure follows somehow a "reasonable" reasonable behaviour, that tends to coincide with common sense. The main problem with this kind of metrics is that they highly rely on Location and Scale. Thus, are unfitted to give any sense of the qualitatively sense or risk, apart from its magnitude. In order to address that, the work of **INSERT REF** proposed the definition of Scale-free and Location-Free risk measures, defined by the following properties instead, where $X$ and $\rho$ are limited to be positive:
 
 \begin{align}
 \begin{split}
@@ -166,12 +168,18 @@ If the \emph{VaR} and the \emph{Expected Shortfall} gave us a sense of the locat
 
 \begin{figure}[h]
     \centering
-    \includegraphics[scale=0.75]{images/evi-es_.png}
-    \caption{Scatter plot of $10,000,000$ simulations of all four strategies, iterating over all values of $0 <= \pi <= 1$ and $0.5 <= A <= 2$ for the strategies without mortality and of $0.5 <= \pi <= 1$ and $0.5 <= A <= 2$ for the strategies with mortality.}
+    \includegraphics[scale=0.75]{images/evi-es_new2.png}
+    \caption{Extreme Value Index vs Expected Shortfall. Scatter plot of $10,000,000$ simulations of all four strategies, iterating over all values of $0 <= \pi <= 1$ and $0.1 <= A <= 2$.}
     \label{fig:evi-es}
 \end{figure}
 
-In Figure~\ref{fig:evi-es} it is shown that the relationship between the Expected Shortfall and the EVI is rather constant in most cases, except in those strategies that we know are more prone to greater losses, where the value of EVI increases considerably. This indicates that the EVI is not affected by the location and scale of the risk situation of each strategy, but indeed reflects the exposure to potential losses inherently present in some scenarios.
+In Figure~\ref{fig:evi-es} it is shown that the relationship between the Expected Shortfall and the EVI is rather variable. Note that the Figure stands for positive and negative values of ES. This is kind of confusing, because the strategies in Pooled Funds showed such outstanding performance that their Expected Shortfall was of profits, instead of losses. Thus, we have settled negative Expected Shortfall as for losses and positive for profits. Qualitatively is interpreted as that the more negative the value of ES, the greater the risk.
+
+It is interesting to contrast the clusters formed by different strategies in their relationship between EVI and ES. In particular, we can highlight the lower values of EVI with respect to ES for the Alternative strategy without mortality. This becomes less clear for the strategies in a Pooled Fund, even though most of the results where the Alternative strategy was applied in a Pooled Fund showed EVI dangerously close to $0$.
+
+In general, we can note a tendency for greater values of EVI for more positive values of ES. This is telling us that the less risk the ES is pointing, the less reliable this measure becomes, because it is getting closer to the non-convergence area $\xi >= 0.5$.
+
+The result from the analysis of Location and Scale free risk measures indicates that extreme caution ought to be taken when making conclusions out of apparently less risky scenarios.
 
 
 
