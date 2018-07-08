@@ -1,12 +1,12 @@
 \boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
 \babel@toc {british}{}
-\contentsline {section}{Abstract}{2}{section*.1}
-\contentsline {section}{\numberline {1}Introduction}{4}{section.1}
-\contentsline {section}{\numberline {2}Background On Risk Measures}{6}{section.2}
-\contentsline {section}{\numberline {3}Optimisation of Investment Strategies}{9}{section.3}
-\contentsline {subsection}{\numberline {3.1}CPPI Scheme}{9}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Alternative Scheme}{11}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Comparison}{14}{subsection.3.3}
+\contentsline {section}{Abstract}{4}{section*.1}
+\contentsline {section}{\numberline {1}Introduction}{6}{section.1}
+\contentsline {section}{\numberline {2}Background On Risk Measures}{8}{section.2}
+\contentsline {section}{\numberline {3}Optimisation of Investment Strategies}{11}{section.3}
+\contentsline {subsection}{\numberline {3.1}CPPI Scheme}{11}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Alternative Scheme}{13}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Comparison}{16}{subsection.3.3}
 \contentsline {section}{\numberline {4}Optimisation of Pooled Funds Investment Strategies}{20}{section.4}
 \contentsline {subsection}{\numberline {4.1}Simulating the Pooled Fund}{20}{subsection.4.1}
 \contentsline {subsection}{\numberline {4.2}Results}{21}{subsection.4.2}
@@ -19,4 +19,4 @@
 \contentsline {section}{Appendix \numberline {A}Simple CPPI Code}{37}{Appendix.a.A}
 \contentsline {section}{Appendix \numberline {B}Simple Alternative Code}{38}{Appendix.a.B}
 \contentsline {section}{Appendix \numberline {C}Mortality Code}{39}{Appendix.a.C}
-\contentsline {section}{\nonumberline References}{41}{section*.26}
+\contentsline {section}{\nonumberline References}{41}{section*.24}

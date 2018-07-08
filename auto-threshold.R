@@ -34,10 +34,10 @@ A_record <- c(NA)
 df <- data.table(thresh, pvalue, pi, model, es, evi, var, A_record)
 final_data <- data.table()
 
-pi_start <- 0.01
+pi_start <- 0.1
 as <- seq(from = 0.5, to =2, by = 0.1)
 for(r in 1:1){
-	for(i in 1:100){
+	for(i in 1:10){
 		for(j in as){
 			pi <- pi_start*i
 			all_data <- generate_all_data(alpha = alpha,

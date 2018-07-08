@@ -1,6 +1,6 @@
 \section{Tails Analysis}
 
-At this point we should have notice that the real danger of investments does not resides solely within the standard concept of dispersion (standard deviation), nor within the ratio between return and dispersion. The true risk dwells in the worst case scenarios of the distributions, the tails. Where accumulated or great losses may strike down the whole investment plan. Hence, in order to address the risk analysis of any savings strategy, we need to take a closer look at the tails of their distributions.
+At this point we should have noticed that the real danger of investments does not reside solely within the standard concept of dispersion (standard deviation), nor within the ratio between return and dispersion. The true risk dwells in the worst case scenarios of the distributions, the tails. Where accumulated or great losses may strike down the whole investment plan. Hence, in order to address the risk analysis of any saving strategy, we need to take a closer look at the tails of their distributions.
 
 
 Taking a close look at Figure \ref{fig:both_fw}, we are not able to clearly state which one is \textit{less risky}. So far, we have been comparing the values of Expected Shortfall in order to get a sense of the risk. But, since the ES is actually just the average of the tail of the distribution, we will now discuss how we can pursue a more in-depth analysis for the distribution of those tails.
@@ -11,7 +11,7 @@ In this section, we will go one step further and try to fit some specific distri
 
 First things first. What is \emph{the} Tail of a distribution? The tail of a distribution is not a precisely defined term; it can have many different forms and definitions. Generally, the \textit{tail} is considered a broad term to name the extreme parts of a distribution. In other words, there is not some specific place where you stop being in the middle of the distribution and start being in the tail, and where to put that line is up to every case.
 
-Let's say that we plot a distribution $Y$, the loss of a savings plan (note that negative losses imply profits). We decide to put the distinction between middle and tail at some point named $u$, so the tail would be everything that lands within $Y>u$.
+Let us say that we plot a distribution $Y$, the loss of a savings plan (note that negative losses imply profits). We decide to put the distinction between middle and tail at some point named $u$, so the tail would be everything that lands within $Y>u$.
 
 If we understand the tail of a distribution as a distribution itself, we can move that tail to the origin and normalise its area. Thus, being positively defined as
 
@@ -55,21 +55,21 @@ The Pickands-Balkema-de Haan theorem states that for a large class of distributi
 Thus, we can seek that point $u$ from which our tail could fit a GPD. That would imply that, from that point $u$ forward, the distribution follows a GPD. The kind of GPD would be determined by the value of $\xi$. This number, usually called \emph{Extreme Value Index}, that determines  the shape of the distribution. The larger the value of $\xi$, the thicker the tail grows, and the slowly it converges to zero. In general:
 
 \begin{itemize}
-    \item $\xi > 0$. The tail does not converge to zero, ever. Power-law
-    \item $\xi = 0$. The tail converges to zero at infinity. Exponential
-    \item $\xi < 0$. The tail converges to zero in a finite point.
+    \item $\xi > 0$. The tail does not converge to zero, ever. Power-lawl
+    \item $\xi = 0$. The tail converges to zero at infinity. Exponential.
+    \item $\xi < 0$. The tail sharply converges to zero in a finite point.
 \end{itemize}
 
 In what risk analysis concerns, the value of $\xi$ is crucial. Since we are studying the risk of a strategy looking at the tail of distributions where distribution are the frequency of losses, we could think that the wider or thicker the tail, the riskier the strategy.
 
 \subsection{Extreme Value Analysis: Fitting a General Pareto Distribution}
 
-Let us repeat the simulation for the CPPI, using $\pi = 0.1$, and plot the histogram of its losses as an example.
+Let us repeat the simulation for the CPPI, using $\pi = 0.1$, $T=60$, $\alpha = 0.0343$, $\sigma = 0.1544$, and $a=10$; and then plot the histogram of its losses as an example, as shown in Figure~\ref{fig:cppi-losses-histogram} and Figure~\ref{fig:cppi-dens-points}.
 
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.75]{images/cppi-losses-hist.png}
-    \caption{Frequency Histogram of the losses of the CPPI strategy. Using $\pi = 0.1$, $\alpha = 0.0343$, $\sigma = 0.1544$ and $1000000$ simulations.}
+    \caption{Frequency Histogram of the losses of the CPPI strategy. Using $\pi = 0.1$, $T=60$, $\alpha = 0.0343$, $\sigma = 0.1544$, $a=10$ and $1,000,000$ simulations.}
     \label{fig:cppi-losses-histogram}
 \end{figure}
 
@@ -78,7 +78,7 @@ If we now plot that density as points in a logarithmic scale, we might see somet
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.75]{images/cppi-dens-points.png}
-    \caption{Density Distribution of the losses of the CPPI strategy in a logarithmic scale. Using $\pi = 0.1$, $\alpha = 0.0343$, $\sigma = 0.1544$ and $1000000$ simulations.}
+    \caption{Density Distribution of the losses of the CPPI strategy in a logarithmic scale. Using $\pi = 0.1$, $T=60$, $\alpha = 0.0343$, $\sigma = 0.1544$, $a=10$ and $1,000,000$ simulations.}
     \label{fig:cppi-dens-points}
 \end{figure}
 
@@ -87,40 +87,36 @@ Now, we could try to add here the Complementary Cumulative Distribution Function
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.75]{images/cppi-ccdf-0.png}
-    \caption{Density Distribution of the losses of the CPPI strategy in a logarithmic scale. Using $\pi = 0.1$, $\alpha = 0.0343$, $\sigma = 0.1544$ and $1000000$ simulations.}
+    \caption{Fitted GPD using $u = 0 $ as a threshold. Using $\pi = 0.1$, $T=60$, $\alpha = 0.0343$, $\sigma = 0.1544$, $a=10$ and $1,000,000$ simulations.}
     \label{fig:cppi-ccdf-0}
 \end{figure}
 
-Clearly, we can see how badly it fits for larger numbers. This indicates that our distribution is not following a GPD. Nevertheless, we can still find a proper $u$ for which it would.
+As it is clearly shown in Figure~\ref{fig:cppi-ccdf-0}, we can see how badly it fits for larger numbers. This indicates that our distribution is not following a GPD. Nevertheless, we can still find a proper $u$ for which it would.
 
-A usual method in order to seek that $u$ threshold is to consecutively trying increasing numbers until one fits the distribution properly. We know that for that value on, the distribution will follow a GPD.
-
-In this example, the first value that we find satisfies this is $u = 42.59$. And the result can be visualized in the following plot:
+A usual method in order to seek that $u$ threshold is to consecutively trying increasing numbers until one fits the distribution properly. We know that for that value on, the distribution will follow a GPD. In the example presented in Figure~\ref{fig:cppi-ccdf-autothresh}, the first value that we find satisfies this is $u = 42.59$; we can see how beautifully the GPD fits the empirical distribution this time. Once we have a GPD fitted, we can find the value of $\xi$ or Extreme Value Index (EVI). In this example, the value obtained has been $\xi = 0.14$. This value of $\xi$ would suggest that the result of our model's distribution is of some kind with very fat tails, and hence we could classify it as a Power Law.
 
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.75]{images/cppi-ccdf-autothresh.png}
-    \caption{Exploratory empirical residual coefficient of variation of losses of the CPPI strategy in a logarithmic scale. Using $\pi = 0.1$, $\alpha = 0.0343$, $\sigma = 0.1544$ and $1000000$ simulations.}
+    \caption{Exploratory empirical residual coefficient of variation of losses of the CPPI strategy in a logarithmic scale. Using $\pi = 0.1$, $T=60$, $\alpha = 0.0343$, $\sigma = 0.1544$, $a=10$ and $1,000,000$ simulations.}
     \label{fig:cppi-ccdf-autothresh}
 \end{figure}
 
-The Extreme Value Index (EVI) obtained in this example is $\xi = 0.14$. This value of $\xi$ would suggest that the result of our model's distribution is of some kind with very fat tails, as a Power Law.
-
 \subsection{Convergence of the Expected Shortfall}
 
-So far, we have addressed the necessity of studying the tail of loss danger using the Expected Shortfall. It is quite straightforward and it easily assesses the risk of the tail. But since in order to get the Expetced Shortfall, what we are computing is the average of the tail of the distribution (in this case, marking the origin of the Tail as its VaR). In our example, we have found that the tail might be following a Power Law. The theoretical mean of a power-law distributed quantity $Y$ is, by defintion, given by
+So far, we have addressed the necessity of studying tails of losses using the Expected Shortfall. It is quite straightforward and it easily assesses the risk of the tail. But since in order to get the Expected Shortfall, what we are computing is the average of the tail of the distribution (in this case, marking the origin of the Tail as its VaR). In our example, we have found that the tail might be following a Power Law. The theoretical mean of a power-law distributed quantity $Y$ is, by definition, given by
 
 \begin{align}\label{eq:power-law-div}
 \begin{split}
     \overline{Y} &= \int_{Y_{min}}^{\infty}Yp(Y)\dd{Y} =
     \pedra
-    = \frac{C}{2 - \alpha}Y^{-\alpha + 2}\biggr\rvert_{Y_{min}}^{\infty}
+    = \frac{C}{2 - \alpha}Y^{-\alpha + 2}\biggr\rvert_{Y_{min}}^{\infty} \emph{.}
 \end{split}
 \end{align}
 
 It needs to be noted that this expression diverges for $\alpha \leq 2$. That means that for that values a Power Law has no finite mean. But what does it mean for a distribution not to having a finite mean? We can surely get the actual data and calculate their average. And as we will always get a finite number. Only if we had an infinite number of simulations/experiments we would get a mean that actually diverges.
 
-Hence, if we were to repeat our finite experiment many times and calculate their mean for every repetition, the computed average of those many means should be - formally - divergent as well. Since we are actually capable of computing the mean, the consequence of the divergence found in Equation \ref{eq:power-law-div} is that these means may fluctuate a lot. We can say that the lack of convergence is indeed stating that the mean is not a well defined quantity, because it might vary enormously from one measurement to another. The formal divergence of $\overline{Y}$ is a red flag for us that should prevent us from computing empirical means, since they might not be reliable.
+Hence, if we were to repeat our finite experiment many times and calculate their mean for every repetition, the computed average of those many means should be - formally - divergent as well. Since we are actually capable of computing the mean, the consequence of the divergence found in Equation \ref{eq:power-law-div} is that these means may fluctuate a lot. We can say that the lack of convergence is indeed stating that the mean is not a well-defined quantity, because it might vary enormously from one measurement to another. The formal divergence of $\overline{Y}$ is a red flag for us that should prevent us from computing empirical means, since they might not be reliable and very volatile.
 
 Since a Power Law can be expressed as a particular case of a Generalized Pareto Distribution, a general way of evaluating the convergence of the Expected Shortfall would be to fit a GPD to our distribution and compute their \emph{Extreme Value Index} $\xi$. And since we know that $\alpha = \frac{1}{\xi}$, we can say that for $\xi \geq \sfrac{1}{2}$, the Expected Shortfall does not converge.
 
@@ -131,14 +127,14 @@ Since a Power Law can be expressed as a particular case of a Generalized Pareto 
     \label{fig:evi-pi}
 \end{figure}
 
-In Figure \ref{fig:evi-pi} we can see a particular example in which most of the simulations did not spotted a situation where clearly $\xi \geq \sfrac{1}{2}$. Despite that, whereas for negatives values of $\xi$ we can fairly assume that the ES is going to converge, could not be the case for $\xi$ close to $0$ or even positive. In our results we have spotted most of them for smaller values of $\pi$. Therefore, we might not able to confirm that the ES might converge in those situations. This kind of result arises doubts on the reliability of some of the previously computed values for the Expected Shortfall. We have indeed being using the Expected Shortfall as the standard reliable risk measure upon which we rely the whole analysis.
+In Figure \ref{fig:evi-pi} we can see a particular example in which most of the simulations did not spot a situation where clearly $\xi \geq \sfrac{1}{2}$. Despite that, whereas for negatives values of $\xi$ we can fairly assume that the ES is going to converge, could not be the case for $\xi$ close to $0$ or even positive. In our results we have spotted most of them for smaller values of $\pi$. Therefore, we might not be able to confirm that the ES might converge in those situations. This kind of result arises doubts on the reliability of some of the previously computed values for the Expected Shortfall. And we have indeed being using the Expected Shortfall as the standard reliable risk measure upon which we rely the whole analysis of this work.
 
 
 \subsection{Extreme Value Index as Risk Measure}
 
 In financial investment strategies and, in savings strategies, one of the main concerns is the assessment of risk. In order to address that, we make use of what we call \emph{risk measures}. We have discussed pros and cons of some of them and spotted situations where the standard ones might be misleading.
 
-It is common practice to praise risk measures that falls withint the category of \emph{coherent risk measures}, and for good reasons, because gien a risk measure $\rho$, we define it as coherent if it satisfies the following properties:
+It is common practice to praise risk measures that falls within the category of \emph{coherent risk measures}, and for good reasons, because given a risk measure $\rho$, we define it as coherent if it satisfies the following properties:
 
 \begin{align}
 \begin{split}
@@ -149,7 +145,7 @@ It is common practice to praise risk measures that falls withint the category of
 \end{split}
 \end{align}
 
-This properties ensure that the risk measure follows somehow a "reasonable" reasonable behaviour, that tends to coincide with common sense. The main problem with this kind of metrics is that they highly rely on Location and Scale. Thus, are unfitted to give any sense of the qualitatively sense or risk, apart from its magnitude. In order to address that, the work of **INSERT REF** proposed the definition of Scale-free and Location-Free risk measures, defined by the following properties instead, where $X$ and $\rho$ are limited to be positive:
+These properties ensure that the risk measure follows somehow a "reasonable" behaviour, that tends to coincide with common sense. The main problem with this kind of metrics is that they highly rely on Location and Scale. Thus, are unfitted to give any sense of the qualitatively sense or risk, apart from its magnitude. In order to address that, the work of~\cite{a:iserra-risk} proposed the definition of Scale-free and Location-Free risk measures, defined by the following properties instead, where $X$ and $\rho$ are limited to be positive:
 
 \begin{align}
 \begin{split}
@@ -160,9 +156,9 @@ This properties ensure that the risk measure follows somehow a "reasonable" reas
 \end{split}
 \end{align}
 
-We can see than the 1st and 2nd properties are different. Moreover, both the distribution and the risk measure are restricted to be positive. Whilst the latter seems reasonable and seamlessly interpretable, for the simplicity that comes avoiding "negative risk" results; the former might seem a bit odd at first. However, as we have discussed, is somehow misleading to consider the whole distribution in order to assess risk, because we might end pondering the probability of unusually huge benefits as a "risk", whereas limiting the distribution to the losses might be more reasonable. Thus, a distribution of the losses would fit the restrictions for this new kind of risk measure.
+We can see that the 1st and 2nd properties are different. Moreover, both the distribution and the risk measure are restricted to be positive. Whilst the latter seems reasonable and seamlessly interpretable, for the simplicity that comes avoiding "negative risk" results; the former might seem a bit odd at first. However, as we have discussed, is somehow misleading to consider the whole distribution in order to assess risk, because we might end pondering the probability of unusually huge benefits as a "risk", whereas limiting the distribution to the losses might be more reasonable. Thus, a distribution of the losses would fit the restrictions for this new kind of risk measure.
 
-Moreover, in **INSERT REF** the authors propose the \emph{Extreme Value Index} as a Risk Measure. It surely satisfies the properties for a scale and location free risk measure, characterizes the worst case scenarios better than more standard measures as the \emph{VaR} or the \emph{Expected Shortfall}.
+Moreover, in~\cite{a:iserra-risk} the authors propose the \emph{Extreme Value Index} as a Risk Measure. It surely satisfies the properties for a scale and location free risk measure, characterizes the worst case scenarios better than more standard measures as the \emph{VaR} or the \emph{Expected Shortfall}.
 
 If the \emph{VaR} and the \emph{Expected Shortfall} gave us a sense of the location and scale of the worst scenario losses, the Extreme Value Index (EVI) can be interpreted as the thickness of the tail of the distribution. And this kind of assessment can be of great help, specially in those scenarios when the Expected Shortfall might not be reliable.
 

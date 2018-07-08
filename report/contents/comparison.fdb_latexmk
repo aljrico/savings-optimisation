@@ -1,12 +1,12 @@
 # Fdb version 3
-["pdflatex"] 1529145046 "comparison.tex" "comparison.pdf" "comparison" 1529145047
-  "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1520157216 3332 103109f5612ad95229751940c61aada0 ""
-  "/usr/share/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1520157226 1328 c834bbb027764024c09d3d2bf908b5f0 ""
-  "/usr/share/texmf-dist/fonts/tfm/public/cm/cmti10.tfm" 1520157226 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
-  "/usr/share/texmf-dist/web2c/texmf.cnf" 1520157258 32585 d82bbcf7626b7842c87671687479e852 ""
-  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1527752487 7738161 549a263b37def1e7fe1b577437902d55 ""
-  "comparison.aux" 1529144334 6791 b7e6dffe316d00f055b6080e68b35366 ""
-  "comparison.tex" 1529144770 6499 8952569a7cf80a2614569d2ad12a3d21 ""
+["pdflatex"] 1530882900 "comparison.tex" "comparison.pdf" "comparison" 1530882900
+  "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1525040097 3332 103109f5612ad95229751940c61aada0 ""
+  "/usr/share/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1525040101 1328 c834bbb027764024c09d3d2bf908b5f0 ""
+  "/usr/share/texmf-dist/fonts/tfm/public/cm/cmti10.tfm" 1525040100 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
+  "/usr/share/texmf-dist/web2c/texmf.cnf" 1525040116 33301 a3134070eacafb10b1f371612ce2650d ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1529826313 7906416 a259d93ac4987fdc1bdb3dd402cc1655 ""
+  "comparison.aux" 1530565798 8577 f0cd4d6aa5c3dd3ecd787c763e64d028 ""
+  "comparison.tex" 1530477433 8763 e5ca3b110df2134edfce37aa56749852 ""
   (generated)
-  "comparison.log"
   "comparison.pdf"
+  "comparison.log"

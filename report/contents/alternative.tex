@@ -16,13 +16,13 @@ Whose expected value for any given present wealth $x = X(t)$ is defined as
     \max_{\pi}\EX\giventhat{u_{X(T)}}{x} \emph{,}
 \end{align}
 
-which can be maximized by a strategy that invests a relative amount in risky assets variable at any time $t \in [0,T)$, whose solution is:
+which can be maximized~\cite{a:guillen-optimisation} by a strategy that invests a relative amount in risky assets variable at any time $t \in [0,T)$, whose solution is:
 
 \begin{align}\label{eq:the_formula}
     \pi(t)X(t) = A\qty(K + X(t) + g(t)) \textit{.}
 \end{align}
 
-Where $X(t)$ is the wealth at time $t$, $A$ is a parameter that defines the risk aversion profile of the investor, $K$ is the maximum loss the investor is capable to handle and $g(t)$ is the sum of all remaining inputs or outputs of money: $g(t) = \sum_{i=t}^{T}a_i$.~\footnote{In \cite{a:donnelly-savings-decisions}'s work, the authors defined optimal savings strategies and analysed different updating periods for $\pi$.}. Thus, the time evolution of the wealth $X$ of an investor would behave as following:
+Where $X(t)$ is the wealth at time $t$, $A$ is a parameter that defines the risk aversion profile of the investor, $K$ is the maximum loss the investor is capable to handle and $g(t)$ is the sum of all remaining inputs or outputs of money~\footnote{In \cite{a:donnelly-savings-decisions}'s work, the authors defined optimal savings strategies and analysed different updating periods for $\pi$.}: $g(t) = \sum_{i=t}^{T}a_i$. Thus, the time evolution of the wealth $X$ of an investor would behave as following:
 
 \begin{align}
     dX = \alpha \pi(t)X(t)dt + \sigma \pi(t)X(t)dW(t) + dC(t)\textit{.}
@@ -41,7 +41,7 @@ In order to analyse the alternative scheme, the process will be quite similar to
 where
 
 \begin{align}
-    \pi_t = \frac{A\qty(K + X_T + \sum_t^T C(t))}{X_T} & \textit{                           and}
+    \pi_t = \frac{A\qty(K + X_T + \sum_t^T C(t))}{X_T} \quad \textit{and}
 \end{align}
 
 \begin{equation*}
@@ -57,7 +57,7 @@ Again, at the end of all $T$ years, the final wealth $X_T$ remaining to the save
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.65]{./images/fw_alt.png}
-    \caption{Results of the simulation for the \textit{Alternative} model. Final wealth obtained for every simulation, where $T=30$, $\mu = 0.0343$, $\sigma = 0.1544$, $a=10$, $\pi = 0.1$.}
+    \caption{Results of $100,000$ simulations for the \textit{Alternative} model. Final wealth obtained for every simulation, where $T=30$, $\mu = 0.0343$, $\sigma = 0.1544$, $a=10$, $\pi = 0.1$.}
     \label{fig:alt_fw}
 \end{figure}
 

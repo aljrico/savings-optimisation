@@ -1,0 +1,5 @@
+\beamer@sectionintoc {1}{On Risk Measures}{3}{0}{1}
+\beamer@sectionintoc {2}{Optimising Investment Strategies}{8}{0}{2}
+\beamer@sectionintoc {3}{Pooled Funds}{15}{0}{3}
+\beamer@sectionintoc {4}{Tails Analysis as Risk Assessment}{22}{0}{4}
+\beamer@sectionintoc {5}{Conclusion}{33}{0}{5}

@@ -1,0 +1,6 @@
+\frametitle{Summary}
+\begin{itemize}
+    \item It is optimal to define a $K$ value in order to set the risk level of the investor.
+    \item Pooled Funds can dramatically increase the return of savings strategies without compromising the risk aversion levels.
+    \item Parameters that define the shape of losses tails can serve as location and scale free risk measures.
+  \end{itemize}

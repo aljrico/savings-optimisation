@@ -6,7 +6,7 @@ In this section we will explain how we simulate the result of such strategies an
 
 \subsection{CPPI Scheme}
 
-Firstly, we will start defining the \textit{benchmark} model. The constant portfolio strategy follows the logic derived from constant relative risk exposure.
+Firstly, we will start defining the \textit{benchmark} model, called \textit{Constant Proportion Portfolio Insurance} (CPPI). The constant portfolio strategy follows the logic derived from constant relative risk exposure.
 
 This methodology consists in investing a constant proportion $\pi$ of the savings in risky assets (subject to volatility), whilst investing the rest $1 - \pi$ in risk-free assets. Thus, the time evolution of the wealth $X$ of an investor would behave as following:
 
@@ -39,11 +39,11 @@ At the end of all $T$ years, the final wealth $X_T$ remaining to the saver is st
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.65]{./images/fw_cppi.png}
-    \caption{Results of the simulation for the CPPI model. Final wealth obtained for every simulation, over $10,000$ simulations, where $T=60$, $\mu = 0.0343$, $\sigma = 0.1544$, $a=10$, $\pi = 0.1$}
+    \caption{Results of the simulation for the CPPI model. Final wealth obtained for every simulation, over $100,000$ simulations, where $T=60$, $\mu = 0.0343$, $\sigma = 0.1544$, $a=10$, $\pi = 0.1$}
     \label{fig:cppi_fw}
 \end{figure}
 
-The first impression we get when looking at the histogram from Figure\ref{fig:cppi_fw}, is that it has the shape of a \textit{Bell Curve}, thus following a \textit{Normal Distribution} It seems quite symmetric and is slightly skewed towards positive results, what would imply modest positive results at the end of the plan.
+The first impression we get when looking at the histogram from Figure~\ref{fig:cppi_fw}, is that it has the shape of a \textit{Bell Curve}, thus following a \textit{Normal Distribution}. At first glance, it seems quite symmetric and is slightly skewed towards positive results, what would imply modest positive results at the end of the plan.
 
 
-The code necessary to replicate these results in R can be found in Appendix \ref{ap:cppi-simple}
+The code necessary to replicate these results in R can be found in Appendix \ref{ap:cppi-simple}.

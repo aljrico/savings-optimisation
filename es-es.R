@@ -55,7 +55,7 @@ dat %>%
 	dplyr::mutate(pi_record = ifelse(pi_record >= 0.9, 0.9, pi_record)) %>%
 	dplyr::mutate(pi_record = (floor(pi_record*10)/10) %>% as.factor()) %>%
 	ggplot() +
-	geom_point(aes(x = es_cppi, y = (es_alt))) +
+	geom_point(aes(x = es_cppi, y = (es_alt), colour = pi_record)) +
 	xlab("ES (CPPI)") +
 	ylab("ES (Alternative)") +
 	geom_abline(intercept = 0, slope = 1) +
